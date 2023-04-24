@@ -1,0 +1,30 @@
+.nav-logo {
+    height: 75px;
+    width: auto;
+}
+
+.hero-image {
+    background-image: url('/images/hero-image-2.jpg');
+    height: 80vh;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 15%;
+    padding-bottom: 15%;
+}
+
+.hero-text {
+    padding: 20px;
+    color: white;
+}
+
+.btn-custom {
+    background-color: #ff6341 !important;
+    color: white !important;
+}
+
+.btn-custom:hover {
+    background-color: white !important;
+    color: #152039 !important;
+}
