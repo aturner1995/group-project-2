@@ -252,6 +252,7 @@ async function addproject(){
     userTest :userTest
   }
 
+console.log(projectData)
 
   response = await fetch("/profile/new/project",{
 
