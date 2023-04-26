@@ -1,0 +1,89 @@
+.nav-logo {
+    height: 60px;
+    width: auto;
+}
+
+.hero-image {
+    background-image: url('/images/hero-image-2.jpg');
+    height: 80vh;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 15%;
+    padding-bottom: 15%;
+}
+
+.hero-text {
+    padding: 20px;
+    color: white;
+}
+
+.btn-custom {
+    background-color: #ff6341 !important;
+    color: white !important;
+}
+
+.btn-custom:hover {
+    background-color: white !important;
+    color: #152039 !important;
+}
+
+.testimonials {
+    background-color: #f8f8f8;
+}
+
+.card-test {
+    position: relative;
+}
+
+.custom-img-card {
+    border-radius: 50% !important;
+    position: relative;
+    height: 125px !important;
+    width: 125px !important;
+    margin: auto;
+    top: -40px;
+}
+
+.card-text-test {
+    position: relative;
+    top: -40px;
+}
+
+.card-body-test {
+    margin-bottom: -40px;
+}
+
+.banner-image {
+    background-image: url('/images/banner.jpg');
+    height: 80vh;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 15%;
+    padding-bottom: 5%;
+    color: white;
+    background-position: right;
+}
+
+@media (max-width: 992px) {
+    .hero-image {
+        background-image: url('/images/hero-2.jpg');
+        padding-right: 10%;
+        padding-bottom: 10%;
+    }
+
+    .banner-image {
+        background-image: url('/images/banner-2.jpg');
+        padding-left: 10%;
+        padding-bottom: 10%;
+        background-position: top;
+    }
+}
+
+embed {
+    width: 80%;
+}
+
