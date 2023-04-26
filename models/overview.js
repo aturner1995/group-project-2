@@ -1,6 +1,6 @@
 
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../../config/connection');
+const sequelize = require('../config/connection');
 
 
 
@@ -25,8 +25,8 @@ id: {
     references: {
         model : "person",
         id : "id"
-    }
-    
+    },
+    allowNull: false,
   }
 }, 
 {

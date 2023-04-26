@@ -53,8 +53,6 @@ response = await fetch("/profile/new",{
   headers: { "Content-Type": "application/json" },
 })
 
-  $("#overview-text-display").html(overviewText);
-  console.log(overview);
 }
 
 
@@ -211,14 +209,6 @@ async function addWorkExperience() {
 
 
 
-
-// $("#deleteexp").click(function() {
-//   console.log("i clied")
-//   var index = $(this).data("index");
-//  experiene.splice(index, 1);
-//  $(this).closest(".card").remove();
-// });
-
 async function addCertification() {
 var certName = $("#certification-name").val()
 var issueOrg =  $("#issuing-org").val()
@@ -262,6 +252,7 @@ async function addproject(){
     userTest :userTest
   }
 
+console.log(projectData)
 
   response = await fetch("/profile/new/project",{
 
