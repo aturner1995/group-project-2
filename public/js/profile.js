@@ -209,14 +209,6 @@ async function addWorkExperience() {
 
 
 
-
-// $("#deleteexp").click(function() {
-//   console.log("i clied")
-//   var index = $(this).data("index");
-//  experiene.splice(index, 1);
-//  $(this).closest(".card").remove();
-// });
-
 async function addCertification() {
 var certName = $("#certification-name").val()
 var issueOrg =  $("#issuing-org").val()

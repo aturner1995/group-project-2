@@ -10,7 +10,7 @@ router.get("/",async (req, res) => {
 
   const test = dbData.get({ plain: true });
   console.log(test)
-res.render ('profile')
+res.render ('profile',{test})
 });
 
 
