@@ -2,6 +2,8 @@ const router = require('express').Router();
 const PDFDocument = require('pdfkit');
 const path = require('path');
 const fs = require('fs');
+const { Person, Overview} = require('../../models');
+
 
 // View the resume for the client
 router.get('/view', (req, res) => {
@@ -26,7 +28,7 @@ router.get('/download', (req, res) => {
 
 
 // Generate the PDF Document for download
-router.get('/generate', (req, res) => {
+router.get('/generate', async (req, res) => {
     // Change later to collect data from the DB
     const data = {
         name: 'John Doe',
@@ -50,6 +52,13 @@ router.get('/generate', (req, res) => {
             { languages: ['Javascript', 'CSS', 'HTML'], tools: ['jQuery', 'ReactJS'], apps: ['GitHub', 'MySql'], nonTech: ['Teamwork', 'Leadership'] }
         ]
     };
+
+    const resumeData = await Person.findByPk(1, {
+        include: [
+            {model: Overview}
+        ]
+    });
+    console.log(resumeData);
 
     // Create a new PDF document
     const pdfDoc = new PDFDocument();

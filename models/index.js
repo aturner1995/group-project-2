@@ -26,4 +26,4 @@ Person.hasMany(Project, { foreignKey: "userProject" });
 Project.belongsTo(Person, { foreignKey: "userProject" });
 
 
-module.exports = {Person,Work,Education,Certification,Overview ,Skill}
+module.exports = {Person,Work,Education,Certification,Overview ,Skill, Project}

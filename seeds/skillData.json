@@ -1,0 +1,17 @@
+[
+    {
+        "name": "JavaScript",
+        "level": "Intermediate",
+        "skillUser": 1
+    },
+    {
+        "name": "Python",
+        "level": "Advanced",
+        "skillUser": 1
+    },
+    {
+        "name": "SQL",
+        "level": "Intermediate",
+        "skillUser": 2
+    }
+]
