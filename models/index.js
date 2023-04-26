@@ -1,9 +1,10 @@
-const Person = require("../person");
+const Person = require("./person");
 const Education = require("./education");
 const Overview = require("./overview");
 const Skill = require("./skill");
 const Work = require("./work");
 const Certification = require("./cerification");
+const Project = require("./project");
 
 Person.hasMany(Skill, { foreignKey: "skillUser" });
 Skill.belongsTo(Person, { foreignKey: "skillUser" });
@@ -19,3 +20,10 @@ Certification.belongsTo(Person, { foreignKey: "certicationUser" });
 
 Person.hasOne(Overview, { foreignKey: " overviewUser" });
 Overview.belongsTo(Person, { foreignKey: " overviewUser" });
+
+
+Person.hasMany(Project, { foreignKey: "userProject" });
+Project.belongsTo(Person, { foreignKey: "userProject" });
+
+
+module.exports = {Person,Work,Education,Certification,Overview ,Skill}

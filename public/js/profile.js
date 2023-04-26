@@ -53,8 +53,6 @@ response = await fetch("/profile/new",{
   headers: { "Content-Type": "application/json" },
 })
 
-  $("#overview-text-display").html(overviewText);
-  console.log(overview);
 }
 
 

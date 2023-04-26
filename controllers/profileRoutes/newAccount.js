@@ -1,14 +1,15 @@
 
-const Overview = require("../../models/profile/overview")
-const Person = require("../../models/person")
-const Skill =  require("../../models/profile/skill")
-const Education =  require("../../models/profile/education");
-const Certification = require("../../models/profile/cerification");
-const Project = require("../../models/profile/project")
-const Work = require("../../models/profile/work")
+const {Person,Work,Education,Certification,Overview ,Skill} = require("../../models")
 const router = require("express").Router();
 
 router.get("/",async (req, res) => {
+
+  const dbData  = await Person.findByPk(1,{
+    include :[ {model:Work}]
+  })
+
+  const test = dbData.get({ plain: true });
+  console.log(test)
 res.render ('profile')
 });
 
@@ -16,24 +17,61 @@ res.render ('profile')
 module.exports = router;
 
 router.post("/", async (req, res) => {
-    try {
+  try {
+    const existingOverview = await Overview.findOne({
+      where: { overviewUser: req.body.userTest },
+    });
+
+    if (existingOverview) {
+      const updatedOverview = await existingOverview.update({
+        text: req.body.overviewText,
+      });
+      res.status(200).json(updatedOverview);
+    } else {
       const newOverview = await Overview.create({
         text: req.body.overviewText,
         overviewUser: req.body.userTest,
       });
       res.status(201).json(newOverview);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Server Error" });
     }
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+router.get("/")
 
 
-  router.post("/person", async (req, res) => {
-    try {
-      requiredData = req.body.perosnalcollection;
-      console.log(requiredData)
-  
+
+
+
+
+
+
+
+
+
+
+router.post("/person", async (req, res) => {
+  try {
+    const requiredData = req.body.perosnalcollection;
+    console.log(requiredData);
+
+    const existingPerson = await Person.findOne({ email: requiredData.email });
+
+    if (existingPerson) {
+      existingPerson.name = requiredData.name;
+      existingPerson.phone = requiredData.phone;
+      existingPerson.address = requiredData.address;
+      existingPerson.githubProfile = requiredData.github;
+      existingPerson.linkedin = requiredData.linkedin;
+      existingPerson.portfolio = requiredData.portfolio;
+
+      await existingPerson.save();
+
+      res.status(200).json({ message: "Person record updated"});
+    } else {
       const newPersonal = await Person.create({
         name: requiredData.name,
         email: requiredData.email,
@@ -43,12 +81,14 @@ router.post("/", async (req, res) => {
         linkedin: requiredData.linkedin,
         portfolio: requiredData.portfolio,
       });
-  
-      res.status(201).json({ message: "New personal record created", data: newPersonal });
-    } catch (error) {
-      res.status(500).json({ message: "Unable to create personal record", error: error.message });
+
+      res.status(201).json({ message: "New personal record created",});
     }
-  });
+  } catch (error) {
+    res.status(500).json({ message: "Unable to create/update personal record", error: error.message });
+  }
+});
+
   
 
   router.post("/education", async (req, res) => {
