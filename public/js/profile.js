@@ -183,9 +183,9 @@ async function addWorkExperience() {
     headers: { "Content-Type": "application/json" },
   })
   
-
-
+  
 }  
+
 
 
 
@@ -238,8 +238,8 @@ async function addproject(){
 
   var projectName = $("#project-name").val();
   var yourRole = $("#your-title").val();
-  var startDate = $("#start-date").val();
-  var endDate = $("#end-date").val();
+  var startDate = $("#start-Date").val();
+  var endDate = $("#end-Date").val();
   var responsibility = $("#responsibility").val();
   var userTest = 1
 
@@ -260,8 +260,7 @@ console.log(projectData)
     body: JSON.stringify({ projectData }),
     headers: { "Content-Type": "application/json" },
   })
-  
-  console.log(projects)
+
 }
 
 
@@ -277,6 +276,23 @@ $(".nav-link").on("click", function () {
   if (progress == 100 && !$(".submitbutton").has("button").length) {
     const submitb = `<button type="button" class="btn btn-primary submitall mb-3">Submit your profile</button>`;
     $(".submitbutton").append(submitb);
+  }
+});
+
+$(document).ready(function(){
+  // Handle hash change event
+  window.onhashchange = function() {
+    // Get the hash value from the URL
+    var hash = window.location.hash;
+
+    // Activate the corresponding tab
+    $('a[href="' + hash + '"]').tab('show');
+  };
+
+  // Activate the tab corresponding to the initial hash value
+  var hash = window.location.hash;
+  if (hash) {
+    $('a[href="' + hash + '"]').tab('show');
   }
 });
 

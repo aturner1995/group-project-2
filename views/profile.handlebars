@@ -216,13 +216,13 @@
             <label for="your-title">Your Title:</label>
             <input type="text" class="form-control" id="your-title">
           </div>
-   <div class="form-group experience">
+          <div class="form-group experience">
             <label for="start-date">Start Date:</label>
-            <input type="date" class="form-control" id="start-date">
+            <input type="date" class="form-control" id="start-Date">
           </div>
           <div class="form-group experience">
             <label for="end-date">End Date:</label>
-            <input type="date" class="form-control " id="end-date">
+            <input type="date" class="form-control " id="end-Date">
           </div>
      
           <div class="form-group experience">
@@ -233,9 +233,20 @@
         <button type="button" class="btn btn-primary mb-3" onclick="addproject()">Add Experience</button>
         <button type="submit" class="btn btn-success mb-3">Submit</button>
       </form>
-
-
-        </div>
+        {{#each test.projects as |project|}} 
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">{{project.projectName}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{project.yourRole}}</h6>
+        <p class="card-text">{{project.responsibility}}</p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">{{project.startDate}} - {{project.endDate}}</small>
+      </div>
+    </div>
+  </div>
+  {{/each}}
           </div>
           
 
