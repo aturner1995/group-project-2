@@ -1,17 +1,22 @@
 [
     {
         "name": "JavaScript",
-        "level": "Intermediate",
+        "level": "language",
         "skillUser": 1
     },
     {
         "name": "Python",
-        "level": "Advanced",
+        "level": "language",
         "skillUser": 1
     },
     {
         "name": "SQL",
-        "level": "Intermediate",
-        "skillUser": 2
+        "level": "tool",
+        "skillUser": 1
+    },
+    {
+        "name": "Node.JS",
+        "level": "application",
+        "skillUser": 1
     }
 ]
