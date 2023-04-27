@@ -24,7 +24,7 @@ router.get('/overview', async (req,res) => {
             prompt: `
             Overview: ${resumeData.overview.text}
             """
-            Rewrite this resume summary from the current overview by including at least three to five of the following: Title of role pursuing (do not identify as a student),Background experience that connects to the role you are pursuing, Two to three transferable skills, Years of related experience, Accomplishments, recognitions, and/or awards & Training or certificates `,
+            Rewrite this resume summary from the current overview by including at least three to five of the following: Title of role pursuing (do not identify as a student), Background experience that connects to the role you are pursuing, Two to three transferable skills, Years of related experience, Accomplishments, recognitions, and/or awards & Training or certificates`,
             temperature: 0,
             max_tokens: 1000,
             top_p: 1.0,
