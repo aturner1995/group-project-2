@@ -2,6 +2,8 @@ const router = require('express').Router();
 const PDFDocument = require('pdfkit');
 const path = require('path');
 const fs = require('fs');
+const { Person, Overview, Certification, Education, Project, Skill, Work } = require('../../models');
+
 
 // View the resume for the client
 router.get('/view', (req, res) => {
@@ -26,30 +28,18 @@ router.get('/download', (req, res) => {
 
 
 // Generate the PDF Document for download
-router.get('/generate', (req, res) => {
-    // Change later to collect data from the DB
-    const data = {
-        name: 'John Doe',
-        email: 'johndoe@example.com',
-        phone: '506-555-1234',
-        location: 'New Brunswick, Canada',
-        summary: 'A highly skilled software engineer with over 5 years of experience in developing software applications. Proficient in a variety of programming languages including JavaScript, Python, and Java. A strong background in web development and has worked on several projects involving building and maintaining web applications. A quick learner and has a passion for staying up-to-date with the latest technologies and industry trends. An excellent team player and communicator, able to work collaboratively with colleagues and clients to achieve project goals.',
-        experience: [
-            { company: 'Acme Corp', position: 'Software Engineer', start: '2018', end: '2021', duties: ['I did this', 'And I did that'] },
-            { company: 'XYZ Inc', position: 'Web Developer', start: '2016', end: '2018', duties: ['I did this', 'And I did that'] }
-        ],
-        education: [
-            { company: 'Acme Corp', position: 'Software Engineer', start: '2018', end: '2021', duties: ['I did this', 'And I did that'] },
-            { company: 'XYZ Inc', position: 'Web Developer', start: '2016', end: '2018', duties: ['I did this', 'And I did that'] }
-        ],
-        projects: [
-            { name: 'Project Name', repo: "github url", deployment: 'deployed url', skills: ['HMTL', 'CSS'], summary: ['This', 'That'] },
-            { name: 'Project Name 2', repo: "github url", deployment: 'deployed url', skills: ['HMTL', 'CSS'], summary: ['This', 'That'] }
-        ],
-        skills: [
-            { languages: ['Javascript', 'CSS', 'HTML'], tools: ['jQuery', 'ReactJS'], apps: ['GitHub', 'MySql'], nonTech: ['Teamwork', 'Leadership'] }
+router.get('/generate', async (req, res) => {
+    const resumeData = await Person.findByPk(1, {
+        include: [
+            { model: Overview }, { model: Certification }, { model: Education }, { model: Skill }, { model: Work }, { model: Project }
         ]
-    };
+    });
+
+    // Filter Skill Data for skill section
+    const languagesSkills = resumeData.skills.filter((skill => skill.level === 'language'));
+    const toolSkills = resumeData.skills.filter((skill => skill.level === 'tool'));
+    const applicationSkills = resumeData.skills.filter((skill => skill.level === 'application'));
+    const nonTechSkills = resumeData.skills.filter((skill => skill.level === 'nonTech'));
 
     // Create a new PDF document
     const pdfDoc = new PDFDocument();
@@ -59,35 +49,43 @@ router.get('/generate', (req, res) => {
     res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
 
     // Add the content to the PDF document
-    pdfDoc.fontSize(20).text(data.name, {
+    pdfDoc.fontSize(20).text(resumeData.name, {
         align: 'center'
     });
-    pdfDoc.fontSize(14).text(`${data.email} | ${data.phone} | ${data.location}`, {
+    pdfDoc.fontSize(12).text(`${resumeData.email} | ${resumeData.phone} | ${resumeData.address}`, {
         align: 'center'
     });
-    pdfDoc.fontSize(14).text(`LinkedIn: ${data.linkedin} | GitHub: ${data.github} | Portfolio: ${data.portfolio}`, {
+    pdfDoc.fontSize(12).text(`LinkedIn: ${resumeData.linkedin} | GitHub: ${resumeData.githubProfile} | Portfolio: ${resumeData.portfolio}`, {
         align: 'center'
     });
     pdfDoc.moveDown();
-    pdfDoc.fontSize(14).text(data.summary, {
+    pdfDoc.fontSize(12).text(resumeData.overview.text, {
         align: 'left'
     });
     pdfDoc.moveDown();
     // Skills Section
-    pdfDoc.fontSize(16).text('Technical Skills');
-    pdfDoc
-        .strokeColor('gray', 0.5)
-        .moveTo(70, pdfDoc.y)
-        .lineTo(540, pdfDoc.y)
-        .stroke();
-    pdfDoc.moveDown();
-    data.skills.map(skillset => {
-        pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Languages: ${skillset.languages.map((skill, index) => `${skill}${index === skillset.languages.length - 1 ? '' : ', '}`).join('')}`);
-        pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Tools: ${skillset.tools.map((skill, index) => `${skill}${index === skillset.tools.length - 1 ? '' : ', '}`).join('')}`);
-        pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Applications: ${skillset.apps.map((skill, index) => `${skill}${index === skillset.apps.length - 1 ? '' : ', '}`).join('')}`);
-        pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Non-Tech Skills: ${skillset.nonTech.map((skill, index) => `${skill}${index === skillset.nonTech.length - 1 ? '' : ', '}`).join('')}`);
+    if (languagesSkills.length || toolSkills.length || applicationSkills.length || nonTechSkills.length) {
+        pdfDoc.fontSize(16).text('Technical Skills');
+        pdfDoc
+            .strokeColor('gray', 0.5)
+            .moveTo(70, pdfDoc.y)
+            .lineTo(540, pdfDoc.y)
+            .stroke();
         pdfDoc.moveDown();
-    })
+        if (languagesSkills.length) {
+            pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Languages: ${languagesSkills.map((skill, index) => `${skill.name}${index === languagesSkills.length - 1 ? '' : ', '}`).join('')}`);
+        }
+        if (toolSkills.length) {
+            pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Tools: ${toolSkills.map((skill, index) => `${skill.name}${index === toolSkills.length - 1 ? '' : ', '}`).join('')}`);
+        }
+        if (applicationSkills.length) {
+            pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Applications: ${applicationSkills.map((skill, index) => `${skill.name}${index === applicationSkills.length - 1 ? '' : ', '}`).join('')}`);
+        }
+        if (nonTechSkills.length) {
+            pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Non-Tech Skills: ${nonTechSkills.map((skill, index) => `${skill.name}${index === nonTechSkills.length - 1 ? '' : ', '}`).join('')}`);
+        }
+        pdfDoc.moveDown();
+    }
     // Project Section
     pdfDoc.fontSize(16).text('Projects');
     pdfDoc
@@ -96,12 +94,10 @@ router.get('/generate', (req, res) => {
         .lineTo(540, pdfDoc.y)
         .stroke();
     pdfDoc.moveDown();
-    data.projects.map(project => {
-        pdfDoc.fontSize(12).text(`${project.name} | Repo: ${project.repo} | Deployed: ${project.deployment}`);
-        project.summary.map(summary => {
-            pdfDoc.fontSize(12).text('• ', { continued: true }).text(summary);
-        })
-        pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Tools/Languages: ${project.skills.map((skill, index) => `${skill}${index === project.skills.length - 1 ? '' : ', '}`).join('')}`);
+    resumeData.projects.map(project => {
+        pdfDoc.fontSize(12).text(`${project.projectName} | Repo: ${project.repo} | Deployed: ${project.deployment}`);
+        pdfDoc.fontSize(12).text(project.yourRole)
+        pdfDoc.fontSize(12).text(project.responsibility)
         pdfDoc.moveDown();
     })
     // Professional Experience Section
@@ -112,13 +108,13 @@ router.get('/generate', (req, res) => {
         .lineTo(540, pdfDoc.y)
         .stroke();
     pdfDoc.moveDown();
-    data.experience.map(exp => {
+    resumeData.Works.map(exp => {
+        const startYear = new Date(exp.startDate).getFullYear();
+        const endYear = new Date(exp.endDate).getFullYear();
         pdfDoc.fontSize(12).text(exp.company, { align: 'left', continued: true })
-            .text(`${exp.start} - ${exp.end}`, { align: 'right' })
-            .text(`${exp.position}`);
-        exp.duties.map(duty => {
-            pdfDoc.fontSize(12).text('• ', { continued: true }).text(duty);
-        })
+            .text(`${startYear} - ${endYear}`, { align: 'right' })
+            .text(`${exp.title}`)
+            .text(exp.responsibility);
         pdfDoc.moveDown();
     });
     pdfDoc.moveDown();
@@ -130,12 +126,16 @@ router.get('/generate', (req, res) => {
         .lineTo(540, pdfDoc.y)
         .stroke();
     pdfDoc.moveDown();
-    data.education.map(edu => {
-        pdfDoc.fontSize(12).text(edu.company)
-            .text(`${edu.start} - ${edu.end}`)
-            .text(edu.position);
+    resumeData.education.map(edu => {
+        const startYear = new Date(edu.startDate).getFullYear();
+        const endYear = new Date(edu.endDate).getFullYear();
+        pdfDoc.fontSize(12).text(edu.school)
+            .text(`${startYear} - ${endYear}`)
+            .text(edu.degree)
+            .text(edu.educationdetail);
         pdfDoc.moveDown();
     })
+
 
     // Pipe the PDF document to the response object and end the response
     const filePath = path.join(__dirname, '../../public/resume.pdf')
