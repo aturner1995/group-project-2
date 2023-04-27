@@ -26,7 +26,6 @@ id: {
         model : "person",
         id : "id"
     },
-    allowNull: false,
   }
 }, 
 {

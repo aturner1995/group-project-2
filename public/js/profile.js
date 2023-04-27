@@ -40,11 +40,7 @@ async function addSkill() {
 
 async function saveOverview() {
   var overviewText = $("#overview-text").val();
-  var userTest = 1
-  // let overviewData = {
-  //   overviewText: overviewText,
-  // };
-  // overview = overviewData;
+  var userTest = 2
 
 response = await fetch("/profile/new",{
 
@@ -174,26 +170,58 @@ async function addWorkExperience() {
     userTest : userTest
   }
 
-  console.log(experiencedata)
-
   response = await fetch("/profile/new/experience",{
 
     method: "POST",
     body: JSON.stringify({experiencedata}),
     headers: { "Content-Type": "application/json" },
   })
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data)
+
+const htmtRender =`<div class="row">
+<div class="col-md-4 mb-4">
+  <div class="card h-100">
+    <div class="card-body">
+      <h5 class="card-title">${companyName}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">${jobTitle}</h6>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">${startDate} - ${endDate}</small>
+      <div class="btn-group float-right">
+        <button type="button" class="btn btn-light" ><i class="fas fa-edit"></i></button>
+        <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+`
+$(".experienceaddon").append(htmtRender)
+    } else {
+      throw new Error("Request failed");
+    }
+
+  }
   
+
+
+
+  $(".expdelete").on("click", async (event) => {
+    const deleteBtn = $(this).attr("id")
+    console.log(deleteBtn)
+    const deleteResponse = await fetch(`/profile/experience/${deleteBtn}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (deleteResponse.ok) {
+      $(`#${id}`).remove();
+    } else {
+      throw new Error("Request failed");
+    }
+  });
   
-}  
-
-
-
-
-
-
-
-
-
 
 
 
@@ -278,21 +306,3 @@ $(".nav-link").on("click", function () {
     $(".submitbutton").append(submitb);
   }
 });
-
-$(document).ready(function(){
-  // Handle hash change event
-  window.onhashchange = function() {
-    // Get the hash value from the URL
-    var hash = window.location.hash;
-
-    // Activate the corresponding tab
-    $('a[href="' + hash + '"]').tab('show');
-  };
-
-  // Activate the tab corresponding to the initial hash value
-  var hash = window.location.hash;
-  if (hash) {
-    $('a[href="' + hash + '"]').tab('show');
-  }
-});
-

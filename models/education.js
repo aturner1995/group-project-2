@@ -21,11 +21,11 @@ school: {
 
 
   startDate: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   endDate: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   educationdetail: {
