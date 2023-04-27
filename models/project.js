@@ -33,7 +33,7 @@ Project.init( {
   userProject: {
     type: DataTypes.INTEGER,
     references:{
-        model:"Person",
+        model:"person",
         key :"id"
     }
   }

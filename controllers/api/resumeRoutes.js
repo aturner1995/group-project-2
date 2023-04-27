@@ -2,7 +2,7 @@ const router = require('express').Router();
 const PDFDocument = require('pdfkit');
 const path = require('path');
 const fs = require('fs');
-const { Person, Overview} = require('../../models');
+const { Person, Overview, Certification, Education, Project, Skill, Work } = require('../../models');
 
 
 // View the resume for the client
@@ -55,11 +55,16 @@ router.get('/generate', async (req, res) => {
 
     const resumeData = await Person.findByPk(1, {
         include: [
-            {model: Overview}
+            {model: Overview}, {model: Certification}, {model: Education}, {model: Skill}, {model: Work}, {model:Project}
         ]
     });
-    console.log(resumeData);
+    const prompt = `
+    Summary: ${resumeData.overview.text}
+    ${resumeData.Works.map(work => `\nTitle:${work.title}, Company:${work.company}, Responsibility ${work.responsibility}`)}
+    """
+    Rewrite this resume summary from the current overview and job experience by including at least three to five of the following: Title of role pursuing (do not identify as a student),Background experience that connects to the role you are pursuing, Two to three transferable skills, Years of related experience, Accomplishments, recognitions, and/or awards & Training or certificates `
 
+    console.log(prompt);
     // Create a new PDF document
     const pdfDoc = new PDFDocument();
 
@@ -68,17 +73,17 @@ router.get('/generate', async (req, res) => {
     res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
 
     // Add the content to the PDF document
-    pdfDoc.fontSize(20).text(data.name, {
+    pdfDoc.fontSize(20).text(resumeData.name, {
         align: 'center'
     });
-    pdfDoc.fontSize(14).text(`${data.email} | ${data.phone} | ${data.location}`, {
+    pdfDoc.fontSize(14).text(`${resumeData.email} | ${resumeData.phone} | ${resumeData.address}`, {
         align: 'center'
     });
-    pdfDoc.fontSize(14).text(`LinkedIn: ${data.linkedin} | GitHub: ${data.github} | Portfolio: ${data.portfolio}`, {
+    pdfDoc.fontSize(14).text(`LinkedIn: ${resumeData.linkedin} | GitHub: ${resumeData.githubProfile} | Portfolio: ${resumeData.portfolio}`, {
         align: 'center'
     });
     pdfDoc.moveDown();
-    pdfDoc.fontSize(14).text(data.summary, {
+    pdfDoc.fontSize(14).text(resumeData.overview.text, {
         align: 'left'
     });
     pdfDoc.moveDown();
@@ -105,12 +110,12 @@ router.get('/generate', async (req, res) => {
         .lineTo(540, pdfDoc.y)
         .stroke();
     pdfDoc.moveDown();
-    data.projects.map(project => {
-        pdfDoc.fontSize(12).text(`${project.name} | Repo: ${project.repo} | Deployed: ${project.deployment}`);
-        project.summary.map(summary => {
-            pdfDoc.fontSize(12).text('• ', { continued: true }).text(summary);
-        })
-        pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Tools/Languages: ${project.skills.map((skill, index) => `${skill}${index === project.skills.length - 1 ? '' : ', '}`).join('')}`);
+    resumeData.projects.map(project => {
+        pdfDoc.fontSize(12).text(`${project.projectName} | Repo: ${project.repo} | Deployed: ${project.deployment}`);
+        // project.summary.map(summary => {
+        //     pdfDoc.fontSize(12).text('• ', { continued: true }).text(summary);
+        // })
+        // pdfDoc.fontSize(12).text('• ', { continued: true }).text(`Tools/Languages: ${project.skills.map((skill, index) => `${skill}${index === project.skills.length - 1 ? '' : ', '}`).join('')}`);
         pdfDoc.moveDown();
     })
     // Professional Experience Section
