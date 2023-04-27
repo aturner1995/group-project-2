@@ -1,0 +1,26 @@
+[
+    {
+        "school": "School 1",
+        "degree": "Degree 1",
+        "startDate": "2016-09-01",
+        "endDate": "2020-06-01",
+        "educationdetail": "Details of Education 1",
+        "educationUser": 1
+    },
+    {
+        "school": "School 2",
+        "degree": "Degree 2",
+        "startDate": "2017-09-01",
+        "endDate": "2021-06-01",
+        "educationdetail": "Details of Education 2",
+        "educationUser": 1
+    },
+    {
+        "school": "School 3",
+        "degree": "Degree 3",
+        "startDate": "2018-09-01",
+        "endDate": "2022-06-01",
+        "educationdetail": "Details of Education 3",
+        "educationUser": 1
+    }
+]

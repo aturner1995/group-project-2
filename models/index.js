@@ -21,10 +21,7 @@ Certification.belongsTo(Person, { foreignKey: "certicationUser" });
 Overview.belongsTo(Person, { foreignKey: 'overviewUser' });
 Person.hasOne(Overview, { foreignKey: 'overviewUser' });
 
-
-
 Person.hasMany(Project, { foreignKey: "userProject" });
 Project.belongsTo(Person, { foreignKey: "userProject" });
 
-
-module.exports = {Person,Work,Education,Certification,Overview ,Skill,Project,Work}
+module.exports = { Person, Work, Education, Certification, Overview , Skill, Project }

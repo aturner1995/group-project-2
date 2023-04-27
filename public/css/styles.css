@@ -1,5 +1,5 @@
 .nav-logo {
-    height: 75px;
+    height: 60px;
     width: auto;
 }
 
@@ -82,3 +82,8 @@
         background-position: top;
     }
 }
+
+embed {
+    width: 80%;
+}
+

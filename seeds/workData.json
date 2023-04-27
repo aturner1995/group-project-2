@@ -1,0 +1,29 @@
+[
+    {
+        "title": "Software Engineer",
+        "company": "ABC Inc.",
+        "location": "San Francisco",
+        "startDate": "2021-01-01",
+        "endDate": "2022-06-30",
+        "responsibility": "Developed and maintained software applications using JavaScript, React, and Node.js.",
+        "workUser": 1
+    },
+    {
+        "title": "Data Analyst",
+        "company": "XYZ Corp.",
+        "location": "New York City",
+        "startDate": "2020-03-01",
+        "endDate": "2021-02-28",
+        "responsibility": "Performed data analysis and visualization using Python and SQL.",
+        "workUser": 1
+    },
+    {
+        "title": "Web Developer",
+        "company": "123 Web Design",
+        "location": "Los Angeles",
+        "startDate": "2019-05-01",
+        "endDate": "2020-02-29",
+        "responsibility": "Designed and developed websites using HTML, CSS, and JavaScript.",
+        "workUser": 1
+    }
+]

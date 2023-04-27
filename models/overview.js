@@ -2,10 +2,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-
-
-
-
 class Overview extends Model {}
 
 Overview.init({
@@ -36,4 +32,4 @@ id: {
   underscored: true,
 });
 
-module.exports = Overview
+module.exports = Overview;
