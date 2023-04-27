@@ -1,12 +1,12 @@
 
-const {Person,Work,Education,Certification,Overview ,Skill} = require("../../models");
+const {Person,Work,Education,Certification,Overview ,Skill,Experience} = require("../../models");
 const Project = require("../../models/project");
 const router = require("express").Router();
 
 router.get("/",async (req, res) => {
 
   const dbData  = await Person.findByPk(1,{
-    include :[ {model:Work}, {model : Education},{model : Project},{model : Certification}]
+    include :[{model:Overview}, {model:Work}, {model : Education},{model : Project},{model : Certification}]
   })
 
   const test = dbData.get({ plain: true });
@@ -15,11 +15,13 @@ res.render ('profile',{test})
 });
 
 
-module.exports = router;
+
+
+
 
 router.post("/", async (req, res) => {
   try {
-    const existingOverview = await Overview.findOne({
+    const existingOverview = await Overview.findAll({
       where: { overviewUser: req.body.userTest },
     });
 
@@ -186,9 +188,12 @@ router.post("/skill", async (req, res) => {
         workUser : requiredData.userTest
       });
   
-      res.status(201).json({ message: "New personal record created" });
+      await res.status(200).json({ newPersonal});
     } catch (error) {
       res.status(500).json({ message: "Unable to create personal record", error: error.message });
     }
   });
 
+
+
+  module.exports = router;
