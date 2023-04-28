@@ -3,8 +3,6 @@ const {Person,Work,Education,Certification,Overview ,Skill,Experience} = require
 const Project = require("../../models/project");
 const router = require("express").Router();
 
-router.get("/",async (req, res) => {
-
 router.get("/", async (req, res) => {
 
   res.render('profile', {
