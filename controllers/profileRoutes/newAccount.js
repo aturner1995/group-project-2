@@ -12,6 +12,7 @@ router.post("/", async (req, res) => {
     const existingOverview = await Overview.findAll({
       where: { user_id: req.session.user_id },
     });
+    console.log(existingOverview)
 
     if (existingOverview.length) {
       const updatedOverview = await Overview.update({
@@ -30,11 +31,11 @@ router.post("/", async (req, res) => {
         text: req.body.overviewText,
         user_id: req.session.user_id,
       });
-      res.status(200).json(newOverview);
+      res.status(200).json(newOverview)
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: err });
   }
 });
 
@@ -68,7 +69,9 @@ router.post("/person", async (req, res) => {
         user_id: req.session.user_id
       });
 
-      res.status(201).json({ message: "New personal record created", });
+      res.status(201).json({ message: "New personal record created",});
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+
     }
   } catch (error) {
     res.status(500).json({ message: "Unable to create/update personal record", error: error.message });
@@ -93,6 +96,33 @@ router.post("/education", async (req, res) => {
     res.status(500).json({ message: "Unable to create personal record", error: error.message });
   }
 });
+
+
+
+
+
+  router.put("/education", async (req, res) => {
+    try {
+      requiredData = req.body.educationItem;
+      requiredEduID = req.body.eduId
+  
+      const newPersonal = await Education.update({
+        school: requiredData.school,
+        degree: requiredData.degree,
+        startDate: requiredData.startDate,
+        endDate: requiredData.endDate,
+        educationdetail: requiredData.eduText,
+        educationUser : req.body.userTest
+      },{
+        where: requiredEduID
+      });
+  
+      res.status(201).json({ message: "New personal record created" });
+    } catch (error) {
+      res.status(500).json({ message: "Unable to create personal record", error: error.message });
+    }
+  });
+  
 
 router.post("/skill", async (req, res) => {
   try {
@@ -153,7 +183,6 @@ router.post("/experience", async (req, res) => {
     requiredData = req.body.experiencedata;
 
     const newPersonal = await Work.create({
-
       company: requiredData.companyName,
       endDate: requiredData.endDate,
       title: requiredData.jobTitle,

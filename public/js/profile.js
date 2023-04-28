@@ -38,16 +38,19 @@ async function addSkill() {
 
 async function saveOverview() {
   var overviewText = $("#overview-text").val();
-  var userTest = 2
+  var userTest = 1;
 
-response = await fetch("/profile/new",{
+  response = await fetch("/profile/new/overview", {
+    method: "POST",
+    body: JSON.stringify({ overviewText, userTest }),
+    headers: { "Content-Type": "application/json" },
+  });
 
-  method: "POST",
-  body: JSON.stringify({ overviewText,userTest  }),
-  headers: { "Content-Type": "application/json" },
-})
-
+  if (response.ok) {
+    window.location.href = `${window.location.pathname}`;
+  }
 }
+
 
 
 
@@ -78,7 +81,35 @@ async function addEducation() {
     })
   };
 
-
+  $(".updatEdu").on("click",async function(){
+    var eduId = $(this).attr("id")
+    var school = $(this).closest('.card').find("#school").val();
+    var degree = $(this).closest('.education').find("#degree").val();
+    var startDate = $(this).closest('.education').find("#start-date").val();
+    var endDate = $(this).closest('.education').find("#end-date").val();
+    var eduText = $(this).closest('.education').find("#education-text").val();
+    var userTest = 1
+  
+    var educationItem = {
+      school: school,
+      degree: degree,
+      startDate: startDate,
+      endDate: endDate,
+      eduText: eduText,
+      userTest:userTest,
+      eduId:eduId
+  
+    };
+    console.log(educationItem)
+    response = await fetch("/profile/new/education",{
+  
+      method: "PUT",
+      body: JSON.stringify({ educationItem  }),
+      headers: { "Content-Type": "application/json" },
+    })
+  
+  
+  })
 
 $(".nav-link").on("click", function () {
   const links = $(".nav-link");
@@ -156,6 +187,7 @@ async function addWorkExperience() {
   var endDate = $("#end-date").val()
   var responsibility = $("#responsibility").val()
 
+
   var userTest = 1;
 
   let experiencedata = {
@@ -165,9 +197,13 @@ async function addWorkExperience() {
     location : location,
     responsibility: responsibility,
     startDate: startDate,
-    userTest : userTest
+    userTest : userTest,
+ 
   }
+  
 
+
+  
   response = await fetch("/profile/new/experience",{
 
     method: "POST",
@@ -177,32 +213,108 @@ async function addWorkExperience() {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data)
-
-const htmtRender =`<div class="row">
-<div class="col-md-4 mb-4">
-  <div class="card h-100">
-    <div class="card-body">
-      <h5 class="card-title">${companyName}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">${jobTitle}</h6>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">${startDate} - ${endDate}</small>
-      <div class="btn-group float-right">
-        <button type="button" class="btn btn-light" ><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
-      </div>
-    </div>
-  </div>
-</div>
-`
-$(".experienceaddon").append(htmtRender)
     } else {
       throw new Error("Request failed");
     }
 
   }
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $(".updateExp").on("click", async function(){
+    var workId = parseInt($(this).attr("id"))
+    var jobTitle = $(this).closest('.card').find("#job-title").val()
+    var companyName = $(this).closest('.card').find("#company-name").val()
+    var location = $(this).closest('.card').find("#job-location").val()
+    var startDate = $(this).closest('.card').find("#start-date").val()
+    var endDate = $(this).closest('.card').find("#end-date").val()
+    var responsibility = $(this).closest('.card').find("#responsibility").val()
+  
+    console.log(workId)
+    var userTest = 1;
+  
+    let experiencedata = {
+      companyName: companyName,
+      endDate: endDate,
+      jobTitle: jobTitle,
+      location : location,
+      responsibility: responsibility,
+      startDate: startDate,
+      userTest : userTest,
+      workId : workId
+    }
+  
+    console.log(experiencedata)
+  
+    response = await fetch("/profile/new/experience",{
+      method: "PUT",
+      body: JSON.stringify({experiencedata}),
+      headers: { "Content-Type": "application/json" },
+    })
+  
+    if (response.ok) {
+      window.location.href = `${window.location.pathname}`;
+    } else {
+      throw new Error("Request failed");
+    }
+  })
+  
+
+
+  $(".updateProject").on("click", async function(){
+    var projectid = parseInt($(this).attr("id"));
+    var projectName = $(this).closest('.card').find("#project-name").val();
+    var yourTitle = $(this).closest('.card').find("#your-title").val();
+    var startDate = $(this).closest('.card').find("#start-date").val();
+    var endDate = $(this).closest('.card').find("#end-date").val();
+    var responsibility = $(this).closest('.card').find("#responsibility").val();
+    var userTest = 1;
+  
+    let projectData = {
+      projectid: projectid,
+    projectName: projectName,
+      yourTitle: yourTitle,
+      startDate: startDate,
+      endDate: endDate,
+      responsibility: responsibility,
+      userTest: userTest
+    };
+  
+  
+    try {
+      const response = await fetch(`/profile/new/project`, {
+        method: "PUT",
+        body: JSON.stringify({ projectData }),
+        headers: { "Content-Type": "application/json" }
+      });
+  
+      const data = await response.json();
+      console.log(data);
+  
+    } catch (error) {
+      console.error(error);
+  
+    }
+  });
+  
+
+
+
+
+
+
+
 
 
 
