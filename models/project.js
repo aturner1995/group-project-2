@@ -27,7 +27,7 @@ Project.init({
     allowNull: false
   },
   responsibility: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false
   },
   user_id: {

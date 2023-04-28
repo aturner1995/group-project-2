@@ -27,6 +27,7 @@ User.hasMany(Skill, {
     onDelete: 'CASCADE'
 })
 
+
 User.hasMany(Work, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
@@ -36,6 +37,7 @@ User.hasMany(Certification, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
 })
+
 
 User.hasMany(Project, {
     foreignKey: 'user_id',
@@ -69,6 +71,5 @@ Certification.belongsTo(User, {
 Project.belongsTo(User, {
     foreignKey: 'user_id'
 });
-
 
 module.exports = { Person, Work, Education, Certification, Overview, Skill, Project, User };
