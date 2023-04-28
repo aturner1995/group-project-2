@@ -38,13 +38,13 @@ async function addSkill() {
 
 async function saveOverview() {
   var overviewText = $("#overview-text").val();
-  var userTest = 1;
 
   response = await fetch("/profile/new/overview", {
     method: "POST",
-    body: JSON.stringify({ overviewText, userTest }),
+    body: JSON.stringify({ overviewText}),
     headers: { "Content-Type": "application/json" },
   });
+console.log(overviewText)
 
   if (response.ok) {
     window.location.href = `${window.location.pathname}`;
@@ -82,13 +82,14 @@ async function addEducation() {
   };
 
   $(".updatEdu").on("click",async function(){
-    var eduId = $(this).attr("id")
+    var eduId = parseInt($(this).attr("id"))
     var school = $(this).closest('.card').find("#school").val();
-    var degree = $(this).closest('.education').find("#degree").val();
-    var startDate = $(this).closest('.education').find("#start-date").val();
-    var endDate = $(this).closest('.education').find("#end-date").val();
-    var eduText = $(this).closest('.education').find("#education-text").val();
-    var userTest = 1
+    var degree = $(this).closest('.card').find("#degree").val();
+    var startDate = $(this).closest('.card').find("#start-date-2").val()
+    var endDate = $(this).closest('.card').find("#end-date-2").val();
+    var eduText = $(this).closest('.card').find("#education-text").val();
+  
+
   
     var educationItem = {
       school: school,
@@ -96,7 +97,7 @@ async function addEducation() {
       startDate: startDate,
       endDate: endDate,
       eduText: eduText,
-      userTest:userTest,
+
       eduId:eduId
   
     };
@@ -127,7 +128,6 @@ async function addPersonal() {
   var github = $("#github").val();
   var linkedin = $("#linkedin").val();
   var portfolio = $("#portfolio").val();
-  var profilePic = $("#profile-pic").val();
 
   let perosnalcollection = {
     name: name,
@@ -137,7 +137,6 @@ async function addPersonal() {
     github: github,
     linkedin: linkedin,
     portfolio: portfolio,
-    profilePic: profilePic,
   };
   console.log(perosnalcollection)
 
@@ -352,14 +351,15 @@ var certName = $("#certification-name").val()
 var issueOrg =  $("#issuing-org").val()
 var deteEarned = $("#date-earned").val()
 var expireDate = $("#expiration-date").val()
-var userTest = 1;
+var certId = $(this).attr("id")
 
 let certificateDate = {
   certName :certName,
   issueOrg : issueOrg,
   deteEarned : deteEarned,
   expireDate :expireDate,
-  userTest : userTest
+  certId :certId
+
 }
 
 
@@ -371,6 +371,47 @@ response = await fetch("/profile/new/certification",{
 })
 
 }
+
+
+$(".updateCert").on("click",async function(){
+  var certId = parseInt($(this).attr("id"));
+  var certName = $(this).closest('.card').find("#certification-name").val();
+  var issueOrg = $(this).closest('.card').find("#issuing-org").val();
+  var deteEarned  = $(this).closest('.card').find("#date-earned").val();
+  var expireDate = $(this).closest('.card').find("#expiration-date").val();
+
+
+  
+let certificateDate = {
+  certName :certName,
+  issueOrg : issueOrg,
+  deteEarned : deteEarned,
+  expireDate :expireDate,
+  certId : certId
+}
+
+console.log(certificateDate)
+response = await fetch("/profile/new/certification",{
+
+  method: "PUT",
+  body: JSON.stringify({ certificateDate }),
+  headers: { "Content-Type": "application/json" },
+})
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 async function addproject(){
 
@@ -400,6 +441,21 @@ console.log(projectData)
   })
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
