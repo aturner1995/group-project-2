@@ -1,14 +1,8 @@
 
 
-const {Person,Work,Education,Certification,Overview ,Skill,Experience} = require("../../models");
+const {Person,Work,Education,Certification,Overview ,Skill} = require("../../models");
 const Project = require("../../models/project");
 const router = require("express").Router();
-
-
-
-
-
-
 
 
 router.get("/",async (req, res) => {
