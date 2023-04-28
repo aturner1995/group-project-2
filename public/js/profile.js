@@ -1,6 +1,3 @@
-
-
-
 let educationData = [];
 let personalData = [];
 let overview = [];
@@ -61,8 +58,8 @@ async function saveOverview() {
 async function addEducation() {
     var school = $("#school").val();
     var degree = $("#degree").val();
-    var startDate = $("#start-date").val();
-    var endDate = $("#end-date").val();
+    var startDate = $("#start-date-2").val();
+    var endDate = $("#end-date-2").val();
     var eduText = $("#education-text").val();
     var userTest = 1
 
@@ -415,7 +412,7 @@ $(".nav-link").on("click", function () {
   progressBar.attr("aria-valuenow", progress);
 
   if (progress == 100 && !$(".submitbutton").has("button").length) {
-    const submitb = `<button type="button" class="btn btn-primary submitall mb-3">Submit your profile</button>`;
+    const submitb = `<button type="button" class="btn btn-primary submitall mb-3" href="/dashboard">Submit Profile</button>`;
     $(".submitbutton").append(submitb);
   }
 });

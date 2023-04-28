@@ -4,20 +4,20 @@
         "organization": "Organization 1",
         "dateEarned": "2021-01-01",
         "expireDate": "2024-01-01",
-        "certicationUser": 1
+        "user_id": 1
     },
     {
         "name": "Certification 2",
         "organization": "Organization 2",
         "dateEarned": "2020-01-01",
         "expireDate": "2023-01-01",
-        "certicationUser": 1
+        "user_id": 1
     },
     {
         "name": "Certification 3",
         "organization": "Organization 3",
         "dateEarned": "2019-01-01",
         "expireDate": "2022-01-01",
-        "certicationUser": 1
+        "user_id": 1
     }
 ]

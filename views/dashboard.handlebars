@@ -1,411 +1,375 @@
-<!DOCTYPE html>
-<html>
 <head>
-	<title>Profile</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
-	 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <title>Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-..." crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
+
 <body>
-	<header class="jumbotron text-center bg-light">
-		<div class="container">
-			<h1 class="display-4 mt-3">{{allData.name}}</h1>
-			<p class="lead">{{allData.Works.[0].title}}</p>
-		</div>
-	
-	</header>
+  <header class="jumbotron text-center bg-light">
+    <div class="container">
+      <h1 class="display-4 mt-3">{{username}}</h1>
+      <p class="lead">{{Works.[0].title}}</p>
+    </div>
 
-	<main class="container py-5">
-		<section id="overview" class="mb-5">
-			<h2 class="mb-3">Overview</h2>
-			<p>{{allData.overview.text}}</p>
-
-      <div class="collapse " id="collapse{{allData.overview.id}}">
-    <div class="card card-body">
-        <form class="container mt-5">
-                  <div class="mb-3">
-                    <label for="overview-text" class="form-label">Update your Overview:</label>
-                    <textarea id="overview-text"  class="form-control"  rows="4" required>{{allData.overview.text}}</textarea>
-                  </div>
-                  <button type="button" class="btn btn-success mb-3" onclick="saveOverview()">Save Overview</button>
-                </form>
-                </div>
-                </div>
-			<div class="btn-group float-right">
-        	<button type="button" class="btn btn-light"type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{allData.overview.id}}" aria-expanded="false" aria-controls="collapse{{allData.overview.id}}">
-     <i class="fas fa-edit"></i></button>
-     </div>
-
-		</section>
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<section id="personal" class="mb-5">
-			<h2 class="mb-3">Personal Details</h2>
-			<div class="row">
-				<div class="col-sm-4">
-					<p><strong>Name:</strong> {{allData.name}}</test></p>
-					<p><strong>Email:</strong> {{allData.email}}</p>
-				</div>
-				<div class="col-sm-4">
-					<p><strong>Phone:</strong>{{allData.phone}}</p>
-					<p><strong>Location:</strong>{{allData.address}}</p>
-				</div>
-				<div class="col-sm-4">
-					<p><strong>Github:</strong>{{allData.githubProfile}}</p>
-                    <p><strong>Linkdin:</strong>{{allData.linkedin}}</p>
-                    <p><strong>Portfolio:</strong> {{allData.portfolio}}</p>
-
-				</div>
-				 <div class="collapse " id="collapsepersonal{{allData.id}}">
-    <div class="card card-body">
-
-              <form>
-                <div class="form-group">
-                  <label for="name">Name:</label>
-                  <input type="text" class="form-control" id="name" name="name" value="{{allData.name}}">
-                </div>
-      
-                <div class="form-group">
-                  <label for="email">Email:</label>
-                  <input type="email" class="form-control" id="email" name="email" value="{{allData.email}}">
-                </div>
-      
-                <div class="form-group">
-                  <label for="phone">Phone:</label>
-                  <input type="tel" class="form-control" id="phone" name="phone" value="{{allData.phone}}">
-                </div>
-      
-                <div class="form-group">
-                  <label for="address">Address:</label>
-                  <input type="text" class="form-control" id="address" name="address"  value="{{allData.address}}">
-                </div>
-                <div class="form-group">
-                    <label for="address">Github Profile</label>
-                    <input type="text" class="form-control" id="github" name="address"  value="{{allData.githubProfile}}">
-                  </div>
-                  <div class="form-group">
-                    <label for="address">Linkdin</label>
-                    <input type="text" class="form-control" id="linkedin" name="address"  value="{{allData.linkedin}}">
-                  </div>
-          
-                  <div class="form-group">
-                    <label for="address">Portfolio</label>
-                    <input type="text" class="form-control" id="portfolio" name="address" value="{{allData.portfolio}}">
-                  </div>
-        
-      
-                <div class="form-group">
-                </div>
-                <button type="button" class="btn btn-primary mb-3" onclick="addPersonal()">Update</button>
-              </form>
-			  </div>
-			  </div>
-				 </div>
-				 
-	
-			
-		<button type="button" class="btn btn-light"type="button" data-bs-toggle="collapse" data-bs-target="#collapsepersonal{{allData.id}}" aria-expanded="false" aria-controls="collapsepersonal{{allData.id}}">
-     <i class="fas fa-edit"></i></button>
-	
-                          </div>
-						  </section>
-</div>
+  </header>
+  <div class="text-center">
+      <button class="btn btn-primary gen-resume">GENERATE RESUME</button>
+  </div>
 
 
-        
-    {{!-- <section id="projects" class="mb-5">
-        <h2 class="mb-3">Skills</h2>
-        <div class="row">
-            <div class="col-md-">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h3 class="card-title"></h3>
-                        <h5 class="card-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod metus ut nibh congue, at bibendum orci fringilla.</h3> 
-                    </div>
-                </div>
-            </div>
-        
-    </section> --}}
-<section id="work" class="mb-5 container">
-  <h2 class="mb-3">Work Experience</h2>
-  <div class="row d-flex">
+  <main class="container py-5">
+    <section id="overview" class="mb-5">
+      <h2 class="mb-3">Overview</h2>
+      <p>{{overviews.[0].text}}</p>
+      <div class="btn-group float-right">
 
-    {{#each allData.Works as |work|}}
-    <div class="col-lg-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h3 class="card-title">{{work.title}}</h3>
-          <h4 class="card-title">{{work.company}}</h4>
-          <p class="card-subtitle mb-2 text-muted">{{work.startDate}} - {{work.endDate}}</p>
+    </section>
+
+    <section id="personal" class="mb-5">
+      <h2 class="mb-3">Personal Details</h2>
+      <div class="row">
+        <div class="col-sm-4">
+          <p><strong>Name:</strong> {{username}}</test>
+          </p>
+          <p><strong>Email:</strong> {{email}}</p>
         </div>
-        <div class="btn-group float-right">
-          <button type="button" class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#collapsework{{work.id}}" aria-expanded="false" aria-controls="collapsework{{work.id}}"><i class="fas fa-edit"></i></button>
-          <button type="button" class="btn btn-light expdelete" id="{{work.id}}"><i class="fas fa-trash"></i></button>
+        <div class="col-sm-4">
+          <p><strong>Phone:</strong> {{people.[0].phone}}</p>
+          <p><strong>Location:</strong>{{people.[0].address}}</p>
         </div>
+        <div class="col-sm-4">
+          <p><strong>Github:</strong>{{people.[0].githubProfile}}</p>
+          <p><strong>Linkdin:</strong>{{people.[0].linkedin}}</p>
+          <p><strong>Portfolio:</strong> {{people.[0].portfolio}}</p>
 
+        </div>
+        <div class="collapse " id="collapsepersonal{{id}}">
+          <div class="card card-body">
 
-      <div class="collapse" id="collapsework{{work.id}}">
-        <div class="card card-body">
-          <form>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="company-name">Company Name:</label>
-                  <input type="text" class="form-control" value="{{work.company}}" id="company-name">
-                </div>
+            <form>
+              <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{username}}">
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="job-title">Job Title:</label>
-                  <input type="text" class="form-control" id="job-title" value="{{work.title}}">
-                </div>
+
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{email}}">
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="job-location">Location:</label>
-                  <input type="text" class="form-control" id="job-location" value="{{work.location}}">
-                </div>
+
+              <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" class="form-control" id="phone" name="phone" value="{{people.[0].phone}}">
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="start-date">Start Date:</label>
-                  <input type="date" class="form-control" id="start-date" value="{{work.startDate}}">
-                </div>
+
+              <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" class="form-control" id="address" name="address" value="{{people.[0].address}}">
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="end-date">End Date:</label>
-                  <input type="date" class="form-control" id="end-date" value="{{work.endDate}}">
-                </div>
+              <div class="form-group">
+                <label for="address">Github Profile</label>
+                <input type="text" class="form-control" id="github" name="address" value="{{people.[0].githubProfile}}">
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="responsibility">Responsibility:</label>
-                  <textarea class="form-control" id="responsibility"></textarea>
-                </div>
+              <div class="form-group">
+                <label for="address">Linkdin</label>
+                <input type="text" class="form-control" id="linkedin" name="address" value="{{people.[0].linkedin}}">
               </div>
-            </div>
-            <button type="button" class="btn btn-primary mb-3 updateExp" id="{{work.id}}">Update Experience</button>
-          </form>
+
+              <div class="form-group">
+                <label for="address">Portfolio</label>
+                <input type="text" class="form-control" id="portfolio" name="address" value="{{people.[0].portfolio}}">
+              </div>
+
+              <div class="form-group">
+              </div>
+              <button type="button" class="btn btn-primary mb-3" onclick="addPersonal()">Update</button>
+            </form>
+          </div>
         </div>
       </div>
+
+
+
+      <button type="button" class="btn btn-light" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapsepersonal{{id}}" aria-expanded="false"
+        aria-controls="collapsepersonal{{id}}">
+        <i class="fas fa-edit"></i></button>
+
+      </div>
+    </section>
     </div>
-    </div>
-    {{/each}}
-        <div>
-  </div>
-  </div>
-</section>
 
-
-
-
-    <section id="projects" class="mb-5">
-    <h2 class="mb-3">Projects</h2>
-    <div class="row">
-        {{#each allData.projects as |project|}}
-        <div class="col-lg-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h3 class="card-title">{{project.projectName}}</h3>
-                    <h4 class="card-title">{{project.yourRole}}</h4>
-                    <p class="card-subtitle mb-2 text-muted">{{project.startDate}} - {{project.endDate}}</p>
-                </div>
-       
-                <div class="btn-group float-right">
-                    <button type="button" class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#collapseproject{{project.id}}" aria-expanded="false" aria-controls="collapseproject{{project.id}}"><i class="fas fa-edit"></i></button>
-                    <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
-                </div>
- 
-                <div class="collapse collapse" id="collapseproject{{project.id}}">
-                    <div class="card card-body">
-                        <form>
-                            <div id="experience-container">
-                                <div class="form-group experience">
-                                    <label for="project-name">Project Name</label>
-                                    <input type="text" class="form-control" id="project-name" value={{project.projectName}}>
-                                </div>
-                                <div class="form-group experience">
-                                    <label for="your-title">Your Title:</label>
-                                    <input type="text" class="form-control" id="your-title"value={{project.yourRole}}>
-                                </div>
-                                <div class="form-group experience">
-                                    <label for="start-date">Start Date:</label>
-                                    <input type="date" class="form-control" id="start-date"value={{project.startDate}}>
-                                </div>
-                                <div class="form-group experience">
-                                    <label for="end-date">End Date:</label>
-                                    <input type="date" class="form-control" id="end-date"value={{project.endDate}}>
-                                </div>
-                                <div class="form-group experience">
-                                    <label for="responsibility">Responsibility:</label>
-                                    <textarea class="form-control" id="responsibility" name="responsibility[]"value={{project.responsibility}}></textarea>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-primary mb-3 updateProject" id="{{project.id}}">Add Experience</button>
-                            <button type="submit" class="btn btn-success mb-3">Submit</button>
-                        </form>
-                    </div>
-                </div>
+    {{!-- <section id="projects" class="mb-5">
+      <h2 class="mb-3">Skills</h2>
+      <div class="row">
+        <div class="col-md-">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="card-title"></h3>
+              <h5 class="card-subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod metus ut
+                nibh congue, at bibendum orci fringilla.</h3>
             </div>
+          </div>
+        </div>
+
+    </section> --}}
+    <section id="work" class="mb-5 container">
+      <h2 class="mb-3">Work Experience</h2>
+      <div class="row d-flex">
+        {{#each Works as |work|}}
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="card-title">{{work.title}}</h3>
+              <h4 class="card-title">{{work.company}}</h4>
+              <p class="card-subtitle mb-2 text-muted">{{work.startDate}} - {{work.endDate}}</p>
+            </div>
+            <div class="btn-group float-right">
+              <button type="button" class="btn btn-light" data-bs-toggle="collapse"
+                data-bs-target="#collapsework{{work.id}}" aria-expanded="false"
+                aria-controls="collapsework{{work.id}}"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+          <div class="collapse" id="collapsework{{work.id}}">
+            <div class="card card-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="company-name">Company Name:</label>
+                      <input type="text" class="form-control" value="{{work.company}}" id="company-name">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="job-title">Job Title:</label>
+                      <input type="text" class="form-control" id="job-title" value="{{work.title}}">
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="job-location">Location:</label>
+                      <input type="text" class="form-control" id="job-location" value="{{work.location}}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="start-date">Start Date:</label>
+                      <input type="date" class="form-control" id="start-date" value="{{work.startDate}}">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="end-date">End Date:</label>
+                      <input type="date" class="form-control" id="end-date" value="{{work.endDate}}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="responsibility">Responsibility:</label>
+                      <textarea class="form-control" id="responsibility"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary mb-3" onclick="addWorkExperience()">Add Experience</button>
+              </form>
+            </div>
+          </div>
         </div>
         {{/each}}
-    </div>
-</section>
+      </div>
+    </section>
 
-    
-
-
-  <section id="education" class="mb-5">
-    <h2 class="mb-3">Education</h2>
-    <div class="row">
-        {{#each allData.education as |education|}}
-            <div class="col-lg-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h3 class="card-title">{{education.degree}}</h3>
-                        <p class="card-subtitle mb-2 text-muted">{{education.school}}</p>
-                        <p class="card-subtitle mb-2 text-muted">{{education.startDate}} - {{education.endDate}}</p>
-                        <ul>
-                            <li>{{education.educationdetail}}</li>
-                        </ul>
-                        </div>
-             <div class="btn-group float-right">
-                    <button type="button" class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#collapseeducation{{education.id}}" aria-expanded="false" aria-controls="collapseeducation{{education.id}}"><i class="fas fa-edit"></i></button>
-                    <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
-                   </div>
-                    <div class="collapse" id="collapseeducation{{education.id}}">
-    
-                       <form class=" mt-5">
-                        <div class="card card-body">
-                            <form class="container mt-5">
-                                <div id="education-container">
-                                    <div class="education mb-4">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="school-0" class="form-label">School:</label>
-                                                <input type="text" id="school" class="form-control" value="{{education.school}}"  required>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="degree-0" class="form-label">Degree:</label>
-                                                <input type="text" id="degree" class="form-control" value="{{education.degree}}" required>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label for="start-date-0" class="form-label">Start Date:</label>
-                                                <input type="date" id="start-date" class="form-control" value="{{education.startDate}}" required>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="end-date-0" class="form-label">End Date:</label>
-                                                <input type="date" id="end-date" class="form-control" value="{{education.endDate}}"  required>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="education-text-0" class="form-label">Provide extra details:</label>
-                                            <textarea id="education-text" class="form-control" rows="3">{{education.educationdetail}}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-primary mb-3 updateEdu" >Add Education</button>
-                            </form>
-                        </div>
+    <section id="projects" class="mb-5">
+      <h2 class="mb-3">Projects</h2>
+      <div class="row">
+        {{#each projects as |project|}}
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="card-title">{{project.projectName}}</h3>
+              <h4 class="card-title">{{project.yourRole}}</h4>
+              <p class="card-subtitle mb-2 text-muted">{{project.startDate}} - {{project.endDate}}</p>
+            </div>
+            <div class="btn-group float-right">
+              <button type="button" class="btn btn-light" data-bs-toggle="collapse"
+                data-bs-target="#collapseproject{{project.id}}" aria-expanded="false"
+                aria-controls="collapseproject{{project.id}}"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
+            </div>
+            <div class="collapse collapse" id="collapseproject{{project.id}}">
+              <div class="card card-body">
+                <form>
+                  <div id="experience-container">
+                    <div class="form-group experience">
+                      <label for="project-name">Project Name</label>
+                      <input type="text" class="form-control" id="project-name" value={{project.projectName}}>
                     </div>
-                   
-				</div>
-			</div>
-			{{/each}}
-	</section>
+                    <div class="form-group experience">
+                      <label for="your-title">Your Title:</label>
+                      <input type="text" class="form-control" id="your-title" value={{project.yourRole}}>
+                    </div>
+                    <div class="form-group experience">
+                      <label for="start-date">Start Date:</label>
+                      <input type="date" class="form-control" id="start-date" value={{project.startDate}}>
+                    </div>
+                    <div class="form-group experience">
+                      <label for="end-date">End Date:</label>
+                      <input type="date" class="form-control" id="end-date" value={{project.endDate}}>
+                    </div>
+                    <div class="form-group experience">
+                      <label for="responsibility">Responsibility:</label>
+                      <textarea class="form-control" id="responsibility" name="responsibility[]"
+                        value={{project.responsibility}}></textarea>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-primary mb-3" onclick="addproject()">Add Experience</button>
+                  <button type="submit" class="btn btn-success mb-3">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </section>
 
+    <section id="education" class="mb-5">
+      <h2 class="mb-3">Education</h2>
+      <div class="row">
+        {{#each education as |education|}}
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="card-title">{{education.degree}}</h3>
+              <p class="card-subtitle mb-2 text-muted">{{education.school}}</p>
+              <p class="card-subtitle mb-2 text-muted">{{education.start-Date}} - {{education.end-Date}}
+                <li>{{education.educationdetail}}</li>
+                </ul>
+            </div>
+            <div class="collapse collapse" id="collapseeducation{{education.id}}">
+              <div class="card card-body">
+                <form class="container mt-5">
 
-
-
-
-
-	<section id="certifications">
-		<h2 class="mb-3">Certifications</h2>
-		<div class="row">
-			{{#each allData.certifications as |certification|}}
-			<div class="col-md-4">
-				<div class="card mb-4">
-					<div class="card-body">
-						<h3 class="card-title">{{certification.name}}</h3>
-						<p class="card-text">Issued by{{certification.organization}} in August 2019</p>
-					</div>
-          <div class="btn-group float-right">
-                         <button type="button" class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#collapsecertification{{certification.id}}" aria-expanded="false" aria-controls="collapsecertification{{certification.id}}"><i class="fas fa-edit"></i></button>
-                    <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
+                  <div id="education-container">
+                    <div class="education mb-4">
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="school-0" class="form-label">School:</label>
+                          <input type="text" id="school" class="form-control" value="{{education.school}}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="degree-0" class="form-label">Degree:</label>
+                          <input type="text" id="degree" class="form-control" value="{{education.degree}}" required>
+                        </div>
                       </div>
-					 <div class="collapse collapse" id="collapsecertification{{certification.id}}">
-                    <div class="card card-body">
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="start-date-0" class="form-label">Start Date:</label>
+                          <input type="date" id="start-date" class="form-control" value="{{education.startDate}}"
+                            required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="end-date-0" class="form-label">End Date:</label>
+                          <input type="date" id="end-date" class="form-control" value="{{education.endDate}}" required>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="education-text-0" class="form-label">Provide extra details:</label>
+                        <textarea id="education-text" class="form-control"
+                          rows="3"> value="{{education.educationdetail}}" </textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="button" class="btn btn-primary mb-3" onclick="addEducation()">Add Education</button>
+                </form>
+              </div>
+            </div>
+            <div class="btn-group float-right">
+              <button type="button" class="btn btn-light" data-bs-toggle="collapse"
+                data-bs-target="#collapseeducation{{education.id}}" aria-expanded="false"
+                aria-controls="collapseeducation{{education.id}}"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+    </section>
+
+    <section id="certifications">
+      <h2 class="mb-3">Certifications</h2>
+      <div class="row">
+        {{#each certifications as |certification|}}
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="card-title">{{certification.name}}</h3>
+              <p class="card-text">Issued by{{certification.organization}} in August 2019</p>
+            </div>
+            <div class="collapse collapse" id="collapsecertification{{certification.id}}">
+              <div class="card card-body">
 
 
-               <form class=" mt-5">
+                <form class="container mt-5">
+                  <h2 class="mb-4">Certification Details</h2>
                   <div id="certification-container">
                     <div class="certification mb-4">
                       <div class="row">
                         <div class="col-md-6 mb-3">
                           <label for="certification-name" class="form-label">Certification Name:</label>
-                          <input type="text" id="certification-name"  class="form-control" value="{{certification.name}}" required>
+                          <input type="text" id="certification-name" class="form-control" value="{{certification.name}}"
+                            required>
                         </div>
                         <div class="col-md-6 mb-3">
                           <label for="issuing-org" class="form-label">Issuing Organization:</label>
-                          <input type="text" id="issuing-org"  class="form-control"  value="{{certification.organization}}" required>
+                          <input type="text" id="issuing-org" class="form-control"
+                            value="{{certification.organization}}" required>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6 mb-3">
                           <label for="date-earned" class="form-label">Date Earned:</label>
-                          <input type="date" id="date-earned" class="form-control" value="{{certification.dateEarned}}"  required>
+                          <input type="date" id="date-earned" class="form-control" value="{{certification.dateEarned}}"
+                            required>
                         </div>
                         <div class="col-md-6 mb-3">
                           <label for="expiration-date" class="form-label">Expiration Date:</label>
-                          <input type="date" id="expiration-date" class="form-control"  value="{{certification.expireDate}}" required>
+                          <input type="date" id="expiration-date" class="form-control"
+                            value="{{certification.expireDate}}" required>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-primary mb-3" onclick="addCertification()">Add Certification</button>
-        
+                  <button type="button" class="btn btn-primary mb-3" onclick="addCertification()">Add
+                    Certification</button>
                 </form>
 
+              </div>
+            </div>
+            <div class="btn-group float-right">
+              <button type="button" class="btn btn-light" data-bs-toggle="collapse"
+                data-bs-target="#collapsecertification{{certification.id}}" aria-expanded="false"
+                aria-controls="collapsecertification{{certification.id}}"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+    </section>
 
+    </div>
+  </main>
 
-						</div>
-						</div>
-                    
-				</div>
-			</div>
-			{{/each}}
-	</section>
-
-</div>
-</main>
-
-
-
-
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="/js/profile.js"></script>
+  <script src="/js/profile.js"></script>
+  <script src="/js/dashboard.js"></script>
 
 </body>
-</html>

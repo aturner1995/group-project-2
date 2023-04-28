@@ -5,23 +5,71 @@ const Skill = require("./skill");
 const Work = require("./work");
 const Certification = require("./cerification");
 const Project = require("./project");
+const User = require('./user');
 
-Person.hasMany(Skill, { foreignKey: "skillUser" });
-Skill.belongsTo(Person, { foreignKey: "skillUser" });
+User.hasMany(Person, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+});
 
-Person.hasMany(Work, { foreignKey: "workUser" });
-Work.belongsTo(Person, { foreignKey: "workUser" });
+User.hasMany(Education, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+})
 
-Person.hasMany(Education, { foreignKey: "educationUser" });
-Education.belongsTo(Person, { foreignKey: "educationUser" });
+User.hasMany(Overview, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+})
 
-Person.hasMany(Certification, { foreignKey: "certicationUser" });
-Certification.belongsTo(Person, { foreignKey: "certicationUser" });
+User.hasMany(Skill, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+})
 
-Overview.belongsTo(Person, { foreignKey: 'overviewUser' });
-Person.hasOne(Overview, { foreignKey: 'overviewUser' });
 
-Person.hasMany(Project, { foreignKey: "userProject" });
-Project.belongsTo(Person, { foreignKey: "userProject" });
+User.hasMany(Work, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+})
 
-module.exports = { Person, Work, Education, Certification, Overview , Skill, Project }
+User.hasMany(Certification, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+})
+
+
+User.hasMany(Project, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+})
+
+Person.belongsTo(User, {
+    foreignKey: 'user_id'
+});
+
+Education.belongsTo(User, {
+    foreignKey: 'user_id'
+});
+
+Overview.belongsTo(User, {
+    foreignKey: 'user_id'
+});
+
+Skill.belongsTo(User, {
+    foreignKey: 'user_id'
+});
+
+Work.belongsTo(User, {
+    foreignKey: 'user_id'
+});
+
+Certification.belongsTo(User, {
+    foreignKey: 'user_id'
+});
+
+Project.belongsTo(User, {
+    foreignKey: 'user_id'
+});
+
+module.exports = { Person, Work, Education, Certification, Overview, Skill, Project, User };
