@@ -5,18 +5,9 @@ const router = require("express").Router();
 
 router.get("/",async (req, res) => {
 
-  const dbData  = await Person.findByPk(1,{
-    include :[{model:Overview}, {model:Work}, {model : Education},{model : Project},{model : Certification}]
-  })
-
-  const test = dbData.get({ plain: true });
-  console.log(test)
-res.render ('profile',{test})
+res.render ('profile', {
+  logged_in: req.session.logged_in
 });
-
-
-
-
 
 
 router.post("/", async (req, res) => {
@@ -43,7 +34,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/")
+module.exports = router;
 
 
 

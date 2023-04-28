@@ -6,7 +6,8 @@
     "address": "123 Main St, Anytown USA",
     "githubProfile": "https://github.com/johndoe",
     "linkedin": "https://www.linkedin.com/in/johndoe",
-    "portfolio": "https://johndoe.com"
+    "portfolio": "https://johndoe.com",
+    "user_id": 1
   },
   {
     "name": "Jane Smith",
@@ -15,7 +16,8 @@
     "address": "456 Maple Ave, Anytown USA",
     "githubProfile": "https://github.com/janesmith",
     "linkedin": "https://www.linkedin.com/in/janesmith",
-    "portfolio": "https://janesmith.com"
+    "portfolio": "https://janesmith.com",
+    "user_id": 1
   },
   {
     "name": "Bob Johnson",
@@ -24,6 +26,7 @@
     "address": "789 Oak St, Anytown USA",
     "githubProfile": "https://github.com/bobjohnson",
     "linkedin": "https://www.linkedin.com/in/bobjohnson",
-    "portfolio": "https://bobjohnson.com"
+    "portfolio": "https://bobjohnson.com",
+    "user_id": 1
   }
 ]

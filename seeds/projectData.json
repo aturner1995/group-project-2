@@ -5,7 +5,7 @@
         "startDate": "2022-01-01",
         "endDate": "2022-05-01",
         "responsibility": "Developed front-end components",
-        "userProject": 1
+        "user_id": 1
     },
     {
         "projectName": "Online marketplace",
@@ -13,7 +13,7 @@
         "startDate": "2021-08-01",
         "endDate": "2021-12-01",
         "responsibility": "Implemented payment gateway",
-        "userProject": 1
+        "user_id": 1
     },
     {
         "projectName": "Fitness tracking app",
@@ -21,6 +21,6 @@
         "startDate": "2020-04-01",
         "endDate": "2020-12-31",
         "responsibility": "Designed UI and user flows",
-        "userProject": 1
+        "user_id": 1
     }
 ]

@@ -2,21 +2,21 @@
     {
         "name": "JavaScript",
         "level": "language",
-        "skillUser": 1
+        "user_id": 1
     },
     {
         "name": "Python",
         "level": "language",
-        "skillUser": 1
+        "user_id": 1
     },
     {
         "name": "SQL",
         "level": "tool",
-        "skillUser": 1
+        "user_id": 1
     },
     {
         "name": "Node.JS",
         "level": "application",
-        "skillUser": 1
+        "user_id": 1
     }
 ]

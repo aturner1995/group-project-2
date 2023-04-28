@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Certification extends Model {}
+class Certification extends Model { }
 
 Certification.init(
   {
@@ -27,13 +27,13 @@ Certification.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    certicationUser: {
+    user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "person",
-        id: "id",
-      },
-    },
+        model: 'user',
+        key: 'id'
+      }
+    }
   },
   {
     sequelize,
