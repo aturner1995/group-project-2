@@ -1,9 +1,9 @@
-
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Project extends Model {}
-Project.init( {
+class Project extends Model { }
+
+Project.init({
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -30,15 +30,15 @@ Project.init( {
     type: DataTypes.STRING,
     allowNull: false
   },
-  userProject: {
+  user_id: {
     type: DataTypes.INTEGER,
-    references:{
-        model:"person",
-        key :"id"
+    references: {
+      model: 'user',
+      key: 'id'
     }
   }
 },
-{
+  {
     sequelize,
     timestamps: false,
     freezeTableName: true,
