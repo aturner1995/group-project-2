@@ -19,11 +19,12 @@ res.render ('profile',{test})
 
 
 
-router.post("/", async (req, res) => {
+router.post("/overview", async (req, res) => {
   try {
-    const existingOverview = await Overview.findAll({
+    const existingOverview = await Overview.findOne({
       where: { overviewUser: req.body.userTest },
     });
+    console.log(existingOverview)
 
     if (existingOverview) {
       const updatedOverview = await existingOverview.update({
@@ -35,15 +36,14 @@ router.post("/", async (req, res) => {
         text: req.body.overviewText,
         overviewUser: req.body.userTest,
       });
-      res.status(201).json(newOverview);
+      res.status(200).json(newOverview)
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: err });
   }
 });
 
-router.get("/")
 
 
 
@@ -86,6 +86,7 @@ router.post("/person", async (req, res) => {
       });
 
       res.status(201).json({ message: "New personal record created",});
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     }
   } catch (error) {
     res.status(500).json({ message: "Unable to create/update personal record", error: error.message });
@@ -113,6 +114,46 @@ router.post("/person", async (req, res) => {
     }
   });
   
+
+
+
+
+
+  router.put("/education", async (req, res) => {
+    try {
+      requiredData = req.body.educationItem;
+      requiredEduID = req.body.eduId
+  
+      const newPersonal = await Education.update({
+        school: requiredData.school,
+        degree: requiredData.degree,
+        startDate: requiredData.startDate,
+        endDate: requiredData.endDate,
+        educationdetail: requiredData.eduText,
+        educationUser : req.body.userTest
+      },{
+        where: requiredEduID
+      });
+  
+      res.status(201).json({ message: "New personal record created" });
+    } catch (error) {
+      res.status(500).json({ message: "Unable to create personal record", error: error.message });
+    }
+  });
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.post("/skill", async (req, res) => {
     try {
@@ -172,27 +213,100 @@ router.post("/skill", async (req, res) => {
   });
 
 
+  router.put("/project", async (req, res) => {
+    try {
+      const projectData = req.body.projectData;
+      const projectid = projectData.projectid;
+      console.log(projectid);
+
+      const updatedProjectRecord = await Project.update({
+        projectName: projectData.projectName,
+        yourRole: projectData.yourRole,
+        startDate: projectData.startDate,
+        endDate: projectData.endDate,
+        responsibility: projectData.responsibility,
+        userProject: projectData.userTest,
+      }, {
+        where: { id: projectid }
+      });
+  
+      await res.status(200).json({ message: "Project record updated", updatedProjectRecord });
+    } catch (error) {
+      res.status(500).json({ message: "Unable to update project record", error: error.message });
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   router.post("/experience", async (req, res) => {
     try {
-      requiredData = req.body.experiencedata ;
-  
-      const newPersonal = await Work.create({
+      const requiredData = req.body.experiencedata;
 
-        company: requiredData.companyName,
-        endDate: requiredData.endDate,
-        title: requiredData.jobTitle,
-        location : requiredData.location,
-        responsibility : requiredData.responsibility,
-        startDate: requiredData.startDate ,
-        workUser : requiredData.userTest
-      });
+        const newPersonal = await Work.create({
+          company: requiredData.companyName,
+          endDate: requiredData.endDate,
+          title: requiredData.jobTitle,
+          location: requiredData.location,
+          responsibility: requiredData.responsibility,
+          startDate: requiredData.startDate,
+          workUser: requiredData.userTest,
+       
+        });
   
-      await res.status(200).json({ newPersonal});
+        await res.status(200).json({ message: "Work record created", newPersonal });
+      }
+    catch (error) {
+      res.status(500).json({ message: "Unable to create or update work record", error: error.message });
+    }
+
+  })
+
+
+  router.put("/experience", async (req, res) => {
+    try {
+      const requiredData = req.body.experiencedata;
+      const workId = requiredData.workId;
+      const user = requiredData.userTest
+      console.log(workId);
+
+  
+      await Work.update(
+        {
+          company: requiredData.companyName,
+          endDate: requiredData.endDate,
+          title: requiredData.jobTitle,
+          location: requiredData.location,
+          responsibility: requiredData.responsibility,
+          startDate: requiredData.startDate,
+        },
+        {
+          where: { id: workId },
+        }
+      );
+  
     } catch (error) {
-      res.status(500).json({ message: "Unable to create personal record", error: error.message });
+      res.status(500).json({ message: "Unable to update work record", error: error.message });
     }
   });
+  
+
+
+
+
+
+
 
 
 
