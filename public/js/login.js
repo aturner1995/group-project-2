@@ -17,9 +17,21 @@ const loginFormHandler = async (event) => {
         }
         else {
             alert(response.statusText);
+            const responseData = await response.json();
+            const errors = responseData.message
+            console.log(errors)
+              const errorDiv = document.createElement("div");
+              errorDiv.className = "notification is-danger has-text-white is-size-5";
+              errorDiv.innerHTML = `
+                    <h1> ${errors}</h1>
+                  `;
+              document.querySelector(".error-message").appendChild(errorDiv);
+              setTimeout(function () {
+                errorDiv.remove();
+              }, 4000);
+            }
         }
     }
-};
 
 const signupFormHandler = async (event) => {
     event.preventDefault();
@@ -41,7 +53,30 @@ const signupFormHandler = async (event) => {
             document.location.replace('/profile/new');
         }
         else {
-            alert(response.statusText);
+            const responseData = await response.json();
+        const errors = responseData.errors;
+        
+
+        for (let i = 0; i < errors.length; i++) {
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'notification is-danger';
+        
+          const error_messages = {
+            'Validation isEmail on email failed': 'The email address you entered does not seem to be valid. Please try again with a valid email address.',
+            'Validation len on password failed' : "The password should be atleast 8 charachtors in length",
+            'email must be unique' : 'The email address you have entered already registered please login or signup with different email'
+          };
+          const errorMessage = error_messages[errors[i].message] || errors[i].message;
+        
+          errorDiv.innerHTML = `
+            <h1> ${errorMessage}</h1>
+          `;
+          document.querySelector('.error-message').appendChild(errorDiv);
+        
+          setTimeout(function() {
+            errorDiv.remove();
+          }, 4000);
+        } 
         }
     }
 }
