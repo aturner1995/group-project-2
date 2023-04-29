@@ -55,33 +55,17 @@
       <button type="submit" class="btn btn-primary gen-resume">Generate Resume</button>
     </form>
 
+
   <main class="container py-5">
     <section id="overview" class="mb-5">
       <h2 class="mb-3">Overview</h2>
       <p>{{overviews.[0].text}}</p>
-            <div class="collapse " id="collapseoverview">
-          <div class="card card-body">
-                    <form class="container mt-5">
-          <div class="mb-3">
-            <label for="overview-text" class="form-label">Provide your Professional Summary:</label>
-            <textarea id="overview-text" class="form-control" rows="5" required></textarea>
-          </div>
-          <button type="button" class="btn btn-success mb-3" onclick="saveOverview()">Save Overview</button>
-        </form>
-        <div class="btn-group float-right">
-              <button type="button" class="btn btn-light" data-bs-toggle="collapseoverview"
-                aria-controls="collapseoverview"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
-            </div>
-            </div>
-            </div>
-            </section>
+      <div class="btn-group float-right">
 
-
+    </section>
 
     <section id="personal" class="mb-5">
-
-
+      <h2 class="mb-3">Personal Details</h2>
       <div class="row">
         <div class="col-sm-4">
           <p><strong>Name:</strong> {{people.[0].name}}</test>
@@ -144,6 +128,8 @@
         </div>
       </div>
 
+
+
       <button type="button" class="btn btn-light" type="button" data-bs-toggle="collapse"
         data-bs-target="#collapsepersonal{{id}}" aria-expanded="false"
         aria-controls="collapsepersonal{{id}}">
@@ -153,41 +139,8 @@
     </section>
     </div>
 
-<section id="work-experiences" class="container mb-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Work Experience</h2>
-  <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
-        data-bs-target="#collapsenew" aria-expanded="false"
-        aria-controls="collapsenew">New</button>
-</div>
-  <div class="card">
-    <div class="collapse" id="collapsenew">
-      <div class="card card-body">
-        <form>
-          <div id="experience-container">
-            <div class="form-group experience">
-              <label for="company-name">Company Name:</label>
-              <input type="text" class="form-control" id="company-name">
-            </div>
-            <div class="form-group experience">
-              <label for="job-title">Job Title:</label>
-              <input type="text" class="form-control" id="job-title">
-            </div>
-            <div class="form-group experience">
-              <label for="job-location">Location</label>
-              <input type="text" class="form-control" id="job-location">
-            </div>
-            <div class="form-group experience">
-              <label for="start-date">Start Date:</label>
-              <input type="date" class="form-control" id="start-date">
-            </div>
-            <div class="form-group experience">
-              <label for="end-date">End Date:</label>
-              <input type="date" class="form-control " id="end-date">
-            </div>
-            <div class="form-group experience">
-              <label for="responsibility">Responsibility:</label>
-              <textarea class="form-control" id="responsibility" name="responsibility[]"></textarea>
+
+
     {{!-- <section id="projects" class="mb-5">
       <h2 class="mb-3">Skills</h2>
       <div class="row">
@@ -199,16 +152,12 @@
                 nibh congue, at bibendum orci fringilla.</h3>
             </div>
           </div>
-          <button type="button" class="btn btn-primary mb-3 float-end" onclick="addWorkExperience()">Add Experience</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
+        </div>
 
-      
-    <section id="work" class="mb-5">
-      <div class="row">
+    </section> --}}
+    <section id="work" class="mb-5 container">
+      <h2 class="mb-3">Work Experience</h2>
+      <div class="row d-flex">
         {{#each Works as |work|}}
         <div class="col-lg-4">
           <div class="card mb-4">
@@ -221,9 +170,9 @@
               <button type="button" class="btn btn-light" data-bs-toggle="collapse"
                 data-bs-target="#collapsework{{work.id}}" aria-expanded="false"
                 aria-controls="collapsework{{work.id}}"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-light expdelete" id="{{work.id}}"><i class="fas fa-trash"></i></button>
+              <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
             </div>
-
+          </div>
           <div class="collapse" id="collapsework{{work.id}}">
             <div class="card card-body">
               <form>
@@ -265,64 +214,24 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="responsibility">Responsibility:</label>
-                      <textarea class="form-control" id="responsibility">{{work.responsibility}}</textarea>
+                      <textarea class="form-control" id="responsibility"></textarea>
                     </div>
                   </div>
                 </div>
-                <button type="button" class="btn btn-primary mb-3 updateExp" id={{work.id}}>Update Experience</button>
+                <button type="button" class="btn btn-primary mb-3" onclick="addWorkExperience()">Add Experience</button>
               </form>
             </div>
           </div>
-        </div>
         </div>
         {{/each}}
       </div>
     </section>
 
-<section id="project-experiences" class="container mb-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Project Experience</h2>
-  <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
-        data-bs-target="#collapsenewproject" aria-expanded="false"
-        aria-controls="collapsenewproject">New</button>
-</div>
-  <div class="card">
-    <div class="collapse" id="collapsenewproject">
-      <div class="card card-body">
 
-<form>
-          <div id="experience-container">
-            <div class="form-group experience">
-              <label for="project-name">Project Name</label>
-              <input type="text" class="form-control" id="project-name">
-            </div>
-            <div class="form-group experience">
-              <label for="your-title">Your Title:</label>
-              <input type="text" class="form-control" id="your-title">
-            </div>
-            <div class="form-group experience">
-              <label for="start-date">Start Date:</label>
-              <input type="date" class="form-control" id="start-Date">
-            </div>
-            <div class="form-group experience">
-              <label for="end-date">End Date:</label>
-              <input type="date" class="form-control " id="end-Date">
-            </div>
 
-            <div class="form-group experience">
-              <label for="responsibility">Responsibility:</label>
-              <textarea class="form-control" id="responsibility" name="responsibility[]"></textarea>
-            </div>
-          </div>
-          <button type="button" class="btn btn-primary mb-3 mt-4" onclick="addproject()">Add Experience</button>
-        </form>
-
-        </div>
-        </div>
-        </div>
-        </section>
 
     <section id="projects" class="mb-5">
+      <h2 class="mb-3">Projects</h2>
       <div class="row">
         {{#each projects as |project|}}
         <div class="col-lg-4">
@@ -336,7 +245,7 @@
               <button type="button" class="btn btn-light" data-bs-toggle="collapse"
                 data-bs-target="#collapseproject{{project.id}}" aria-expanded="false"
                 aria-controls="collapseproject{{project.id}}"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-light prodelete" id="{{project.id}}"><i class="fas fa-trash"></i></button>
+              <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
             </div>
             <div class="collapse collapse" id="collapseproject{{project.id}}">
               <div class="card card-body">
@@ -361,10 +270,10 @@
                     <div class="form-group experience">
                       <label for="responsibility">Responsibility:</label>
                       <textarea class="form-control" id="responsibility" name="responsibility[]"
-                       >{{project.responsibility}}</textarea>
+                        value={{project.responsibility}}></textarea>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-primary mb-3 updateProject" id="{{project.id}}">Update project</button>
+                  <button type="button" class="btn btn-primary mb-3" onclick="addproject()">Add Experience</button>
                   <button type="submit" class="btn btn-success mb-3">Submit</button>
                 </form>
               </div>
@@ -376,58 +285,10 @@
     </section>
 
 
-<section id="educationnew" class="container mb-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Education</h2>
-  <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
-        data-bs-target="#collapseneweducation" aria-expanded="false"
-        aria-controls="collapseneweducation">New</button>
-</div>
-  <div class="card">
-    <div class="collapse" id="collapseneweducation">
-      <div class="card card-body">
- <form class="container mt-5">
-          <h2 class="mb-4">Education Details</h2>
 
-          <!-- The container for dynamically added education details -->
-          <div id="education-container">
-            <div class="education mb-4">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="school-0" class="form-label">School:</label>
-                  <input type="text" id="school" class="form-control" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="degree-0" class="form-label">Degree:</label>
-                  <input type="text" id="degree" class="form-control" required>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="start-date-2" class="form-label">Start Date:</label>
-                  <input type="date" id="start-date-2" class="form-control" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="end-date-2" class="form-label">End Date:</label>
-                  <input type="date" id="end-date-2" class="form-control" required>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="education-text-0" class="form-label">Provide extra details:</label>
-                <textarea id="education-text" class="form-control" rows="3"></textarea>
-              </div>
-            </div>
-          </div>
-
-          <!-- Button to add new education details -->
-          <button type="button" class="btn btn-primary mb-3" onclick="addEducation()">Add Education</button>
-        </form>
-</div>
-</div>
-</div>
-</section>
 
     <section id="education" class="mb-5">
+      <h2 class="mb-3">Education</h2>
       <div class="row">
         {{#each education as |education|}}
         <div class="col-lg-4">
@@ -435,15 +296,9 @@
             <div class="card-body">
               <h3 class="card-title">{{education.degree}}</h3>
               <p class="card-subtitle mb-2 text-muted">{{education.school}}</p>
-              <p class="card-subtitle mb-2 text-muted">{{education.startDate}} - {{education.endDate}}
+              <p class="card-subtitle mb-2 text-muted">{{education.start-Date}} - {{education.end-Date}}
                 <li>{{education.educationdetail}}</li>
                 </ul>
-            </div>
-             <div class="btn-group float-right">
-              <button type="button" class="btn btn-light" data-bs-toggle="collapse"
-                data-bs-target="#collapseeducation{{education.id}}" aria-expanded="false"
-                aria-controls="collapseeducation{{education.id}}"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-light edudelete" id="{{education.id}}"><i class="fas fa-trash"></i></button>
             </div>
             <div class="collapse collapse" id="collapseeducation{{education.id}}">
               <div class="card card-body">
@@ -460,73 +315,45 @@
                           <label for="degree-0" class="form-label">Degree:</label>
                           <input type="text" id="degree" class="form-control" value="{{education.degree}}" required>
                         </div>
-
+                      </div>
                       <div class="row">
                         <div class="col-md-6 mb-3">
                           <label for="start-date-0" class="form-label">Start Date:</label>
-                          <input type="date" id="start-date-2" class="form-control" value="{{education.startDate}}"
+                          <input type="date" id="start-date" class="form-control" value="{{education.startDate}}"
                             required>
                         </div>
                         <div class="col-md-6 mb-3">
                           <label for="end-date-0" class="form-label">End Date:</label>
-                          <input type="date" id="end-date-2" class="form-control" value="{{education.endDate}}" required>
+                          <input type="date" id="end-date" class="form-control" value="{{education.endDate}}" required>
                         </div>
                       </div>
                       <div class="mb-3">
                         <label for="education-text-0" class="form-label">Provide extra details:</label>
                         <textarea id="education-text" class="form-control"
-                          rows="3"> {{education.educationdetail}} </textarea>
-                      </div>
+                          rows="3"> value="{{education.educationdetail}}" </textarea>
                       </div>
                     </div>
-                  
-                  </form>
+                  </div>
 
-                  <button type="button" class="btn btn-primary mb-3 updatEdu" id="{{education.id}}">Add Education</button>
+                  <button type="button" class="btn btn-primary mb-3" onclick="addEducation()">Add Education</button>
                 </form>
               </div>
-              </div>
             </div>
-           
+            <div class="btn-group float-right">
+              <button type="button" class="btn btn-light" data-bs-toggle="collapse"
+                data-bs-target="#collapseeducation{{education.id}}" aria-expanded="false"
+                aria-controls="collapseeducation{{education.id}}"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
+            </div>
           </div>
         </div>
         {{/each}}
     </section>
 
-<section id="certnew" class="container mb-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="mb-0">Certification</h2>
-  <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
-        data-bs-target="#collapsenewcert" aria-expanded="false"
-        aria-controls="collapsenewcert">New</button>
-</div>
-  <div class="card">
-    <div class="collapse" id="collapsenewcert">
-      <div class="card card-body">
 
-        <form class="container mt-5">
-          <h2 class="mb-4">Certification Details</h2>
-          <div id="certification-container">
-            <div class="certification mb-4">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="certification-name" class="form-label">Certification Name:</label>
-                  <input type="text" id="certification-name" class="form-control" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="issuing-org" class="form-label">Issuing Organization:</label>
-                  <input type="text" id="issuing-org" class="form-control" required>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="date-earned" class="form-label">Date Earned:</label>
-                  <input type="date" id="date-earned" class="form-control" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="expiration-date" class="form-label">Expiration Date:</label>
-                  <input type="date" id="expiration-date" class="form-control" required>
-                </div>
+
+
+
 
     <section id="certifications">
       <h2 class="mb-3">Certifications</h2>
@@ -538,60 +365,10 @@
               <h3 class="card-title">{{certification.name}}</h3>
               <p class="card-text">Issued by{{certification.organization}} in August 2019</p>
             </div>
-          </div>
-          <button type="button" class="btn btn-primary mb-3" onclick="addCertification()">Add Certification</button>
-
-        </form>
-
-        </div>
-        </div>
-        </div>
-        </section>
+            <div class="collapse collapse" id="collapsecertification{{certification.id}}">
+              <div class="card card-body">
 
 
-<section id="certifications">
-  <div class="row">
-    {{#each certifications as |certification|}}
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h3 class="card-title">{{certification.name}}</h3>
-          <p class="card-text">Issued by {{certification.organization}} in August 2019</p>
-        </div>
-        <div class="btn-group float-right">
-          <button type="button" class="btn btn-light" data-bs-toggle="collapse"
-            data-bs-target="#collapsecertification{{certification.id}}" aria-expanded="false"
-            aria-controls="collapsecertification{{certification.id}}"><i class="fas fa-edit"></i></button>
-          <button type="button" class="btn btn-light certdelete" id="{{certification.id}}"><i class="fas fa-trash"></i></button>
-        </div>
-        <div class="collapse" id="collapsecertification{{certification.id}}">
-          <div class="card card-body">
-            <div id="certification-container">
-              <div class="certification mb-4">
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="certification-name" class="form-label">Certification Name:</label>
-                    <input type="text" id="certification-name" class="form-control" value="{{certification.name}}"
-                      required>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="issuing-org" class="form-label">Issuing Organization:</label>
-                    <input type="text" id="issuing-org" class="form-control"
-                      value="{{certification.organization}}" required>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="date-earned" class="form-label">Date Earned:</label>
-                    <input type="date" id="date-earned" class="form-control" value="{{certification.dateEarned}}"
-                      required>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="expiration-date" class="form-label">Expiration Date:</label>
-                    <input type="date" id="expiration-date" class="form-control"
-                      value="{{certification.expireDate}}" required>
-                  </div>
-                </div>
                 <form class="container mt-5">
                   <h2 class="mb-4">Certification Details</h2>
                   <div id="certification-container">
@@ -627,21 +404,24 @@
 
                 </form>
 
+
+
               </div>
             </div>
-            <button type="button" class="btn btn-primary mb-3 updateCert" id="{{certification.id}}">Update Certification</button>
+            <div class="btn-group float-right">
+              <button type="button" class="btn btn-light" data-bs-toggle="collapse"
+                data-bs-target="#collapsecertification{{certification.id}}" aria-expanded="false"
+                aria-controls="collapsecertification{{certification.id}}"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-</section>
-
+        {{/each}}
+    </section>
 
     </div>
   </main>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
   <script src="/js/profile.js"></script>
   <script src="/js/resume.js"></script>
 </body>

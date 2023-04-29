@@ -15,26 +15,9 @@ const loginFormHandler = async (event) => {
         if (response.ok) {
             document.location.replace('/dashboard');
         }
-        if (response.ok) {
-            document.location.replace("/");
-          } else {
-            const responseData = await response.json();
-            const errors = responseData.message;
-            console.log(errors);
-          
-            const errorDiv = document.createElement("div");
-            errorDiv.className = "alert alert-danger alert-dismissible fade show";
-            errorDiv.innerHTML = `
-              <strong>${errors}</strong>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            `;
-          
-            document.querySelector(".error-message").appendChild(errorDiv);
-            setTimeout(function () {
-              errorDiv.remove();
-            }, 4000);
-          }
-          
+        else {
+            alert(response.statusText);
+        }
     }
 };
 
@@ -57,34 +40,11 @@ const signupFormHandler = async (event) => {
         if (response.ok) {
             document.location.replace('/profile/new');
         }
-          } else {
-            const responseData = await response.json();
-            const errors = responseData.errors;
-          
-            const error_messages = {
-              'Validation isEmail on email failed': 'The email address you entered does not seem to be valid. Please try again with a valid email address.',
-              'Validation len on password failed' : "The password should be at least 8 characters in length",
-              'email must be unique' : 'The email address you have entered is already registered. Please login or signup with a different email.'
-            };
-          
-            for (let i = 0; i < errors.length; i++) {
-              const errorDiv = document.createElement('div');
-              errorDiv.className = 'alert alert-danger alert-dismissible fade show';
-              const errorMessage = error_messages[errors[i].message] || errors[i].message;
-              errorDiv.innerHTML = `
-                <strong>${errorMessage}</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              `;
-              document.querySelector('.error-message').appendChild(errorDiv);
-          
-              setTimeout(function() {
-                errorDiv.remove();
-              }, 4000);
-            }
-          }
-          
+        else {
+            alert(response.statusText);
+        }
     }
-
+}
 
 // Collect values from the login & signup forms
 document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
