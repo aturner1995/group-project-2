@@ -18,7 +18,6 @@ const loginFormHandler = async (event) => {
         else {
             const responseData = await response.json();
             const errors = responseData.message;
-            console.log(errors);
           
             const errorDiv = document.createElement("div");
             errorDiv.className = "alert alert-danger alert-dismissible fade show";

@@ -88,11 +88,6 @@
 
 
 
-
-
-
-
-
     <section id="personal" class="mb-5">
       <h2 class="mb-3">Personal Details</h2>
       <div class="row">
@@ -168,12 +163,70 @@
     </section>
     </div>
 
-<section id="work-experiences" class="container mb-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+
+
+<section id="skills" class="container mb-1">
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h2>Skills</h2>
+  <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
+        data-bs-target="#collapseskill" aria-expanded="false"
+        aria-controls="collapseskill">
+  <i class="fas fa-plus me-2"> New</i>
+</button>
+    </button>
+    </div>
+    <div class="collapse" id="collapseskill">
+      <div class="card card-body">
+ <form class="container mt-5">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="skill-name" class="form-label">Skill</label>
+              <input type="text" id="skill-name" name="skill-name" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label for="skill-level" class="form-label">Category</label>
+              <select id="skill-level" name="skill-level" class="form-control form-select" required>
+                <option value="">-- Select Skill --</option>
+                <option value="Languages">Languages</option>
+                <option value="Tools">Tools</option>
+                <option value="Applications">Applications</option>
+                <option value="Non-Tech Skills">Non-Tech Skills</option>
+              </select>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary mb-3" onclick="addSkill()">Add Skill</button>
+        </form>
+        </div>
+        </div>
+
+  </div>
+<div class="card-body mt-5">
+  <ul>
+    {{#each skills as |skill|}}
+    <li>
+      {{skill.level}}: {{skill.name}}
+      <button class="btn delSkill" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapseskilledit" aria-expanded="false"
+        aria-controls="collapseskilledit" id="{{skill.id}}">
+        <i class="fas fa-trash"></i> 
+      </button>
+    </li>
+    {{/each}}
+  </ul>
+</div>
+</section>
+
+
+
+
+<section id="work-experiences" class="container mb-5 mt-5 ">
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
     <h2 class="mb-0">Work Experience</h2>
   <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
         data-bs-target="#collapsenew" aria-expanded="false"
-        aria-controls="collapsenew">New</button>
+        aria-controls="collapsenew"><i class="fas fa-plus me-2"> New</i></button>
 </div>
   <div class="card">
     <div class="collapse" id="collapsenew">
@@ -208,6 +261,7 @@
       </div>
     </div>
   </div>
+  </div>
 </section>
 
     <section id="work" class="mb-5 container">
@@ -225,6 +279,7 @@
                 data-bs-target="#collapsework{{work.id}}" aria-expanded="false"
                 aria-controls="collapsework{{work.id}}"><i class="fas fa-edit"></i></button>
               <button type="button" class="btn btn-light expdelete" id="{{work.id}}"><i class="fas fa-trash"></i></button>
+            </div>
             </div>
           <div class="collapse" id="collapsework{{work.id}}">
             <div class="card card-body">
@@ -282,11 +337,12 @@
 
 
 <section id="project-experiences" class="container mb-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+ <div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
       <h2 class="mb-0">Project Experience</h2>
   <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
         data-bs-target="#collapsenewproject" aria-expanded="false"
-        aria-controls="collapsenewproject">New</button>
+        aria-controls="collapsenewproject"><i class="fas fa-plus me-2"> New</i></button>
 </div>
   <div class="card">
     <div class="collapse" id="collapsenewproject">
@@ -325,7 +381,7 @@
         </section>
 
     <section id="projects" class="mb-5">
-      <div class="row">
+      <div class="row d-flex">
         {{#each projects as |project|}}
         <div class="col-lg-4">
           <div class="card mb-4">
@@ -338,7 +394,7 @@
               <button type="button" class="btn btn-light" data-bs-toggle="collapse"
                 data-bs-target="#collapseproject{{project.id}}" aria-expanded="false"
                 aria-controls="collapseproject{{project.id}}"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-light " id="{{project.id}}"><i class="fas fa-trash"></i></button>
+              <button type="button" class="btn btn-light delproject" id="{{project.id}}"><i class="fas fa-trash"></i></button>
             </div>
             <div class="collapse collapse" id="collapseproject{{project.id}}">
               <div class="card card-body">
@@ -378,17 +434,17 @@
 
 
 <section id="educationnew" class="container mb-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
     <h2 class="mb-0">Education</h2>
   <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
         data-bs-target="#collapseneweducation" aria-expanded="false"
-        aria-controls="collapseneweducation">New</button>
+        aria-controls="collapseneweducation"><i class="fas fa-plus me-2"> New</i></button>
 </div>
   <div class="card">
     <div class="collapse" id="collapseneweducation">
       <div class="card card-body">
  <form class="container mt-5">
-          <h2 class="mb-4">Education Details</h2>
           <div id="education-container">
             <div class="education mb-4">
               <div class="row">
@@ -419,7 +475,7 @@
           </div>
 
           <!-- Button to add new education details -->
-          <button type="button" class="btn btn-primary mb-3" onclick="addEducation()">Update Education</button>
+          <button type="button" class="btn btn-primary mb-3" onclick="addEducation()">Add Education</button>
         </form>
 </div>
 </div>
@@ -442,7 +498,7 @@
               <button type="button" class="btn btn-light" data-bs-toggle="collapse"
                 data-bs-target="#collapseeducation{{education.id}}" aria-expanded="false"
                 aria-controls="collapseeducation{{education.id}}"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-light " id="{{education.id}}"><i class="fas fa-trash"></i></button>
+              <button type="button" class="btn btn-light delEdu" id="{{education.id}}"><i class="fas fa-trash"></i></button>
             </div>
             <div class="collapse collapse" id="collapseeducation{{education.id}}">
               <div class="card card-body">
@@ -492,18 +548,18 @@
 
 
 <section id="certnew" class="container mb-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
     <h2 class="mb-0">Certification</h2>
   <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
         data-bs-target="#collapsenewcert" aria-expanded="false"
-        aria-controls="collapsenewcert">New</button>
+        aria-controls="collapsenewcert"><i class="fas fa-plus me-2"> New</i></button>
 </div>
   <div class="card">
     <div class="collapse" id="collapsenewcert">
       <div class="card card-body">
 
           <form class="container">
-          <h2 class="mb-4">Certification Details</h2>
           <div id="certification-container">
             <div class="certification mb-4">
               <div class="row">
@@ -549,7 +605,7 @@
               <button type="button" class="btn btn-light" data-bs-toggle="collapse"
                 data-bs-target="#collapsecertification{{certification.id}}" aria-expanded="false"
                 aria-controls="collapsecertification{{certification.id}}"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-light updateCert" id="{{certification.id}}"><i class="fas fa-trash"></i></button>
+              <button type="button" class="btn btn-light delCert" id="{{certification.id}}"><i class="fas fa-trash"></i></button>
             </div>
             <div class="collapse collapse" id="collapsecertification{{certification.id}}">
               <div class="card card-body">
@@ -582,7 +638,7 @@
                       </div>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-primary mb-3 updateCert" id="{{certification.id}}">Add
+                  <button type="button" class="btn btn-primary mb-3 updateCert" id="{{certification.id}}">Update
                     Certification</button>
 
                 </form>

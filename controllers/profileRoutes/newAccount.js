@@ -278,14 +278,53 @@ router.delete('/experience/:id', async (req, res) => {
   try {
     const deleteId = req.params.id;
     await Work.destroy({ where: { id: deleteId } });
-    res.status(204); 
+    res.status(200).json(deleteId)
+  } catch (err) {
+    res.status(500).json({ error: "Request failed" });
+  }
+});
+
+router.delete('/project/:id', async (req, res) => {
+  try {
+    const deleteId = req.params.id;
+    await Project.destroy({ where: { id: deleteId } });
+    res.status(200).json(deleteId)
   } catch (err) {
     res.status(500).json({ error: "Request failed" });
   }
 });
 
 
+router.delete('/education/:id', async (req, res) => {
+  try {
+    const deleteId = req.params.id;
+    await Education.destroy({ where: { id: deleteId } });
+    res.status(200).json(deleteId)
+  } catch (err) {
+    res.status(500).json({ error: "Request failed" });
+  }
+});
 
+router.delete('/certification/:id', async (req, res) => {
+  try {
+    const deleteId = req.params.id;
+    await Certification.destroy({ where: { id: deleteId } });
+    res.status(200).json(deleteId)
+  } catch (err) {
+    res.status(500).json({ error: "Request failed" });
+  }
+});
+
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const deleteId = req.params.id;
+    await Skill.destroy({ where: { id: deleteId } });
+    res.status(200).json(deleteId)
+  } catch (err) {
+    res.status(500).json({ error: "Request failed" });
+  }
+});
 
 
 
