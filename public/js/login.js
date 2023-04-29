@@ -13,7 +13,7 @@ const loginFormHandler = async (event) => {
         });
         // If successful, redirect the browser to the profile page
         if (response.ok) {
-            document.location.replace('/profile/new');
+            document.location.replace('/dashboard');
         }
         else {
             alert(response.statusText);

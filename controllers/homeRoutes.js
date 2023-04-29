@@ -2,13 +2,6 @@
 const { Person, Work, Education, Certification, Overview, Skill, Project, User } = require("../models");
 const router = require("express").Router();
 
-
-
-
-
-
-
-
 router.get("/dashboard", async (req, res) => {
 
   const dbData = await User.findByPk(req.session.user_id, {
@@ -24,21 +17,26 @@ router.get("/dashboard", async (req, res) => {
   })
 });
 
-
-
 router.get('/', (req, res) => {
-
   res.render('homepage', {
     logged_in: req.session.logged_in
   })
 });
 
 router.get('/login', (req, res) => {
-  res.render('login')
+
+  if (!req.session.logged_in) {
+    res.render('login')
+  }
+  else {
+    res.redirect('/dashboard');
+  }
 });
 
-router.get('/resume', (req,res) => {
-  res.render('resume')
+router.get('/resume', (req, res) => {
+  res.render('resume', {
+    logged_in: req.session.logged_in
+  })
 })
 
 module.exports = router;

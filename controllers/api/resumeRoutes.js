@@ -28,16 +28,15 @@ router.get('/download', (req, res) => {
 
 
 // Generate the PDF Document for download
-router.get('/generate', async (req, res) => {
-    const headerColor = 'orange';
+router.get('/generate/1', async (req, res) => {
+    const headerColor = req.query.color;
+    console.log(req.query);
 
     const resumeData = await User.findByPk(req.session.user_id, {
         include: [
             { model: Person }, { model: Overview }, { model: Certification }, { model: Education }, { model: Skill }, { model: Work }, { model: Project }
         ]
     });
-
-    console.log(resumeData.overviews[0].text)
 
     // Filter Skill Data for skill section
     const languagesSkills = resumeData.skills.filter((skill => skill.level === 'language'));
@@ -53,7 +52,7 @@ router.get('/generate', async (req, res) => {
     res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
 
     // Add the content to the PDF document
-    pdfDoc.fontSize(20).fillColor(headerColor).text(resumeData.username, {
+    pdfDoc.fontSize(20).fillColor(headerColor).text(resumeData.people[0].name, {
         align: 'center'
     });
     pdfDoc.fontSize(12).fillColor('black').text(`${resumeData.email} | ${resumeData.people[0].phone} | ${resumeData.people[0].address}`, {
@@ -151,13 +150,16 @@ router.get('/generate', async (req, res) => {
 
 // Second Resume Template Generator
 router.get('/generate/2', async (req, res) => {
-    const headerColor = 'orange';
+    const headerColor = req.query.color;
+    console.log(req.query);
 
-    const resumeData = await Person.findByPk(1, {
+    const resumeData = await User.findByPk(req.session.user_id, {
         include: [
-            { model: Overview }, { model: Certification }, { model: Education }, { model: Skill }, { model: Work }, { model: Project }
+            { model: Person }, { model: Overview }, { model: Certification }, { model: Education }, { model: Skill }, { model: Work }, { model: Project }
         ]
     });
+
+    console.log(resumeData)
 
     // Filter Skill Data for skill section
     const languagesSkills = resumeData.skills.filter((skill => skill.level === 'language'));
@@ -174,17 +176,17 @@ router.get('/generate/2', async (req, res) => {
 
     // Add the content to the PDF document
     pdfDoc.fillColor(headerColor).rect(0, 0, 612, 135).fill();
-    pdfDoc.fontSize(20).fillColor('white').text(resumeData.name, {
+    pdfDoc.fontSize(20).fillColor('white').text(resumeData.people[0].name, {
         align: 'center'
     });
-    pdfDoc.fontSize(12).text(`${resumeData.email} | ${resumeData.phone} | ${resumeData.address}`, {
+    pdfDoc.fontSize(12).text(`${resumeData.email} | ${resumeData.people[0].phone} | ${resumeData.people[0].address}`, {
         align: 'center'
     });
-    pdfDoc.fontSize(12).text(`LinkedIn: ${resumeData.linkedin} | GitHub: ${resumeData.githubProfile} | Portfolio: ${resumeData.portfolio}`, {
+    pdfDoc.fontSize(12).text(`LinkedIn: ${resumeData.people[0].linkedin} | GitHub: ${resumeData.people[0].githubProfile} | Portfolio: ${resumeData.people[0].portfolio}`, {
         align: 'center'
     });
     pdfDoc.moveDown();
-    pdfDoc.fontSize(12).fillColor('black').text(resumeData.overview.text, {
+    pdfDoc.fontSize(12).fillColor('black').text(resumeData.overviews[0].text, {
         align: 'left'
     });
     pdfDoc.moveDown();
