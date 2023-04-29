@@ -43,7 +43,8 @@
 
 
     <section id="personal" class="mb-5">
-      <h2 class="mb-3">Personal Details</h2>
+
+
       <div class="row">
         <div class="col-sm-4">
           <p><strong>Name:</strong> {{username}}</test>
@@ -131,7 +132,51 @@
 
     </section> --}}
     <section id="work" class="mb-5 container">
-      <h2 class="mb-3">Work Experience</h2>
+      <div class="card mb-3">
+  <div class="card-body">
+    <h2 class="card-title mb-3">Work <Experience></Experience>
+      <button class="btn btn-primary float-end" type="button" data-bs-toggle="collapse"><i class="fas fa-plus"
+     data-bs-target="#collapseworkaddnewexp" aria-expanded="false"
+                aria-controls="#collapseworkaddnewexp"></i> Add New</button></h2>
+   <div class="collapse" id="collapseworkaddnewexp">
+
+        <form>
+          <div id="experience-container">
+            <div class="form-group experience">
+              <label for="company-name">Company Name:</label>
+              <input type="text" class="form-control" id="company-name">
+            </div>
+            <div class="form-group experience">
+              <label for="job-title">Job Title:</label>
+              <input type="text" class="form-control" id="job-title">
+            </div>
+            <div class="form-group experience">
+              <label for="job-location">Location</label>
+              <input type="text" class="form-control" id="job-location">
+            </div>
+            <div class="form-group experience">
+              <label for="start-date">Start Date:</label>
+              <input type="date" class="form-control" id="start-date">
+            </div>
+            <div class="form-group experience">
+              <label for="end-date">End Date:</label>
+              <input type="date" class="form-control " id="end-date">
+            </div>
+
+            <div class="form-group experience">
+              <label for="responsibility">Responsibility:</label>
+              <textarea class="form-control" id="responsibility" name="responsibility[]"></textarea>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary mb-3" onclick="addWorkExperience()">Add Experience</button>
+        </form>
+        </div>
+         </div>
+              </div>
+              </div>
+  </div>
+</div>
+
       <div class="row d-flex">
         {{#each Works as |work|}}
         <div class="col-lg-4">
