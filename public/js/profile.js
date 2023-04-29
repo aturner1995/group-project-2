@@ -40,18 +40,23 @@ async function addSkill() {
 
 async function saveOverview() {
   var overviewText = $("#overview-text").val();
-
   response = await fetch("/profile/new/overview", {
     method: "POST",
     body: JSON.stringify({ overviewText}),
     headers: { "Content-Type": "application/json" },
   });
 
-  if (response.ok) {
-    window.location.href = `${window.location.pathname}`;
-  }
-}
+  var userTest = 2
 
+response = await fetch("/profile/new",{
+
+
+  method: "POST",
+  body: JSON.stringify({ overviewText,userTest  }),
+  headers: { "Content-Type": "application/json" },
+})
+
+}
 
 
 
@@ -192,7 +197,6 @@ async function addWorkExperience() {
   var endDate = $("#end-date").val()
   var responsibility = $("#responsibility").val()
 
-
   var userTest = 1;
 
   let experiencedata = {
@@ -202,13 +206,9 @@ async function addWorkExperience() {
     location : location,
     responsibility: responsibility,
     startDate: startDate,
-    userTest : userTest,
- 
+    userTest : userTest
   }
-  
 
-
-  
   response = await fetch("/profile/new/experience",{
 
     method: "POST",
@@ -219,23 +219,34 @@ async function addWorkExperience() {
   if (response.ok) {
     window.location.href = `${window.location.pathname}`;
   } else {
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data)
+
+const htmtRender =`<div class="row">
+<div class="col-md-4 mb-4">
+  <div class="card h-100">
+    <div class="card-body">
+      <h5 class="card-title">${companyName}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">${jobTitle}</h6>
+    </div>
+    <div class="card-footer">
+      <small class="text-muted">${startDate} - ${endDate}</small>
+      <div class="btn-group float-right">
+        <button type="button" class="btn btn-light" ><i class="fas fa-edit"></i></button>
+        <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+`
+$(".experienceaddon").append(htmtRender)
+    } else {
       throw new Error("Request failed");
     }
 
   }
   
-
-
-
-
-
-
-
-
-
-
-
-
 
   $(".updateExp").on("click", async function(){
     var workId = parseInt($(this).attr("id"))
@@ -328,6 +339,10 @@ async function addWorkExperience() {
   $(".expdelete").on("click", async function() {
     const deleteiD = $(this).attr("id")
     const deleteResponse = await fetch(`/profile/new/experience/${deleteiD}`, {
+  $(".expdelete").on("click", async (event) => {
+    const deleteBtn = $(this).attr("id")
+    console.log(deleteBtn)
+    const deleteResponse = await fetch(`/profile/experience/${deleteBtn}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
@@ -455,22 +470,6 @@ console.log(projectData)
     window.location.href = `${window.location.pathname}`;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

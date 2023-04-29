@@ -25,7 +25,6 @@ router.put("/", async (req, res) => {
     const existingOverview = await Overview.findAll({
       where: { user_id: req.session.user_id },
     });
-    console.log(existingOverview)
 
     if (existingOverview.length) {
       const updatedOverview = await Overview.update({
@@ -41,17 +40,18 @@ router.put("/", async (req, res) => {
       res.status(200).json(updatedOverview);
     } else {
       res.status(404).json({ message: "Overview not found" });
+      const newOverview = await Overview.create({
+        text: req.body.overviewText,
+        user_id: req.session.user_id,
+      });
+      res.status(200).json(newOverview);
+
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: err });
+    res.status(500).json({ message: "Server Error" });
   }
 });
-
-
-
-
-
 
 
 router.post("/person", async (req, res) => {
@@ -84,9 +84,7 @@ router.post("/person", async (req, res) => {
         user_id: req.session.user_id
       });
 
-      res.status(201).json({ message: "New personal record created",});
-      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-
+      res.status(201).json({ message: "New personal record created", });
     }
   } catch (error) {
     res.status(500).json({ message: "Unable to create/update personal record", error: error.message });
@@ -113,9 +111,6 @@ router.post("/education", async (req, res) => {
 });
 
 
-
-
-
   router.put("/education", async (req, res) => {
     try {
       requiredData = req.body.educationItem;
@@ -139,7 +134,6 @@ router.post("/education", async (req, res) => {
     }
   });
   
-
 router.post("/skill", async (req, res) => {
   try {
     requiredData = req.body.skillData;
@@ -253,6 +247,7 @@ router.post("/experience", async (req, res) => {
     requiredData = req.body.experiencedata;
 
     const newPersonal = await Work.create({
+
       company: requiredData.companyName,
       endDate: requiredData.endDate,
       title: requiredData.jobTitle,
