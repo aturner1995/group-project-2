@@ -5,7 +5,7 @@ const router = require("express").Router();
 router.get("/dashboard", async (req, res) => {
 
   const dbData = await User.findByPk(req.session.user_id, {
-    include: [{ model: Overview }, { model: Person }, { model: Work }, { model: Education }, { model: Project }, { model: Certification }]
+    include: [{ model: Overview }, { model: Person }, { model: Work }, { model: Education }, { model: Project }, { model: Certification },{model : Skill}]
   })
 
   const allData = dbData.get({ plain: true });
