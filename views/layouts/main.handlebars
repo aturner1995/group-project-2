@@ -23,22 +23,22 @@
             </button>
             <div class="collapse navbar-collapse mx-5" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item active">
+                    {{#if logged_in}}
+                      <li class="nav-item active">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    {{#if logged_in}}
                     <li class="nav-item">
                         <a class="nav-link" href="/dashboard">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-primary" id="logout">Logout</button>
+                        <button class="btn btn-custom-2" id="logout">Logout</button>
                     </li>
                     {{else}}
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                        <a class="btn btn-custom-2 mx-1" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Sign Up</a>
+                        <a class="btn btn-custom-2 mx-1" href="/login">Sign Up</a>
                     </li>
                     {{/if}}
                 </ul>

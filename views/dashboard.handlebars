@@ -9,14 +9,51 @@
 <body>
   <header class="jumbotron text-center bg-light">
     <div class="container">
-      <h1 class="display-4 mt-3">{{username}}</h1>
+      <h1 class="display-4 mt-3">{{people.[0].name}}</h1>
       <p class="lead">{{Works.[0].title}}</p>
     </div>
 
   </header>
-  <div class="text-center">
-      <button class="btn btn-primary gen-resume">GENERATE RESUME</button>
-  </div>
+  <form class="card mx-5">
+      <div class="form-group p-3">
+        <label for="color">Choose a color:</label><br>
+        <div class="my-3">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input black" type="radio" name="color" id="color1" value="black" checked>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input red" type="radio" name="color" id="color1" value="red">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input blue" type="radio" name="color" id="color2" value="blue">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input orange" type="radio" name="color" id="color3" value="orange">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input purple" type="radio" name="color" id="color3" value="purple">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input pink" type="radio" name="color" id="color3" value="pink">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input yellow" type="radio" name="color" id="color3" value="yello">
+          </div>
+        </div>
+      </div>
+      <div class="form-group px-3">
+        <label for="template">Choose a template:</label><br>
+        <div class="form-check form-check-inline my-3">
+          <input class="form-check-input" type="radio" name="template" id="template1" value="template1" checked>
+          <label class="form-check-label" for="template1">Template 1</label>
+        </div>
+        <div class="form-check form-check-inline my-3">
+          <input class="form-check-input" type="radio" name="template" id="template2" value="template2">
+          <label class="form-check-label" for="template2">Template 2</label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary gen-resume">Generate Resume</button>
+    </form>
 
 
   <main class="container py-5">
@@ -31,7 +68,7 @@
       <h2 class="mb-3">Personal Details</h2>
       <div class="row">
         <div class="col-sm-4">
-          <p><strong>Name:</strong> {{username}}</test>
+          <p><strong>Name:</strong> {{people.[0].name}}</test>
           </p>
           <p><strong>Email:</strong> {{email}}</p>
         </div>
@@ -386,6 +423,6 @@
   </main>
 
   <script src="/js/profile.js"></script>
-  <script src="/js/dashboard.js"></script>
+  <script src="/js/resume.js"></script>
 
 </body>

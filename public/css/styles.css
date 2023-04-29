@@ -29,6 +29,16 @@
     color: #152039 !important;
 }
 
+.btn-custom-2 {
+    background-color: #ff6341 !important;
+    color: white !important;
+}
+
+.btn-custom-2:hover {
+    background-color: #fc4b23 !important;
+    color: white !important;
+}
+
 .testimonials {
     background-color: #f8f8f8;
 }
@@ -85,5 +95,51 @@
 
 embed {
     width: 80%;
+    height: 85vh;
+}
+
+.blue {
+    background-color: blue !important;
+    border-color: blue !important;
+}
+
+.black {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.red {
+    background-color: red !important;
+    border-color: red !important;
+}
+
+.green {
+    background-color: green !important;
+    border-color: green !important;
+}
+
+.orange {
+    background-color: orange !important;
+    border-color: orange !important;
+}
+
+.purple {
+    background-color: purple !important;
+    border-color: purple !important;
+}
+
+.pink {
+    background-color: pink !important;
+    border-color: pink !important;
+}
+
+.yellow {
+    background-color: yellow !important;
+    border-color: yellow !important;
+}
+
+.form-check-input {
+    transform: scale(2) !important;
+    margin-bottom: 10px !important;
 }
 
