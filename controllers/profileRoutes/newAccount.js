@@ -1,4 +1,4 @@
-const { Person, Work, Education, Certification, Overview, Skill, Project } = require("../../models");
+const { User, Person, Work, Education, Certification, Overview, Skill, Project } = require("../../models");
 const router = require("express").Router();
 
 router.get("/", async (req, res) => {
@@ -41,21 +41,29 @@ router.post("/", async (req, res) => {
 router.post("/person", async (req, res) => {
   try {
     const requiredData = req.body.perosnalcollection;
-    console.log(requiredData);
 
-    const existingPerson = await Person.findOne({ email: requiredData.email });
+    const existingPerson = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password']},
+      include: [
+          { model: Person }, 
+      ]
+  });
 
-    if (existingPerson) {
-      existingPerson.name = requiredData.name;
-      existingPerson.phone = requiredData.phone;
-      existingPerson.address = requiredData.address;
-      existingPerson.githubProfile = requiredData.github;
-      existingPerson.linkedin = requiredData.linkedin;
-      existingPerson.portfolio = requiredData.portfolio;
+  console.log(existingPerson.people)
 
-      await existingPerson.save();
-
+    if (existingPerson.people.length) {
+      const updatePerson = await Person.update({
+        name: requiredData.name,
+        email: requiredData.email,
+        phone: requiredData.phone,
+        address: requiredData.address,
+        githubProfile: requiredData.github,
+        linkedin: requiredData.linkedin,
+        portfolio: requiredData.portfolio,
+        user_id: req.session.user_id
+      })
       res.status(200).json({ message: "Person record updated" });
+
     } else {
       const newPersonal = await Person.create({
         name: requiredData.name,
