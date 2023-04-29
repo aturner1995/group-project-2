@@ -57,8 +57,6 @@ const signupFormHandler = async (event) => {
         if (response.ok) {
             document.location.replace('/profile/new');
         }
-        if (response.ok) {
-            document.location.replace('/');
           } else {
             const responseData = await response.json();
             const errors = responseData.errors;
@@ -86,7 +84,7 @@ const signupFormHandler = async (event) => {
           }
           
     }
-}
+
 
 // Collect values from the login & signup forms
 document.querySelector('.login-form').addEventListener('submit', loginFormHandler);

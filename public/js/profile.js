@@ -31,7 +31,9 @@ async function addSkill() {
     body: JSON.stringify({skillData,userTest}),
     headers: { "Content-Type": "application/json" },
   })
-
+  if (response.ok) {
+    window.location.href = `${window.location.pathname}`;
+  }
 
 
 }
@@ -44,7 +46,6 @@ async function saveOverview() {
     body: JSON.stringify({ overviewText}),
     headers: { "Content-Type": "application/json" },
   });
-console.log(overviewText)
 
   if (response.ok) {
     window.location.href = `${window.location.pathname}`;
@@ -79,6 +80,9 @@ async function addEducation() {
       body: JSON.stringify({ educationItem,userTest  }),
       headers: { "Content-Type": "application/json" },
     })
+    if (response.ok) {
+      window.location.href = `${window.location.pathname}`;
+    }
   };
 
   $(".updatEdu").on("click",async function(){
@@ -108,7 +112,9 @@ async function addEducation() {
       body: JSON.stringify({ educationItem  }),
       headers: { "Content-Type": "application/json" },
     })
-  
+    if (response.ok) {
+      window.location.href = `${window.location.pathname}`;
+    }
   
   })
 
@@ -146,9 +152,9 @@ async function addPersonal() {
     body: JSON.stringify({ perosnalcollection}),
     headers: { "Content-Type": "application/json" },
   })
-  
-  personalData = perosnalcollection;
-  console.log(personalData);
+  if (response.ok) {
+    window.location.href = `${window.location.pathname}`;
+  }
 }
 
 // $(".submitbutton").click(function(){
@@ -210,9 +216,9 @@ async function addWorkExperience() {
     headers: { "Content-Type": "application/json" },
   })
 
-    if (response.ok) {
-      const data = await response.json();
-    } else {
+  if (response.ok) {
+    window.location.href = `${window.location.pathname}`;
+  } else {
       throw new Error("Request failed");
     }
 
@@ -297,7 +303,9 @@ async function addWorkExperience() {
         body: JSON.stringify({ projectData }),
         headers: { "Content-Type": "application/json" }
       });
-  
+      if (response.ok) {
+        window.location.href = `${window.location.pathname}`;
+      }
       const data = await response.json();
       console.log(data);
   
@@ -317,15 +325,14 @@ async function addWorkExperience() {
 
 
 
-  $(".expdelete").on("click", async (event) => {
-    const deleteBtn = $(this).attr("id")
-    console.log(deleteBtn)
-    const deleteResponse = await fetch(`/profile/experience/${deleteBtn}`, {
+  $(".expdelete").on("click", async function() {
+    const deleteiD = $(this).attr("id")
+    const deleteResponse = await fetch(`/profile/new/experience/${deleteiD}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
     if (deleteResponse.ok) {
-      $(`#${id}`).remove();
+      window.location.href = `${window.location.pathname}`;
     } else {
       throw new Error("Request failed");
     }
@@ -369,7 +376,9 @@ response = await fetch("/profile/new/certification",{
   body: JSON.stringify({ certificateDate }),
   headers: { "Content-Type": "application/json" },
 })
-
+if (response.ok) {
+  window.location.href = `${window.location.pathname}`;
+}
 }
 
 
@@ -397,6 +406,9 @@ response = await fetch("/profile/new/certification",{
   body: JSON.stringify({ certificateDate }),
   headers: { "Content-Type": "application/json" },
 })
+if (response.ok) {
+  window.location.href = `${window.location.pathname}`;
+}
 
 })
 
@@ -439,7 +451,9 @@ console.log(projectData)
     body: JSON.stringify({ projectData }),
     headers: { "Content-Type": "application/json" },
   })
-
+  if (response.ok) {
+    window.location.href = `${window.location.pathname}`;
+  }
 }
 
 

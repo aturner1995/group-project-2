@@ -6,8 +6,21 @@ router.get("/", async (req, res) => {
     logged_in: req.session.logged_in
   })
 });
-
 router.post("/", async (req, res) => {
+  try {
+    const newOverview = await Overview.create({
+      text: req.body.overviewText,
+      user_id: req.session.user_id,
+    });
+    res.status(200).json(newOverview)
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err });
+  }
+});
+
+
+router.put("/", async (req, res) => {
   try {
     const existingOverview = await Overview.findAll({
       where: { user_id: req.session.user_id },
@@ -27,19 +40,13 @@ router.post("/", async (req, res) => {
       );
       res.status(200).json(updatedOverview);
     } else {
-      const newOverview = await Overview.create({
-        text: req.body.overviewText,
-        user_id: req.session.user_id,
-      });
-      res.status(200).json(newOverview)
+      res.status(404).json({ message: "Overview not found" });
     }
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: err });
   }
 });
-
-
 
 
 
@@ -291,6 +298,17 @@ router.put("/experience", async (req, res) => {
   }
 });
 
+
+
+router.delete('/experience/:id', async (req, res) => {
+  try {
+    const deleteId = req.params.id;
+    await Work.destroy({ where: { id: deleteId } });
+    res.status(204); 
+  } catch (err) {
+    res.status(500).json({ error: "Request failed" });
+  }
+});
 
 
 
