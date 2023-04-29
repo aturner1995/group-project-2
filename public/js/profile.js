@@ -1,3 +1,5 @@
+
+
 let educationData = [];
 let personalData = [];
 let overview = [];
@@ -40,21 +42,29 @@ async function addSkill() {
 
 async function saveOverview() {
   var overviewText = $("#overview-text").val();
-  response = await fetch("/profile/new/overview", {
+  response = await fetch("/profile/new", {
     method: "POST",
     body: JSON.stringify({ overviewText}),
     headers: { "Content-Type": "application/json" },
   });
+  if (response.ok) {
 
-  var userTest = 2
+    const message = response.json()
+            console.log(message)
+            const errorDiv = document.createElement("div");
+            errorDiv.className = "alert alert-danger alert-dismissible fade show";
+            errorDiv.innerHTML = `
+              <strong>${message}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+          
+            document.querySelector(".error-message").appendChild(errorDiv);
+            setTimeout(function () {
+              errorDiv.remove();
+            }, 4000);
 
-response = await fetch("/profile/new",{
+  }
 
-
-  method: "POST",
-  body: JSON.stringify({ overviewText,userTest  }),
-  headers: { "Content-Type": "application/json" },
-})
 
 }
 
@@ -90,7 +100,7 @@ async function addEducation() {
     }
   };
 
-  $(".updatEdu").on("click",async function(){
+  $(".updatEdu").on("click", async function(){
     var eduId = parseInt($(this).attr("id"))
     var school = $(this).closest('.card').find("#school").val();
     var degree = $(this).closest('.card').find("#degree").val();
@@ -162,30 +172,6 @@ async function addPersonal() {
   }
 }
 
-// $(".submitbutton").click(function(){
- 
-//   const resumeData = {
-//     educationData: educationData,
-//     personalData: personalData,
-//     overview: overview,
-//     skill: skill,
-//     experiene: experiene,
-//     certification: certification,
-//     projects: projects
-//   };
-// console.log(resumeData)
-// })
-
-
-
-// function disableEnddate(){
-//   var currentJb =$("#current-job").val()
-
-//   if(currentJb){
-//     $("#end-date").disabled = true;
-//   }
-//   console.log(currentJb)
-// }
 
 async function addWorkExperience() {
 
@@ -259,7 +245,6 @@ $(".experienceaddon").append(htmtRender)
     var responsibility = $(this).closest('.card').find("#responsibility").val()
   
     console.log(workId)
-    var userTest = 1;
   
     let experiencedata = {
       companyName: companyName,
@@ -456,7 +441,6 @@ async function addproject(){
     userTest :userTest
   }
 
-console.log(projectData)
 
   response = await fetch("/profile/new/project",{
 
