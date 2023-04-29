@@ -1,4 +1,4 @@
-const { User, Person, Work, Education, Certification, Overview, Skill, Project } = require("../../models");
+const { Person, Work, Education, Certification, Overview, Skill, Project } = require("../../models");
 const router = require("express").Router();
 
 router.get("/", async (req, res) => {
@@ -6,25 +6,17 @@ router.get("/", async (req, res) => {
     logged_in: req.session.logged_in
   })
 });
-
 router.post("/", async (req, res) => {
   try {
-    const existingOverview = await Overview.findAll({
+    const existingOverview = await Overview.findOne({
       where: { user_id: req.session.user_id },
     });
 
-    if (existingOverview.length) {
-      const updatedOverview = await Overview.update({
+    if (existingOverview) {
+      const updatedOverview = await existingOverview.update({
         text: req.body.overviewText,
-      },
-        {
-          where: {
-            id: existingOverview[0].id,
-            user_id: req.session.user_id
-          }
-        }
-      );
-      res.status(200).json(updatedOverview);
+      });
+      res.status(200).json({message : "overview updated successfully"});
     } else {
       const newOverview = await Overview.create({
         text: req.body.overviewText,
@@ -38,21 +30,17 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+
+
 router.post("/person", async (req, res) => {
   try {
     const requiredData = req.body.perosnalcollection;
+    console.log(requiredData);
 
-    const existingPerson = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password']},
-      include: [
-          { model: Person }, 
-      ]
-  });
-
-  console.log(existingPerson.people)
-
-    if (existingPerson.people.length) {
-      const updatePerson = await Person.update({
+    const existingPerson = await Person.findOne({ id: req.session.user_id });
+    if (existingPerson && existingPerson.people && existingPerson.people.length) {
+      const updatePerson = await existingPerson.people[0].update({
         name: requiredData.name,
         email: requiredData.email,
         phone: requiredData.phone,
@@ -63,7 +51,6 @@ router.post("/person", async (req, res) => {
         user_id: req.session.user_id
       })
       res.status(200).json({ message: "Person record updated" });
-
     } else {
       const newPersonal = await Person.create({
         name: requiredData.name,
@@ -75,9 +62,10 @@ router.post("/person", async (req, res) => {
         portfolio: requiredData.portfolio,
         user_id: req.session.user_id
       });
-
+    
       res.status(201).json({ message: "New personal record created", });
     }
+    
   } catch (error) {
     res.status(500).json({ message: "Unable to create/update personal record", error: error.message });
   }
@@ -102,6 +90,30 @@ router.post("/education", async (req, res) => {
   }
 });
 
+
+  router.put("/education", async (req, res) => {
+    try {
+      requiredData = req.body.educationItem;
+      requiredEduID = requiredData.eduId
+  
+      const newPersonal = await Education.update({
+        school: requiredData.school,
+        degree: requiredData.degree,
+        startDate: requiredData.startDate,
+        endDate: requiredData.endDate,
+        educationdetail: requiredData.eduText,
+      },{
+        where:{
+          id:requiredEduID
+        }
+      });
+  
+      res.status(201).json({ message: "New personal record created" });
+    } catch (error) {
+      res.status(500).json({ message: "Unable to create personal record", error: error.message });
+    }
+  });
+  
 router.post("/skill", async (req, res) => {
   try {
     requiredData = req.body.skillData;
@@ -137,6 +149,31 @@ router.post("/certification", async (req, res) => {
   }
 });
 
+router.put("/certification", async (req, res) => {
+  try {
+    requiredData = req.body.certificateDate;
+    certID = requiredData.certId
+
+    const newPersonal = await Certification.update({
+      name: requiredData.certName,
+      organization: requiredData.issueOrg,
+      dateEarned: requiredData.deteEarned,
+      expireDate: requiredData.expireDate,
+      user_id: req.session.user_id
+    },{
+      where : {
+        id :certID
+      }
+    });
+
+    res.status(201).json({ message: "New personal record created" });
+  } catch (error) {
+    res.status(500).json({ message: "Unable to create personal record", error: error.message });
+  }
+});
+
+
+
 router.post("/project", async (req, res) => {
   try {
     requiredData = req.body.projectData;
@@ -155,6 +192,35 @@ router.post("/project", async (req, res) => {
     res.status(500).json({ message: "Unable to create personal record", error: error.message });
   }
 });
+
+
+router.put("/project", async (req, res) => {
+  try {
+    requiredData = req.body.projectData;
+    proId = requiredData.projectid
+
+    const newPersonal = await Project.update({
+      projectName: requiredData.projectName,
+      yourRole: requiredData.yourTitle,
+      startDate: requiredData.startDate,
+      endDate: requiredData.endDate,
+      responsibility: requiredData.responsibility,
+      user_id: req.session.user_id
+    },{
+      where:{
+        id:proId
+      }
+    });
+
+    res.status(201).json({ message: "New personal record created" });
+  } catch (error) {
+    res.status(500).json({ message: "Unable to create personal record", error: error.message });
+  }
+});
+
+
+
+
 
 router.post("/experience", async (req, res) => {
   try {
@@ -176,5 +242,92 @@ router.post("/experience", async (req, res) => {
     res.status(500).json({ message: "Unable to create personal record", error: error.message });
   }
 });
+
+
+
+
+
+
+router.put("/experience", async (req, res) => {
+  try {
+    requiredData = req.body.experiencedata;
+    expId  =  requiredData.workId
+
+    const newPersonal = await Work.update({
+      company: requiredData.companyName,
+      endDate: requiredData.endDate,
+      title: requiredData.jobTitle,
+      location: requiredData.location,
+      responsibility: requiredData.responsibility,
+      startDate: requiredData.startDate,
+      user_id: req.session.user_id
+    },{
+      where :{
+        id : expId
+      }
+    });
+
+    await res.status(200).json({ newPersonal });
+  } catch (error) {
+    res.status(500).json({ message: "Unable to create personal record", error: error.message });
+  }
+});
+
+
+
+router.delete('/experience/:id', async (req, res) => {
+  try {
+    const deleteId = req.params.id;
+    await Work.destroy({ where: { id: deleteId } });
+    res.status(200).json(deleteId)
+  } catch (err) {
+    res.status(500).json({ error: "Request failed" });
+  }
+});
+
+router.delete('/project/:id', async (req, res) => {
+  try {
+    const deleteId = req.params.id;
+    await Project.destroy({ where: { id: deleteId } });
+    res.status(200).json(deleteId)
+  } catch (err) {
+    res.status(500).json({ error: "Request failed" });
+  }
+});
+
+
+router.delete('/education/:id', async (req, res) => {
+  try {
+    const deleteId = req.params.id;
+    await Education.destroy({ where: { id: deleteId } });
+    res.status(200).json(deleteId)
+  } catch (err) {
+    res.status(500).json({ error: "Request failed" });
+  }
+});
+
+router.delete('/certification/:id', async (req, res) => {
+  try {
+    const deleteId = req.params.id;
+    await Certification.destroy({ where: { id: deleteId } });
+    res.status(200).json(deleteId)
+  } catch (err) {
+    res.status(500).json({ error: "Request failed" });
+  }
+});
+
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const deleteId = req.params.id;
+    await Skill.destroy({ where: { id: deleteId } });
+    res.status(200).json(deleteId)
+  } catch (err) {
+    res.status(500).json({ error: "Request failed" });
+  }
+});
+
+
+
 
 module.exports = router;
