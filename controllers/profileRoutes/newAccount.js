@@ -2,9 +2,13 @@ const { Person, Work, Education, Certification, Overview, Skill, Project } = req
 const router = require("express").Router();
 
 router.get("/", async (req, res) => {
+  if (!req.session.logged_in) {
+    res.render('login')
+  }else{
   res.render('profile', {
     logged_in: req.session.logged_in
   })
+}
 });
 router.post("/", async (req, res) => {
   try {
@@ -33,14 +37,13 @@ router.post("/", async (req, res) => {
 
 
 
-router.post("/person", async (req, res) => {
+router.post('/person', async (req, res) => {
   try {
     const requiredData = req.body.perosnalcollection;
-    console.log(requiredData);
+    const existingPerson = await Person.findOne({ where: { user_id: req.session.user_id } });
 
-    const existingPerson = await Person.findOne({ id: req.session.user_id });
-    if (existingPerson && existingPerson.people && existingPerson.people.length) {
-      const updatePerson = await existingPerson.people[0].update({
+    if (existingPerson) {
+      await existingPerson.update({
         name: requiredData.name,
         email: requiredData.email,
         phone: requiredData.phone,
@@ -48,9 +51,8 @@ router.post("/person", async (req, res) => {
         githubProfile: requiredData.github,
         linkedin: requiredData.linkedin,
         portfolio: requiredData.portfolio,
-        user_id: req.session.user_id
-      })
-      res.status(200).json({ message: "Person record updated" });
+      });
+      res.status(200).json({ message: 'Person record updated' });
     } else {
       const newPersonal = await Person.create({
         name: requiredData.name,
@@ -60,16 +62,16 @@ router.post("/person", async (req, res) => {
         githubProfile: requiredData.github,
         linkedin: requiredData.linkedin,
         portfolio: requiredData.portfolio,
-        user_id: req.session.user_id
+        user_id: req.session.user_id,
       });
-    
-      res.status(201).json({ message: "New personal record created", });
+      res.status(201).json({ message: 'New personal record created' });
     }
-    
   } catch (error) {
-    res.status(500).json({ message: "Unable to create/update personal record", error: error.message });
+    res.status(500).json({ message: 'Unable to create/update personal record', error: error.message });
   }
 });
+
+
 
 router.post("/education", async (req, res) => {
   try {

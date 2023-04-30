@@ -11,30 +11,31 @@
 </head>
 
 <body>
-  <div class="container">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#overview">Overview</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#Personal">Personal Information</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#skills">Skills</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#work">Work Experience</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#project">Project Experience</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#education">Education</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#certification">Certifications</a>
-      </li>
-    </ul>
+<div class="container">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="personal-tab" data-toggle="tab" href="#Personal" role="tab" aria-controls="personal" aria-selected="false">Personal Information</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="skills-tab" data-toggle="tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">Skills</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="work-tab" data-toggle="tab" href="#work" role="tab" aria-controls="work" aria-selected="false">Work Experience</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="project-tab" data-toggle="tab" href="#project" role="tab" aria-controls="project" aria-selected="false">Project Experience</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false">Education</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="certification-tab" data-toggle="tab" href="#certification" role="tab" aria-controls="certification" aria-selected="false">Certifications</a>
+  </li>
+</ul>
+
 
     <div class="tab-content">
       <div id="overview" class="tab-pane fade show active">
@@ -45,7 +46,11 @@
           </div>
           <button type="button" class="btn btn-success mb-3" onclick="saveOverview()">Save Overview</button>
         </form>
+                  <div class="outputDIv">
+
       </div>
+      </div>
+  
 
       <div id="Personal" class="tab-pane fade ">
 
@@ -88,6 +93,7 @@
           </div>
           <button type="button" class="btn btn-primary mb-3" onclick="addPersonal()">Save Personal Information</button>
         </form>
+        <div class="personHtml"></div>
       </div>
 
 
@@ -95,11 +101,7 @@
 
         <form class="container mt-5">
           <div class="row mb-3">
-            <div class="col-md-6">
-              <label for="skill-name" class="form-label">Skill</label>
-              <input type="text" id="skill-name" name="skill-name" class="form-control" required>
-            </div>
-            <div class="col-md-6">
+                        <div class="col-md-6">
               <label for="skill-level" class="form-label">Category</label>
               <select id="skill-level" name="skill-level" class="form-control form-select" required>
                 <option value="">-- Select Skill --</option>
@@ -109,9 +111,13 @@
                 <option value="Non-Tech Skills">Non-Tech Skills</option>
               </select>
             </div>
+            <div class="col-md-6">
+              <label for="skill-name" class="form-label">Skill</label>
+              <input type="text" id="skill-name" name="skill-name" class="form-control" required>
+            </div>
+
           </div>
           <button type="button" class="btn btn-primary mb-3" onclick="addSkill()">Add Skill</button>
-          <button type="submit" class="btn btn-success mb-3">Save Skills</button>
         </form>
         <div class="container mt-5">
           <h2>Skills List</h2>
@@ -156,9 +162,7 @@
           </div>
           <button type="button" class="btn btn-primary mb-3" onclick="addWorkExperience()">Add Experience</button>
         </form>
-        <div class="row experienceaddon">
-
-
+        <div class="row expHtml">
         </div>
 
       </div>
@@ -166,7 +170,7 @@
       <div id="project" class="tab-pane fade">
 
         <form>
-          <div id="experience-container">
+          <div id="project-container">
             <div class="form-group experience">
               <label for="project-name">Project Name</label>
               <input type="text" class="form-control" id="project-name">
@@ -190,8 +194,8 @@
             </div>
           </div>
           <button type="button" class="btn btn-primary mb-3" onclick="addproject()">Add Experience</button>
-          <button type="submit" class="btn btn-success mb-3">Submit</button>
         </form>
+        <div class="proHtml"></div>
       </div>
 
 
@@ -240,9 +244,7 @@
           <button type="button" class="btn btn-primary mb-3" onclick="addEducation()">Add Education</button>
         </form>
 
-        <div class="container mt-5">
-          <h2>Education List</h2>
-          <ul id="education-list"></ul>
+        <div class="eduHtml">
         </div>
       </div>
 
@@ -280,14 +282,17 @@
 
         </form>
 
-        <div class="row certaddon">
+        <div class="row certHtml">
 
         </div>
       </div>
 
-      <div class="div">
+<div class="d-flex justify-content-end">
+  <button id="prev-tab-btn" class="btn btn-primary next"><i class="fas fa-chevron-left"></i> Previous</button>
+  <button id="next-tab-btn" class="btn btn-primary"><i class="fas fa-chevron-right"></i> Next</button>
+</div>
 
-      </div>
+
       <h4>Progress</h4>
       <div class="progress">
 
