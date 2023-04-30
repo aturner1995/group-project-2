@@ -14,7 +14,8 @@
       <p class="lead">{{Works.[0].title}}</p>
     </div>
   </header>
-  <form class="card mx-5">
+  <div class="d-flex justify-content-center">
+    <form class="card mx-5">
       <div class="form-group p-3">
         <label for="color">Choose a color:</label><br>
         <div class="my-3">
@@ -52,22 +53,25 @@
           <label class="form-check-label" for="template2">Template 2</label>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary gen-resume">Generate Resume</button>
-
+      <div class="d-flex justify-content-center my-2">
+        <button type="submit" class="btn btn-custom-2 gen-resume">Generate Resume</button>
+      </div>
     </form>
+  </div>
+  
 
 <section id="overview" class="mb-5 container">
 
 <div class="d-flex justify-content-center">
 
-     <a href="/jobs"> <button type="submit" class="btn btn-primary find-job m-4">Fnd Jobs</button></a>
+     <a href="/jobs"> <button type="submit" class="btn btn-custom-2 find-job m-4">Fnd Jobs</button></a>
 </div>
 
 
   <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
   <h2 class="mb-3">Overview</h2>
-      <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapsesview" aria-expanded="false" aria-controls="collapsesview">
+      <button type="button" class="btn btn-custom-2" data-bs-toggle="collapse" data-bs-target="#collapsesview" aria-expanded="false" aria-controls="collapsesview">
         <i class="fas fa-edit"></i> Edit
       </button>
     </div>
@@ -84,7 +88,7 @@
               <label for="overview-text" class="form-label text-primary">Provide your Professional Summary:</label>
               <textarea id="overview-text" class="form-control" rows="5" required>{{overviews.[0].text}}</textarea>
             </div>
-            <button type="button" class="btn btn-primary mb-3" onclick="saveOverview()">Save Overview</button>
+            <button type="button" class="btn btn-custom-2 mb-3" onclick="saveOverview()">Save Overview</button>
           </form>
         </div>
       </div>
@@ -97,7 +101,7 @@
       <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
     <h2 class="mb-3">Personal Details</h2>
-        <button type="button" class="btn btn-primary mt-3" type="button" data-bs-toggle="collapse"
+        <button type="button" class="btn btn-custom-2 mt-3" type="button" data-bs-toggle="collapse"
       data-bs-target="#collapsepersonal{{id}}" aria-expanded="false" aria-controls="collapsepersonal{{id}}">
       <i class="fas fa-edit"></i> Edit
     </button>
@@ -170,7 +174,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
       <h2>Skills</h2>
-      <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseskill" aria-expanded="false" aria-controls="collapseskill">
+      <button type="button" class="btn btn-custom-2" data-bs-toggle="collapse" data-bs-target="#collapseskill" aria-expanded="false" aria-controls="collapseskill">
         <i class="fas fa-plus me-2"></i> New
       </button>
     </div>
@@ -196,7 +200,7 @@
             </div>
             </div>
     
-          <button type="button" class="btn btn-primary mb-3" onclick="addSkill()">Add Skill</button>
+          <button type="button" class="btn btn-custom-2 mb-3" onclick="addSkill()">Add Skill</button>
         </form>
       </div>
     </div>
@@ -227,7 +231,7 @@
 <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h2 class="mb-0">Work Experience</h2>
-  <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
+  <button type="button" class="btn btn-custom-2" data-bs-toggle="collapse"
         data-bs-target="#collapsenew" aria-expanded="false"
         aria-controls="collapsenew"><i class="fas fa-plus me-2"> New</i></button>
 </div>
@@ -259,7 +263,7 @@
             <div class="form-group experience">
               <label for="responsibility">Responsibility:</label>
               <textarea class="form-control" id="responsibility" name="responsibility[]"></textarea>
-          <button type="button" class="btn btn-primary mb-3 float-end" onclick="addWorkExperience()">Add Experience</button>
+          <button type="button" class="btn btn-custom-2 mb-3 float-end" onclick="addWorkExperience()">Add Experience</button>
         </form>
       </div>
     </div>
@@ -329,7 +333,7 @@
                     </div>
                   </div>
                 </div>
-                <button type="button" class="btn btn-primary mb-3 mt-4 updateExp" id="{{work.id}}" >Update Experience</button>
+                <button type="button" class="btn btn-custom-2 mb-3 mt-4 updateExp" id="{{work.id}}" >Update Experience</button>
               </form>
             </div>
           </div>
@@ -342,7 +346,7 @@
  <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center">
       <h2 class="">Project Experience</h2>
-  <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
+  <button type="button" class="btn btn-custom-2" data-bs-toggle="collapse"
         data-bs-target="#collapsenewproject" aria-expanded="false"
         aria-controls="collapsenewproject"><i class="fas fa-plus me-2"> New</i></button>
 </div>
@@ -374,7 +378,7 @@
               <textarea class="form-control" id="responsibility" name="responsibility[]"></textarea>
             </div>
           </div>
-          <button type="button" class="btn btn-primary mb-3 mt-4" onclick="addproject()">Add Experience</button>
+          <button type="button" class="btn btn-custom-2 mb-3 mt-4" onclick="addproject()">Add Experience</button>
         </form>
 
         </div>
@@ -424,7 +428,7 @@
                       
                     </div>
                   </div>
-                  <button type="button" class="btn btn-primary mb-3 updateProject" id="{{project.id}}">Update Experience</button>
+                  <button type="button" class="btn btn-custom-2 mb-3 updateProject" id="{{project.id}}">Update Experience</button>
                 </form>
               </div>
             </div>
@@ -439,7 +443,7 @@
 <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h2 class="mb-0">Education</h2>
-  <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
+  <button type="button" class="btn btn-custom-2" data-bs-toggle="collapse"
         data-bs-target="#collapseneweducation" aria-expanded="false"
         aria-controls="collapseneweducation"><i class="fas fa-plus me-2"> New</i></button>
 </div>
@@ -477,7 +481,7 @@
           </div>
 
           <!-- Button to add new education details -->
-          <button type="button" class="btn btn-primary mb-3" onclick="addEducation()">Add Education</button>
+          <button type="button" class="btn btn-custom-2 mb-3" onclick="addEducation()">Add Education</button>
         </form>
 </div>
 </div>
@@ -537,7 +541,7 @@
                     </div>
                   </div>
 
-                  <button type="button" class="btn btn-primary mb-3 updatEdu" id="{{education.id}}">Update Education</button>
+                  <button type="button" class="btn btn-custom-2 mb-3 updatEdu" id="{{education.id}}">Update Education</button>
                 </form>
               </div>
             </div>
@@ -553,7 +557,7 @@
 <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h2 class="mb-0">Certification</h2>
-  <button type="button" class="btn btn-primary" data-bs-toggle="collapse"
+  <button type="button" class="btn btn-custom-2" data-bs-toggle="collapse"
         data-bs-target="#collapsenewcert" aria-expanded="false"
         aria-controls="collapsenewcert"><i class="fas fa-plus me-2"> New</i></button>
 </div>
@@ -586,7 +590,7 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary mb-3" onclick="addCertification()">Add Certification</button>
+          <button type="button" class="btn btn-custom-2 mb-3" onclick="addCertification()">Add Certification</button>
 
         </form>
 </div>
@@ -640,7 +644,7 @@
                       </div>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-primary mb-3 updateCert" id="{{certification.id}}">Update
+                  <button type="button" class="btn btn-custom-2 mb-3 updateCert" id="{{certification.id}}">Update
                     Certification</button>
 
                 </form>
@@ -659,6 +663,6 @@
 </div>
 </div>
   <script src="/js/profile.js"></script>
-  <script src="/js/resume.js"></script>
+  <script src="/js/dashboard.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 </body>
