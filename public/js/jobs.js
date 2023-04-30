@@ -60,8 +60,7 @@ async function fetchJobTitles() {
   fetchJobTitles();
   
   
-  fetchJobTitles();
-  
+
   
 
 
