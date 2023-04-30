@@ -32,7 +32,7 @@ async function addSkill() {
     body: JSON.stringify({ skillData, userTest }),
     headers: { "Content-Type": "application/json" },
   });
-  if (response.ok) {
+  if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
   }
 }
@@ -44,9 +44,19 @@ async function saveOverview() {
     body: JSON.stringify({ overviewText }),
     headers: { "Content-Type": "application/json" },
   });
-  if (response.ok) {
+  if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
+  }else{
+    if(overviewText){
+    var htmlwrite = `<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Overview</h5>
+      <p class="card-text">${overviewText}</p>
+    </div>
+  </div>`
   }
+}
+  $(".outputDIv").append(htmlwrite)
 }
 
 async function addEducation() {
@@ -72,9 +82,21 @@ async function addEducation() {
     body: JSON.stringify({ educationItem, userTest }),
     headers: { "Content-Type": "application/json" },
   });
-  if (response.ok) {
+  if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
+  }else{
+    if(school,degree){
+    var htmlwrite = `
+    <div class="card mb-3">
+      <div class="card-body py-2">
+        <h6 class="card-title mb-1">Education</h6>
+        <p class="card-text mb-0">${degree} details added successfully</p>
+      </div>
+    </div>
+  `;
   }
+}
+  $(".eduHtml").append(htmlwrite)
 }
 
 $(".updatEdu").on("click", async function () {
@@ -124,7 +146,7 @@ async function addPersonal() {
 
   let perosnalcollection = {
     name: name,
-    email: email,
+    email: email,                    
     phone: phone,
     address: address,
     github: github,
@@ -138,9 +160,19 @@ async function addPersonal() {
     body: JSON.stringify({ perosnalcollection }),
     headers: { "Content-Type": "application/json" },
   });
-  if (response.ok) {
+  if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
+  }else{
+    if(name,email,phone){
+    var htmlwrite = `<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Personal</h5>
+      <p class="card-text">${name} 's Personal details added successfully</p>
+    </div>
+  </div>`
   }
+}
+$(".personHtml").append(htmlwrite)
 }
 
 async function addWorkExperience() {
@@ -169,36 +201,19 @@ async function addWorkExperience() {
     headers: { "Content-Type": "application/json" },
   });
 
-  if (response.ok) {
+ if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
-  } else {
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-
-      const htmtRender = `<div class="row">
-<div class="col-md-4 mb-4">
-  <div class="card h-100">
+  }else{
+    if(companyName,jobTitle){
+    var htmlwrite = `<div class="card">
     <div class="card-body">
-      <h5 class="card-title">${companyName}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">${jobTitle}</h6>
+      <h5 class="card-title">Experience</h5>
+      <p class="card-text">${jobTitle} details added successfully</p>
     </div>
-    <div class="card-footer">
-      <small class="text-muted">${startDate} - ${endDate}</small>
-      <div class="btn-group float-right">
-        <button type="button" class="btn btn-light" ><i class="fas fa-edit"></i></button>
-        <button type="button" class="btn btn-light expdelete" id=""><i class="fas fa-trash"></i></button>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-      $(".experienceaddon").append(htmtRender);
-    } else {
-      throw new Error("Request failed");
-    }
+  </div>`
   }
+}
+  $(".expHtml").append(htmlwrite)
 }
 
 $(".updateExp").on("click", async function () {
@@ -374,9 +389,21 @@ async function addCertification() {
     body: JSON.stringify({ certificateDate }),
     headers: { "Content-Type": "application/json" },
   });
-  if (response.ok) {
+  if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
+  }else{
+    if(certName,issueOrg){
+    var htmlwrite = `
+    <div class="card mb-3">
+      <div class="card-body py-2">
+        <h6 class="card-title mb-1">Certification</h6>
+        <p class="card-text mb-0">${certName} details added successfully</p>
+      </div>
+    </div>
+  `;
+    }
   }
+  $(".certHtml").append(htmlwrite)
 }
 
 $(".updateCert").on("click", async function () {
@@ -427,20 +454,79 @@ async function addproject() {
     body: JSON.stringify({ projectData }),
     headers: { "Content-Type": "application/json" },
   });
-  if (response.ok) {
+  if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
+  }else{
+    if(projectName,yourRole){
+    var htmlwrite = `
+    <div class="card mb-3">
+      <div class="card-body py-2">
+        <h6 class="card-title mb-1">Experience</h6>
+        <p class="card-text mb-0">${projectName} details added successfully</p>
+      </div>
+    </div>
+  `;  
   }
 }
+  $(".proHtml").append(htmlwrite)
+}
 
-$(".nav-link").on("click", function () {
+$(".nav-link ").on("click", function () {
   const links = $(".nav-link");
   const progress = ((links.index(this) + 1) / links.length) * 100;
   const progressBar = $(".progress-bar");
   progressBar.css("width", progress + "%");
   progressBar.attr("aria-valuenow", progress);
 
-  if (progress == 100 && !$(".submitbutton").has("button").length) {
-    const submitb = `<button type="button" class="btn btn-primary submitall mb-3" href="/dashboard">Submit Profile</button>`;
-    $(".submitbutton").append(submitb);
+if (progress == 100 && !$(".submitbutton").has("button").length) {
+  const submitb = `
+    <a href="/dashboard" class="btn btn-primary submitall mb-3">Submit Profile</a>
+  `;
+  $(".submitbutton").append(submitb);
+}
+
+});
+const tabs = ["#overview-tab", "#personal-tab", "#skills-tab", "#work-tab", "#project-tab", "#education-tab", "#certification-tab"];
+let currentTab = 0;
+
+$("#next-tab-btn").click(() => {
+  if (currentTab < tabs.length - 1) {
+    currentTab++;
+    $(tabs[currentTab]).tab("show");
+  }
+});
+
+$("#prev-tab-btn").click(() => {
+  if (currentTab > 0) {
+    currentTab--;
+    $(tabs[currentTab]).tab("show");
+  }
+});
+$("#next-tab-btn").on("click", function () {
+  const currentTab = $(".nav-link.active");
+  const nextTab = currentTab.parent().find(".nav-link");
+  if (nextTab.length > 0) {
+    currentTab.removeClass("active");
+    nextTab.addClass("active");
+    const links = $(".nav-link");
+    const progress = ((links.index(nextTab) + 1) / links.length) * 100;
+    const progressBar = $(".progress-bar");
+    progressBar.css("width", progress + "%");
+    progressBar.attr("aria-valuenow", progress);
+  }
+});
+
+
+$("#prev-tab-btn").on("click", function () {
+  const currentTab = $(".nav-link.active");
+  const prevTab = currentTab.parent().find(".nav-link");
+  if (prevTab.length > 0) {
+    currentTab.removeClass("active");
+    prevTab.addClass("active");
+    const links = $(".nav-link");
+    const progress = ((links.index(prevTab) + 1) / links.length) * 100;
+    const progressBar = $(".progress-bar");
+    progressBar.css("width", progress + "%");
+    progressBar.attr("aria-valuenow", progress);
   }
 });
