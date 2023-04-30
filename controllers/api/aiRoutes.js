@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Configuration, OpenAIApi } = require('openai');
-const { Person, Overview, Certification, Education, Project, Skill, Work } = require('../../models');
+const { User, Overview, Work, AiWork, AiOverview } = require('../../models');
 
 require('dotenv').config();
 
@@ -10,21 +10,21 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 
-router.get('/overview', async (req,res) => {
+router.get('/overview', async (req, res) => {
     try {
-
-        const resumeData = await Person.findByPk(1, {
+        const resumeData = await User.findByPk(req.session.user_id, {
+            attributes: { exclude: ['password'] },
             include: [
-                {model: Overview}, {model: Certification}, {model: Education}, {model: Skill}, {model: Work}, {model:Project}
+                { model: Overview }, { model: AiOverview }, { model: Work }, { model: AiWork }
             ]
         });
 
         const response = await openai.createCompletion({
             model: "text-ada-001",
             prompt: `
-            Overview: ${resumeData.overview.text}
+            Overview: ${resumeData.overviews[0].text}
             """
-            Rewrite this resume summary from the current overview by including at least three to five of the following: Title of role pursuing (do not identify as a student), Background experience that connects to the role you are pursuing, Two to three transferable skills, Years of related experience, Accomplishments, recognitions, and/or awards & Training or certificates`,
+            Rewrite this resume summary from the current overview by using best practices for writing a resume professional summary`,
             temperature: 0,
             max_tokens: 1000,
             top_p: 1.0,
@@ -32,23 +32,41 @@ router.get('/overview', async (req,res) => {
             presence_penalty: 0.0,
         });
 
-        res.status(200).json({
-            success: true,
-            data: response.data
-        });
+        console.log(response.data)
+        console.log(resumeData)
+
+        if (resumeData.aioverviews.length) {
+            const newOverview = await AiOverview.update({
+                text: response.data.choices[0].text,
+                user_id: req.session.user_id
+            },
+                {
+                    where: {
+                        user_id: req.session.user_id,
+                    },
+                })
+        }
+        else {
+            const newOverview = await AiOverview.create({
+                text: response.data.choices[0].text,
+                user_id: req.session.user_id
+            })
+        }
+        res.status(200).json({ message: "Resume overview updated with AI!" })
     }
-    catch(err) {
-        res.status(400).json(err);
+    catch (err) {
+        res.status(500).json(err);
     }
 });
 
 
-router.get('/experience', async (req,res) => {
+router.get('/experience', async (req, res) => {
     try {
 
-        const resumeData = await Person.findByPk(1, {
+        const resumeData = await User.findByPk(req.session.user_id, {
+            attributes: { exclude: ['password'] },
             include: [
-                {model: Overview}, {model: Certification}, {model: Education}, {model: Skill}, {model: Work}, {model:Project}
+                { model: Person }, { model: Overview }, { model: Certification }, { model: Education }, { model: Skill }, { model: Work }, { model: Project }
             ]
         });
 
@@ -71,7 +89,7 @@ router.get('/experience', async (req,res) => {
             data: response.data
         });
     }
-    catch(err) {
+    catch (err) {
         res.status(400).json(err);
     }
 })

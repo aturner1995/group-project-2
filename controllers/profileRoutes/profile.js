@@ -12,7 +12,6 @@ router.get("/",async (req, res) => {
     })
   
     const test = dbData.get({ plain: true });
-    console.log(test)
   res.render ('testing',{test})
   });
 

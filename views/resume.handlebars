@@ -23,7 +23,7 @@
             <input class="form-check-input pink" type="radio" name="color" id="color3" value="pink">
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input yellow" type="radio" name="color" id="color3" value="yello">
+            <input class="form-check-input yellow" type="radio" name="color" id="color3" value="yellow">
           </div>
         </div>
       </div>
@@ -38,12 +38,37 @@
           <label class="form-check-label" for="template2">Template 2</label>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Generate Resume</button>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-custom-2 gen-resume">Generate Resume</button>
+      </div>
+      <div class="d-flex justify-content-center my-2">
+        <a href="/api/resume/download" download class="btn btn-custom-2 down-resume">Download Resume</a>
+      </div>
     </form>
   </div>
   <div class="col-lg-9">
-    <div class="pdf-container d-flex justify-content-center">
-      <embed src="/resume.pdf" type="application/pdf" width="100%" height="600px" />
+    <div class="d-flex justify-content-center mb-2">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#resume">Resume</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#ai-generated-resume">AI Generated Resume <span
+              class="badge bg-success">New</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="tab-content">
+      <div id="resume" class="tab-pane fade-in active">
+          <div class="d-flex justify-content-center">
+             <embed src="/resume.pdf" type="application/pdf" width="100%" height="600px" />
+        </div>
+      </div>
+      <div id="ai-generated-resume" class="tab-pane fade">
+        <div class="d-flex justify-content-center">
+              <embed src="/ai-resume.pdf" type="application/pdf" width="100%" height="800px" />
+        </div>
+      </div>
     </div>
   </div>
 </div>
