@@ -40,4 +40,22 @@ router.get('/resume', (req, res) => {
 })
 
 module.exports = router;
+router.get('/jobs', (req, res) => {
+  res.render('jobs', {
+    logged_in: req.session.logged_in
+  })
+})
+
+
+router.get("/jobs/title", async (req, res) => {
+  try {
+    const dbData = await User.findByPk(req.session.user_id, {
+      include: [{ model: Work}],
+    });
+    res.json(dbData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
