@@ -76,7 +76,7 @@ router.post("/dashboard/pic", async (req, res) => {
     const sampleFile = req.files.profile_picture;
     console.log(sampleFile);
 
-    const uploadPath = __dirname +  '/../profilepicuploads/' + sampleFile.name ;
+    const uploadPath = __dirname +  '/../public/' + sampleFile.name ;
     console.log(uploadPath);
 
     await sampleFile.mv(uploadPath);
@@ -117,7 +117,8 @@ router.delete("/dashboard/pic", async (req, res) =>{
     }
 
     const filename = profilepic.filename;
-    const filepath = path.join(__dirname +'/../profilepicuploads/' + filename);
+    const filepath = path.join(__dirname + '/../public/' +  filename)
+    console.log(filepath)
     fs.unlinkSync(filepath);
     await profilepic.destroy();
     res.sendStatus(204);
