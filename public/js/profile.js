@@ -226,6 +226,7 @@ $(".updateExp").on("click", async function () {
   var responsibility = $(this).closest(".card").find("#responsibility").val();
 
   console.log(workId);
+  console.log(jobTitle);
 
   let experiencedata = {
     companyName: companyName,
@@ -234,11 +235,8 @@ $(".updateExp").on("click", async function () {
     location: location,
     responsibility: responsibility,
     startDate: startDate,
-    userTest: userTest,
     workId: workId,
   };
-
-  console.log(experiencedata);
 
   response = await fetch("/profile/new/experience", {
     method: "PUT",

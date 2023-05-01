@@ -19,7 +19,18 @@ const generateResume = async (event) => {
     })
 
     if (response.ok) {
-        document.location = '/resume';
+
+        const aiResponse = await fetch(`api/resume/ai/generate/${selectedTemplate}?color=${selectedColor}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/pdf' }
+        })
+
+        if (aiResponse.ok) {
+            document.location.reload();
+        }
+        else {
+            alert('Failed to create Resume');
+        }
     }
     else {
         alert('Failed to create Resume');

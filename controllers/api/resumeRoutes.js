@@ -2,7 +2,7 @@ const router = require('express').Router();
 const PDFDocument = require('pdfkit');
 const path = require('path');
 const fs = require('fs');
-const { User, Person, Overview, Certification, Education, Project, Skill, Work, AiOverview, AiWork } = require('../../models');
+const { User, Person, Overview, Certification, Education, Project, Skill, Work, AiInfo } = require('../../models');
 
 // View the resume for the client
 router.get('/view', (req, res) => {
@@ -13,16 +13,15 @@ router.get('/view', (req, res) => {
 // Download the resume from the file system for the user
 router.get('/download', (req, res) => {
     try {
-        const file = 'public/resume.pdf';
+        const file = `public/${req.query.file}.pdf`;
 
         fs.readFile(file, (err, data) => {
             if (err) {
                 res.status(500).json({ "message": "Internal Server Error" });
                 return;
             }
-            console.log(data)
             res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-Disposition', 'attachment; filename=resume.pdf');
+            res.setHeader('Content-Disposition', `attachment; filename=${req.query.file}.pdf`);
             res.status(200).send(data);
         })
     }
@@ -194,6 +193,7 @@ router.get('/generate/2', async (req, res) => {
             align: 'center'
         });
         pdfDoc.moveDown();
+        pdfDoc.moveDown();
         pdfDoc.fontSize(12).fillColor('black').text(resumeData.overviews[0].text, {
             align: 'left'
         });
@@ -284,16 +284,17 @@ router.get('/generate/2', async (req, res) => {
 });
 
 router.get('/ai/generate/1', async (req, res) => {
-    console.log('I get here')
     try {
         const headerColor = req.query.color;
 
         const resumeData = await User.findByPk(req.session.user_id, {
             attributes: { exclude: ['password'] },
             include: [
-                { model: Person }, { model: AiOverview }, { model: Certification }, { model: Education }, { model: Skill }, { model: Work }, { model: Project }
+                { model: Person }, { model: AiInfo }, { model: Certification }, { model: Education }, { model: Skill }, { model: Work }, { model: Project }
             ]
         });
+
+        console.log(resumeData)
 
         // Filter Skill Data for skill section
         const languagesSkills = resumeData.skills.filter((skill => skill.level === 'language'));
@@ -319,7 +320,7 @@ router.get('/ai/generate/1', async (req, res) => {
             align: 'center'
         });
         pdfDoc.moveDown();
-        pdfDoc.fontSize(12).text(resumeData.aioverviews[0].text, {
+        pdfDoc.fontSize(12).text(resumeData.aiinfos[0].overview, {
             align: 'left'
         });
         pdfDoc.moveDown();
@@ -368,15 +369,28 @@ router.get('/ai/generate/1', async (req, res) => {
             .lineTo(540, pdfDoc.y)
             .stroke();
         pdfDoc.moveDown();
-        resumeData.Works.map(exp => {
+        resumeData.Works.forEach(exp => {
             const startYear = new Date(exp.startDate).getFullYear();
             const endYear = new Date(exp.endDate).getFullYear();
             pdfDoc.fontSize(12).fillColor('black').text(exp.company, { align: 'left', continued: true })
                 .text(`${startYear} - ${endYear}`, { align: 'right' })
-                .text(`${exp.title}`)
-                .text(exp.responsibility);
+                .text(`${exp.title}`);
+            // Check if the current job has bullet points
+            const responsibility = JSON.parse(resumeData.aiinfos[0].responsibility);
+            const bulletPoints = responsibility.find(ai => ai.title === exp.title)?.bulletPoints;
+            if (bulletPoints) {
+                // If bullet points exist, add each one as a separate text line
+                bulletPoints.forEach(point => {
+                    pdfDoc.list([point], { bulletRadius: 2, textIndent: 15 });
+                });
+            } else {
+                // If no bullet points exist, add the responsibility as a single text line
+                pdfDoc.text(exp.responsibility);
+            }
+
             pdfDoc.moveDown();
         });
+
         pdfDoc.moveDown();
         // Education Section
         pdfDoc.fontSize(16).fillColor(headerColor).text('Education');
@@ -409,7 +423,6 @@ router.get('/ai/generate/1', async (req, res) => {
 });
 
 router.get('/ai/generate/2', async (req, res) => {
-    console.log('I get here')
 
     try {
         const headerColor = req.query.color;
@@ -417,7 +430,7 @@ router.get('/ai/generate/2', async (req, res) => {
         const resumeData = await User.findByPk(req.session.user_id, {
             attributes: { exclude: ['password'] },
             include: [
-                { model: Person }, { model: AiOverview }, { model: Certification }, { model: Education }, { model: Skill }, { model: Work }, { model: Project }
+                { model: Person }, { model: AiInfo }, { model: Certification }, { model: Education }, { model: Skill }, { model: Work }, { model: Project }
             ]
         });
 
@@ -432,7 +445,7 @@ router.get('/ai/generate/2', async (req, res) => {
 
         // Set the PDF document to be downloaded as a file
         res.type('application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename="resume.pdf"');
+        res.setHeader('Content-Disposition', 'attachment; filename="ai-resume.pdf"');
 
         // Add the content to the PDF document
         pdfDoc.fillColor(headerColor).rect(0, 0, 612, 135).fill();
@@ -446,7 +459,7 @@ router.get('/ai/generate/2', async (req, res) => {
             align: 'center'
         });
         pdfDoc.moveDown();
-        pdfDoc.fontSize(12).fillColor('black').text(resumeData.aioverviews[0].text, {
+        pdfDoc.fontSize(12).fillColor('black').text(resumeData.aiinfos[0].overview, {
             align: 'left'
         });
         pdfDoc.moveDown();
@@ -495,16 +508,28 @@ router.get('/ai/generate/2', async (req, res) => {
             .lineTo(540, pdfDoc.y)
             .stroke();
         pdfDoc.moveDown();
-        resumeData.Works.map(exp => {
+        resumeData.Works.forEach(exp => {
             const startYear = new Date(exp.startDate).getFullYear();
             const endYear = new Date(exp.endDate).getFullYear();
             pdfDoc.fontSize(12).fillColor('black').text(exp.company, { align: 'left', continued: true })
                 .text(`${startYear} - ${endYear}`, { align: 'right' })
-                .text(`${exp.title}`)
-                .text(exp.responsibility);
+                .text(`${exp.title}`);
+
+            // Check if the current job has bullet points
+            const responsibility = JSON.parse(resumeData.aiinfos[0].responsibility);
+            const bulletPoints = responsibility.find(ai => ai.title === exp.title)?.bulletPoints;
+            if (bulletPoints) {
+                // If bullet points exist, add each one as a separate text line
+                bulletPoints.forEach(point => {
+                    pdfDoc.list([point], { bulletRadius: 2, textIndent: 15 });
+                });
+            } else {
+                // If no bullet points exist, add the responsibility as a single text line
+                pdfDoc.text(exp.responsibility);
+            }
+
             pdfDoc.moveDown();
         });
-        pdfDoc.moveDown();
         // Education Section
         pdfDoc.fontSize(16).fillColor(headerColor).text('Education');
         pdfDoc
@@ -524,7 +549,7 @@ router.get('/ai/generate/2', async (req, res) => {
         })
 
         // Pipe the PDF document to the response object and end the response
-        const filePath = path.join(__dirname, '../../public/resume.pdf')
+        const filePath = path.join(__dirname, '../../public/ai-resume.pdf')
         pdfDoc.pipe(fs.createWriteStream(filePath));
         pdfDoc.end();
 
