@@ -1,3 +1,76 @@
-<div class="pdf-container d-flex justify-content-center m-5">
-  <embed src="/resume.pdf" type="application/pdf" width="100%" height="600px" />
+¬ <div class="row container-fluid">
+  <div class="col-lg-3 my-5 ps-5">
+    <form class="card">
+      <div class="form-group p-3">
+        <label for="color">Choose a color:</label><br>
+        <div class="my-3">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input black" type="radio" name="color" id="color1" value="black" checked>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input red" type="radio" name="color" id="color1" value="red">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input blue" type="radio" name="color" id="color2" value="blue">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input orange" type="radio" name="color" id="color3" value="orange">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input purple" type="radio" name="color" id="color3" value="purple">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input pink" type="radio" name="color" id="color3" value="pink">
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input yellow" type="radio" name="color" id="color3" value="yellow">
+          </div>
+        </div>
+      </div>
+      <div class="form-group px-3">
+        <label for="template">Choose a template:</label><br>
+        <div class="form-check form-check-inline my-3">
+          <input class="form-check-input" type="radio" name="template" id="template1" value="template1" checked>
+          <label class="form-check-label" for="template1">Template 1</label>
+        </div>
+        <div class="form-check form-check-inline my-3">
+          <input class="form-check-input" type="radio" name="template" id="template2" value="template2">
+          <label class="form-check-label" for="template2">Template 2</label>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-custom-2 gen-resume">Generate Resume</button>
+      </div>
+      <div class="d-flex justify-content-center my-2">
+        <a href="/api/resume/download" download class="btn btn-custom-2 down-resume">Download Resume</a>
+      </div>
+    </form>
+  </div>
+  <div class="col-lg-9">
+    <div class="d-flex justify-content-center mb-2">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#resume">Resume</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#ai-generated-resume">AI Generated Resume <span
+              class="badge bg-success">New</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="tab-content">
+      <div id="resume" class="tab-pane fade-in active">
+          <div class="d-flex justify-content-center">
+             <embed src="/resume.pdf" type="application/pdf" width="100%" height="600px" />
+        </div>
+      </div>
+      <div id="ai-generated-resume" class="tab-pane fade">
+        <div class="d-flex justify-content-center">
+              <embed src="/ai-resume.pdf" type="application/pdf" width="100%" height="800px" />
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script src="./js/resume.js"></script>
