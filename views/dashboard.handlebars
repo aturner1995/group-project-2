@@ -10,7 +10,26 @@
 
   <header class="jumbotron text-center bg-light d-flex justify-content-center">
     <div class="container row">
+       
       <div class="col-lg-6 d-flex flex-column justify-content-center">
+{{#unless profilepic.filename}}
+<div class="alert alert-info" role="alert">
+  <p>You have not uploaded your profile picture yet.</p>
+</div>
+{{/unless}}
+
+<div class="profile-pic">
+  <img src="{{profilepic.filename}}" alt="profile picture">
+  <button id="edit-btn"><i class="fas fa-edit"></i></button>
+  <button id="removepic-btn">  <i class="fas fa-trash"></i></button>
+</div>
+
+
+<form enctype="multipart/form-data" id="upload-form" style="display: none;">
+  <input type="file" name="profile_picture" id="profile-picture-input">
+  <button type="submit" class="btn btn-custom-2 uploadprofile">Upload</button>
+</form>
+
         <h1 class="display-4 mt-3">{{people.[0].name}}</h1>
         <p class="lead">{{Works.[0].title}}</p>
       </div>
@@ -371,12 +390,12 @@
                   <input type="text" class="form-control" id="your-title">
                 </div>
                 <div class="form-group experience">
-                  <label for="start-date">Start Date:</label>
-                  <input type="date" class="form-control" id="start-Date">
+                  <label for="start-date">Deployed URL :</label>
+                  <input type="text" class="form-control" id="deployedURL">
                 </div>
                 <div class="form-group experience">
-                  <label for="end-date">End Date:</label>
-                  <input type="date" class="form-control " id="end-Date">
+                  <label for="end-date">Github repository link</label>
+                  <input type="text" class="form-control " id="githubRepo">
                 </div>
 
                 <div class="form-group experience">
@@ -400,7 +419,7 @@
           <div class="card-body">
             <h3 class="card-title">{{project.projectName}}</h3>
             <h4 class="card-title">{{project.yourRole}}</h4>
-            <p class="card-subtitle mb-2 text-muted">{{project.startDate}} - {{project.endDate}}</p>
+            <p class="card-subtitle mb-2 text-muted">{{project.githubrepo}} - {{project.githuburl}}</p>
           </div>
           <div class="btn-group float-right">
             <button type="button" class="btn btn-light" data-bs-toggle="collapse"
@@ -422,12 +441,12 @@
                     <input type="text" class="form-control" id="your-title" value={{project.yourRole}}>
                   </div>
                   <div class="form-group experience">
-                    <label for="start-date">Start Date:</label>
-                    <input type="date" class="form-control" id="start-date" value={{project.startDate}}>
+                    <label for="start-date">Deployed URL :</label>
+                    <input type="text" class="form-control" id="deployedURL" value={{project.githuburl}}>
                   </div>
                   <div class="form-group experience">
-                    <label for="end-date">End Date:</label>
-                    <input type="date" class="form-control" id="end-date" value={{project.endDate}}>
+                    <label for="end-date">Github repository link:</label>
+                    <input type="text" class="form-control" id="githubRepo" value={{project.githubrepo}}>
                   </div>
                   <div class="form-group experience">
                     <label for="responsibility">Responsibility:</label>

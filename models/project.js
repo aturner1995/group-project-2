@@ -18,11 +18,11 @@ Project.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  startDate: {
+  githuburl: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  endDate: {
+  githubrepo: {
     type: DataTypes.STRING,
     allowNull: false
   },
