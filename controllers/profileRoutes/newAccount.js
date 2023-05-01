@@ -119,7 +119,6 @@ router.post("/education", async (req, res) => {
 router.post("/skill", async (req, res) => {
   try {
     requiredData = req.body.skillData;
-    console.log(requiredData)
 
     const newSkill = await Skill.create({
       name: requiredData.skillName,
@@ -244,10 +243,6 @@ router.post("/experience", async (req, res) => {
     res.status(500).json({ message: "Unable to create personal record", error: error.message });
   }
 });
-
-
-
-
 
 
 router.put("/experience", async (req, res) => {

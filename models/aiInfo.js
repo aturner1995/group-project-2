@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class AiOverview extends Model { }
+class AiInfo extends Model { }
 
-AiOverview.init({
+AiInfo.init({
 
   id: {
     type: DataTypes.INTEGER,
@@ -11,8 +11,12 @@ AiOverview.init({
     primaryKey: true,
     autoIncrement: true,
   },
-  text: {
+  overview: {
     type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  responsibility: {
+    type: DataTypes.JSON,
     allowNull: false,
   },
   user_id: {
@@ -27,8 +31,8 @@ AiOverview.init({
     sequelize,
     timestamps: false,
     freezeTableName: true,
-    modelName: 'aioverview',
+    modelName: 'aiinfo',
     underscored: true,
   });
 
-module.exports = AiOverview;
+module.exports = AiInfo;

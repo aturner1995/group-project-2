@@ -6,8 +6,7 @@ const Work = require("./work");
 const Certification = require("./cerification");
 const Project = require("./project");
 const User = require('./user');
-const AiWork = require('./aiWork');
-const AiOverview = require('./aiOverview');
+const AiInfo = require('./aiInfo');
 
 User.hasMany(Person, {
     foreignKey: 'user_id',
@@ -24,7 +23,7 @@ User.hasMany(Overview, {
     onDelete: 'CASCADE'
 });
 
-User.hasMany(AiOverview, {
+User.hasMany(AiInfo, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
 });
@@ -35,11 +34,6 @@ User.hasMany(Skill, {
 });
 
 User.hasMany(Work, {
-    foreignKey: 'user_id',
-    onDelete: 'CASCADE'
-});
-
-User.hasMany(AiWork, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
 });
@@ -66,7 +60,7 @@ Overview.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
-AiOverview.belongsTo(User, {
+AiInfo.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
@@ -78,10 +72,6 @@ Work.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
-AiWork.belongsTo(User, {
-    foreignKey: 'user_id'
-});
-
 Certification.belongsTo(User, {
     foreignKey: 'user_id'
 });
@@ -90,4 +80,4 @@ Project.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
-module.exports = { Person, Work, Education, Certification, Overview, Skill, Project, User, AiWork, AiOverview };
+module.exports = { Person, Work, Education, Certification, Overview, Skill, Project, User, AiInfo};

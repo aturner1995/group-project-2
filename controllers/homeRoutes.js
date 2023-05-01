@@ -9,17 +9,18 @@ router.get("/dashboard", async (req, res) => {
   })
 
   const allData = dbData.get({ plain: true });
-  console.log(allData)
 
   res.render('dashboard', {
     ...allData,
-    logged_in: true
+    logged_in: req.session.logged_in,
+    user_id: req.session.user_id
   })
 });
 
 router.get('/', (req, res) => {
   res.render('homepage', {
-    logged_in: req.session.logged_in
+    logged_in: req.session.logged_in,
+    user_id: req.session.user_id
   })
 });
 
@@ -35,14 +36,16 @@ router.get('/login', (req, res) => {
 
 router.get('/resume', (req, res) => {
   res.render('resume', {
-    logged_in: req.session.logged_in
+    logged_in: req.session.logged_in,
+    user_id: req.session.user_id
   })
 })
 
 module.exports = router;
 router.get('/jobs', (req, res) => {
   res.render('jobs', {
-    logged_in: req.session.logged_in
+    logged_in: req.session.logged_in,
+    user_id: req.session.user_id
   })
 })
 
