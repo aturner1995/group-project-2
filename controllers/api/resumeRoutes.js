@@ -43,10 +43,10 @@ router.get('/generate/1', async (req, res) => {
         });
 
         // Filter Skill Data for skill section
-        const languagesSkills = resumeData.skills.filter((skill => skill.level === 'language'));
-        const toolSkills = resumeData.skills.filter((skill => skill.level === 'tool'));
-        const applicationSkills = resumeData.skills.filter((skill => skill.level === 'application'));
-        const nonTechSkills = resumeData.skills.filter((skill => skill.level === 'nonTech'));
+        const languagesSkills = resumeData.skills.filter((skill => skill.level === 'Languages'));
+        const toolSkills = resumeData.skills.filter((skill => skill.level === 'Tools'));
+        const applicationSkills = resumeData.skills.filter((skill => skill.level === 'Applications'));
+        const nonTechSkills = resumeData.skills.filter((skill => skill.level === 'Non-Tech Skills'));
 
         // Create a new PDF document
         const pdfDoc = new PDFDocument();
@@ -71,6 +71,7 @@ router.get('/generate/1', async (req, res) => {
         });
         pdfDoc.moveDown();
         // Skills Section
+        // console.log(resumeData.skills);
         if (languagesSkills.length || toolSkills.length || applicationSkills.length || nonTechSkills.length) {
             pdfDoc.fontSize(16).fillColor(headerColor).text('Technical Skills');
             pdfDoc
@@ -94,19 +95,21 @@ router.get('/generate/1', async (req, res) => {
             pdfDoc.moveDown();
         }
         // Project Section
-        pdfDoc.fontSize(16).fillColor(headerColor).text('Projects');
-        pdfDoc
-            .strokeColor('gray', 0.5)
-            .moveTo(70, pdfDoc.y)
-            .lineTo(540, pdfDoc.y)
-            .stroke();
-        pdfDoc.moveDown();
-        resumeData.projects.map(project => {
-            pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.repo} | Deployed: ${project.deployment}`);
-            pdfDoc.fontSize(12).text(project.yourRole)
-            pdfDoc.fontSize(12).text(project.responsibility)
+        if (resumeData.projects.length) {
+            pdfDoc.fontSize(16).fillColor(headerColor).text('Projects');
+            pdfDoc
+                .strokeColor('gray', 0.5)
+                .moveTo(70, pdfDoc.y)
+                .lineTo(540, pdfDoc.y)
+                .stroke();
             pdfDoc.moveDown();
-        })
+            resumeData.projects.map(project => {
+                pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.githubrepo} | Deployed: ${project.githuburl}`)
+                    .text(project.yourRole)
+                    .text(project.responsibility)
+                pdfDoc.moveDown();
+            })
+        }
         // Professional Experience Section
         pdfDoc.fontSize(16).fillColor(headerColor).text('Professional Experience');
         pdfDoc
@@ -142,6 +145,42 @@ router.get('/generate/1', async (req, res) => {
                 .text(edu.educationdetail);
             pdfDoc.moveDown();
         })
+        // Education Section
+        pdfDoc.fontSize(16).fillColor(headerColor).text('Education');
+        pdfDoc
+            .strokeColor('gray', 0.5)
+            .moveTo(70, pdfDoc.y)
+            .lineTo(540, pdfDoc.y)
+            .stroke();
+        pdfDoc.moveDown();
+        resumeData.education.map(edu => {
+            const startYear = new Date(edu.startDate).getFullYear();
+            const endYear = new Date(edu.endDate).getFullYear();
+            pdfDoc.fontSize(12).fillColor('black').text(edu.school)
+                .text(`${startYear} - ${endYear}`)
+                .text(edu.degree)
+                .text(edu.educationdetail);
+            pdfDoc.moveDown();
+        })
+        // Certifications Section
+        if (resumeData.certifications.length) {
+            pdfDoc.fontSize(16).fillColor(headerColor).text('Certifications');
+            pdfDoc
+                .strokeColor('gray', 0.5)
+                .moveTo(70, pdfDoc.y)
+                .lineTo(540, pdfDoc.y)
+                .stroke();
+            pdfDoc.moveDown();
+            resumeData.certifications.map(cert => {
+                pdfDoc.fontSize(12).fillColor('black').text(cert.name)
+                    .text(cert.organization)
+                    .text(`Date Earned: ${cert.dateEarned}`);
+                if (cert.expireDate) {
+                    pdfDoc.fontSize(12).text(`Expiry Date: ${cert.expireDate}`)
+                }
+                pdfDoc.moveDown();
+            })
+        }
 
         // Pipe the PDF document to the response object and end the response
         const filePath = path.join(__dirname, '../../public/resume.pdf')
@@ -169,10 +208,10 @@ router.get('/generate/2', async (req, res) => {
         });
 
         // Filter Skill Data for skill section
-        const languagesSkills = resumeData.skills.filter((skill => skill.level === 'language'));
-        const toolSkills = resumeData.skills.filter((skill => skill.level === 'tool'));
-        const applicationSkills = resumeData.skills.filter((skill => skill.level === 'application'));
-        const nonTechSkills = resumeData.skills.filter((skill => skill.level === 'nonTech'));
+        const languagesSkills = resumeData.skills.filter((skill => skill.level === 'Languages'));
+        const toolSkills = resumeData.skills.filter((skill => skill.level === 'Tools'));
+        const applicationSkills = resumeData.skills.filter((skill => skill.level === 'Applications'));
+        const nonTechSkills = resumeData.skills.filter((skill => skill.level === 'Non-Tech Skills'));
 
         // Create a new PDF document
         const pdfDoc = new PDFDocument();
@@ -222,19 +261,21 @@ router.get('/generate/2', async (req, res) => {
             pdfDoc.moveDown();
         }
         // Project Section
-        pdfDoc.fontSize(16).fillColor(headerColor).text('Projects');
-        pdfDoc
-            .strokeColor('gray', 0.5)
-            .moveTo(70, pdfDoc.y)
-            .lineTo(540, pdfDoc.y)
-            .stroke();
-        pdfDoc.moveDown();
-        resumeData.projects.map(project => {
-            pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.repo} | Deployed: ${project.deployment}`);
-            pdfDoc.fontSize(12).text(project.yourRole)
-            pdfDoc.fontSize(12).text(project.responsibility)
+        if (resumeData.projects.length) {
+            pdfDoc.fontSize(16).fillColor(headerColor).text('Projects');
+            pdfDoc
+                .strokeColor('gray', 0.5)
+                .moveTo(70, pdfDoc.y)
+                .lineTo(540, pdfDoc.y)
+                .stroke();
             pdfDoc.moveDown();
-        })
+            resumeData.projects.map(project => {
+                pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.githubrepo} | Deployed: ${project.githuburl}`)
+                    .text(project.yourRole)
+                    .text(project.responsibility)
+                pdfDoc.moveDown();
+            })
+        }
         // Professional Experience Section
         pdfDoc.fontSize(16).fillColor(headerColor).text('Professional Experience');
         pdfDoc
@@ -270,6 +311,25 @@ router.get('/generate/2', async (req, res) => {
                 .text(edu.educationdetail);
             pdfDoc.moveDown();
         })
+        // Certifications Section
+        if (resumeData.certifications.length) {
+            pdfDoc.fontSize(16).fillColor(headerColor).text('Certifications');
+            pdfDoc
+                .strokeColor('gray', 0.5)
+                .moveTo(70, pdfDoc.y)
+                .lineTo(540, pdfDoc.y)
+                .stroke();
+            pdfDoc.moveDown();
+            resumeData.certifications.map(cert => {
+                pdfDoc.fontSize(12).fillColor('black').text(cert.name)
+                    .text(cert.organization)
+                    .text(`Date Earned: ${cert.dateEarned}`);
+                if (cert.expireDate) {
+                    pdfDoc.fontSize(12).text(`Expiry Date: ${cert.expireDate}`)
+                }
+                pdfDoc.moveDown();
+            })
+        }
 
         // Pipe the PDF document to the response object and end the response
         const filePath = path.join(__dirname, '../../public/resume.pdf')
@@ -294,13 +354,11 @@ router.get('/ai/generate/1', async (req, res) => {
             ]
         });
 
-        console.log(resumeData)
-
         // Filter Skill Data for skill section
-        const languagesSkills = resumeData.skills.filter((skill => skill.level === 'language'));
-        const toolSkills = resumeData.skills.filter((skill => skill.level === 'tool'));
-        const applicationSkills = resumeData.skills.filter((skill => skill.level === 'application'));
-        const nonTechSkills = resumeData.skills.filter((skill => skill.level === 'nonTech'));
+        const languagesSkills = resumeData.skills.filter((skill => skill.level === 'Languages'));
+        const toolSkills = resumeData.skills.filter((skill => skill.level === 'Tools'));
+        const applicationSkills = resumeData.skills.filter((skill => skill.level === 'Applications'));
+        const nonTechSkills = resumeData.skills.filter((skill => skill.level === 'Non-Tech Skills'));
 
         // Create a new PDF document
         const pdfDoc = new PDFDocument();
@@ -348,19 +406,21 @@ router.get('/ai/generate/1', async (req, res) => {
             pdfDoc.moveDown();
         }
         // Project Section
-        pdfDoc.fontSize(16).fillColor(headerColor).text('Projects');
-        pdfDoc
-            .strokeColor('gray', 0.5)
-            .moveTo(70, pdfDoc.y)
-            .lineTo(540, pdfDoc.y)
-            .stroke();
-        pdfDoc.moveDown();
-        resumeData.projects.map(project => {
-            pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.repo} | Deployed: ${project.deployment}`);
-            pdfDoc.fontSize(12).text(project.yourRole)
-            pdfDoc.fontSize(12).text(project.responsibility)
+        if (resumeData.projects.length) {
+            pdfDoc.fontSize(16).fillColor(headerColor).text('Projects');
+            pdfDoc
+                .strokeColor('gray', 0.5)
+                .moveTo(70, pdfDoc.y)
+                .lineTo(540, pdfDoc.y)
+                .stroke();
             pdfDoc.moveDown();
-        })
+            resumeData.projects.map(project => {
+                pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.githubrepo} | Deployed: ${project.githuburl}`)
+                    .text(project.yourRole)
+                    .text(project.responsibility)
+                pdfDoc.moveDown();
+            })
+        }
         // Professional Experience Section
         pdfDoc.fontSize(16).fillColor(headerColor).text('Professional Experience');
         pdfDoc
@@ -409,6 +469,25 @@ router.get('/ai/generate/1', async (req, res) => {
                 .text(edu.educationdetail);
             pdfDoc.moveDown();
         })
+        // Certifications Section
+        if (resumeData.certifications.length) {
+            pdfDoc.fontSize(16).fillColor(headerColor).text('Certifications');
+            pdfDoc
+                .strokeColor('gray', 0.5)
+                .moveTo(70, pdfDoc.y)
+                .lineTo(540, pdfDoc.y)
+                .stroke();
+            pdfDoc.moveDown();
+            resumeData.certifications.map(cert => {
+                pdfDoc.fontSize(12).fillColor('black').text(cert.name)
+                    .text(cert.organization)
+                    .text(`Date Earned: ${cert.dateEarned}`);
+                if (cert.expireDate) {
+                    pdfDoc.fontSize(12).text(`Expiry Date: ${cert.expireDate}`)
+                }
+                pdfDoc.moveDown();
+            })
+        }
 
         // Pipe the PDF document to the response object and end the response
         const filePath = path.join(__dirname, '../../public/ai-resume.pdf')
@@ -435,10 +514,10 @@ router.get('/ai/generate/2', async (req, res) => {
         });
 
         // Filter Skill Data for skill section
-        const languagesSkills = resumeData.skills.filter((skill => skill.level === 'language'));
-        const toolSkills = resumeData.skills.filter((skill => skill.level === 'tool'));
-        const applicationSkills = resumeData.skills.filter((skill => skill.level === 'application'));
-        const nonTechSkills = resumeData.skills.filter((skill => skill.level === 'nonTech'));
+        const languagesSkills = resumeData.skills.filter((skill => skill.level === 'Languages'));
+        const toolSkills = resumeData.skills.filter((skill => skill.level === 'Tools'));
+        const applicationSkills = resumeData.skills.filter((skill => skill.level === 'Applications'));
+        const nonTechSkills = resumeData.skills.filter((skill => skill.level === 'Non-Tech Skills'));
 
         // Create a new PDF document
         const pdfDoc = new PDFDocument();
@@ -458,6 +537,7 @@ router.get('/ai/generate/2', async (req, res) => {
         pdfDoc.fontSize(12).text(`LinkedIn: ${resumeData.people[0].linkedin} | GitHub: ${resumeData.people[0].githubProfile} | Portfolio: ${resumeData.people[0].portfolio}`, {
             align: 'center'
         });
+        pdfDoc.moveDown();
         pdfDoc.moveDown();
         pdfDoc.fontSize(12).fillColor('black').text(resumeData.aiinfos[0].overview, {
             align: 'left'
@@ -487,19 +567,21 @@ router.get('/ai/generate/2', async (req, res) => {
             pdfDoc.moveDown();
         }
         // Project Section
-        pdfDoc.fontSize(16).fillColor(headerColor).text('Projects');
-        pdfDoc
-            .strokeColor('gray', 0.5)
-            .moveTo(70, pdfDoc.y)
-            .lineTo(540, pdfDoc.y)
-            .stroke();
-        pdfDoc.moveDown();
-        resumeData.projects.map(project => {
-            pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.repo} | Deployed: ${project.deployment}`);
-            pdfDoc.fontSize(12).text(project.yourRole)
-            pdfDoc.fontSize(12).text(project.responsibility)
+        if (resumeData.projects.length) {
+            pdfDoc.fontSize(16).fillColor(headerColor).text('Projects');
+            pdfDoc
+                .strokeColor('gray', 0.5)
+                .moveTo(70, pdfDoc.y)
+                .lineTo(540, pdfDoc.y)
+                .stroke();
             pdfDoc.moveDown();
-        })
+            resumeData.projects.map(project => {
+                pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.githubrepo} | Deployed: ${project.githuburl}`)
+                    .text(project.yourRole)
+                    .text(project.responsibility)
+                pdfDoc.moveDown();
+            })
+        }
         // Professional Experience Section
         pdfDoc.fontSize(16).fillColor(headerColor).text('Professional Experience');
         pdfDoc
@@ -530,24 +612,25 @@ router.get('/ai/generate/2', async (req, res) => {
 
             pdfDoc.moveDown();
         });
-        // Education Section
-        pdfDoc.fontSize(16).fillColor(headerColor).text('Education');
-        pdfDoc
-            .strokeColor('gray', 0.5)
-            .moveTo(70, pdfDoc.y)
-            .lineTo(540, pdfDoc.y)
-            .stroke();
-        pdfDoc.moveDown();
-        resumeData.education.map(edu => {
-            const startYear = new Date(edu.startDate).getFullYear();
-            const endYear = new Date(edu.endDate).getFullYear();
-            pdfDoc.fontSize(12).fillColor('black').text(edu.school)
-                .text(`${startYear} - ${endYear}`)
-                .text(edu.degree)
-                .text(edu.educationdetail);
+        // Certifications Section
+        if (resumeData.certifications.length) {
+            pdfDoc.fontSize(16).fillColor(headerColor).text('Certifications');
+            pdfDoc
+                .strokeColor('gray', 0.5)
+                .moveTo(70, pdfDoc.y)
+                .lineTo(540, pdfDoc.y)
+                .stroke();
             pdfDoc.moveDown();
-        })
-
+            resumeData.certifications.map(cert => {
+                pdfDoc.fontSize(12).fillColor('black').text(cert.name)
+                    .text(cert.organization)
+                    .text(`Date Earned: ${cert.dateEarned}`);
+                if (cert.expireDate) {
+                    pdfDoc.fontSize(12).text(`Expiry Date: ${cert.expireDate}`)
+                }
+                pdfDoc.moveDown();
+            })
+        }
         // Pipe the PDF document to the response object and end the response
         const filePath = path.join(__dirname, '../../public/ai-resume.pdf')
         pdfDoc.pipe(fs.createWriteStream(filePath));

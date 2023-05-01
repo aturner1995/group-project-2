@@ -13,16 +13,17 @@ const generateResume = async (event) => {
     else {
         selectedTemplate = 2;
     }
-    // Generate AI Information
-    const aiWorkResponse = await fetch(`api/ai/generate`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-    })
-    // Generate AI Cover Letter
-    const aiCoverResponse = await fetch(`api/coverletter/generate`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/pdf' }
-    })
+    // Generate AI Information and AI Cover Letter in parallel using Promise.all()
+    const [aiWorkResponse, aiCoverResponse] = await Promise.all([
+      fetch(`api/ai/generate`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+      }),
+      fetch(`api/coverletter/generate`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/pdf' }
+      })
+    ]);
     // Generate the resume with the user information
     const response = await fetch(`api/resume/generate/${selectedTemplate}?color=${selectedColor}`, {
         method: 'GET',
@@ -58,8 +59,7 @@ const generateResume = async (event) => {
     }
     // Hide the spinner
     document.getElementById('spinner').style.display = 'none';
-};
-
-
-document.querySelector('.gen-resume').addEventListener('click', generateResume);
-
+  };
+  
+  document.querySelector('.gen-resume').addEventListener('click', generateResume);
+  
