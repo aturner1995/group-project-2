@@ -39,6 +39,16 @@
     color: white !important;
 }
 
+.btn-custom-3 {
+    background-color: #152039 !important;
+    color: white !important;
+}
+
+.btn-custom-3:hover {
+    background-color: #5b6274 !important;
+    color: white !important;
+}
+
 .testimonials {
     background-color: #f8f8f8;
 }
@@ -143,3 +153,17 @@ embed {
     margin-bottom: 10px !important;
 }
 
+.spinner-img {
+    height: 40px;
+}
+
+.resume-btns {
+    width: 75%;
+}
+
+.profile-pic img {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+  }
+  

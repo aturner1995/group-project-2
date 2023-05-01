@@ -226,6 +226,7 @@ $(".updateExp").on("click", async function () {
   var responsibility = $(this).closest(".card").find("#responsibility").val();
 
   console.log(workId);
+  console.log(jobTitle);
 
   let experiencedata = {
     companyName: companyName,
@@ -234,11 +235,8 @@ $(".updateExp").on("click", async function () {
     location: location,
     responsibility: responsibility,
     startDate: startDate,
-    userTest: userTest,
     workId: workId,
   };
-
-  console.log(experiencedata);
 
   response = await fetch("/profile/new/experience", {
     method: "PUT",
@@ -257,19 +255,18 @@ $(".updateProject").on("click", async function () {
   var projectid = parseInt($(this).attr("id"));
   var projectName = $(this).closest(".card").find("#project-name").val();
   var yourTitle = $(this).closest(".card").find("#your-title").val();
-  var startDate = $(this).closest(".card").find("#start-date").val();
-  var endDate = $(this).closest(".card").find("#end-date").val();
+  var githuburl = $(this).closest(".card").find("#deployedURL").val();
+  var githubrepo = $(this).closest(".card").find("#githubRepo").val();
   var responsibility = $(this).closest(".card").find("#responsibility").val();
-  var userTest = 1;
+
 
   let projectData = {
     projectid: projectid,
     projectName: projectName,
     yourTitle: yourTitle,
-    startDate: startDate,
-    endDate: endDate,
+    githuburl: githuburl,
+    githubrepo: githubrepo,
     responsibility: responsibility,
-    userTest: userTest,
   };
 
   try {
@@ -435,16 +432,16 @@ $(".updateCert").on("click", async function () {
 async function addproject() {
   var projectName = $("#project-name").val();
   var yourRole = $("#your-title").val();
-  var startDate = $("#start-Date").val();
-  var endDate = $("#end-Date").val();
+  var githuburl = $("#deployedURL").val();
+  var githubrepo = $("#githubRepo").val();
   var responsibility = $("#responsibility").val();
   var userTest = 1;
 
   let projectData = {
     projectName: projectName,
     yourRole: yourRole,
-    startDate: startDate,
-    endDate: endDate,
+    githuburl: githuburl,
+    githubrepo: githubrepo,
     responsibility: responsibility,
     userTest: userTest,
   };
@@ -530,3 +527,53 @@ $("#prev-tab-btn").on("click", function () {
     progressBar.attr("aria-valuenow", progress);
   }
 });
+
+
+$('#upload-form').on('submit', async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(event.target);
+  console.log(formData)
+  try {
+    const response = await fetch('/dashboard/pic', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (response.ok) {
+
+      window.location.href = `${window.location.pathname}`;
+      console.log(message);
+     
+
+
+    } else {
+      console.error(`Failed to upload file`);
+    }
+  } catch (error) {
+    console.error(`Failed to upload file: ${error}`);
+  }
+});
+$(document).ready(function() {
+  const editBtn = $('#edit-btn');
+  const uploadForm = $('#upload-form');
+
+  editBtn.on('click', function() {
+    uploadForm.show();
+  });
+});
+
+
+$("#removepic-btn").on('click',async function(){
+  const deletepic = await fetch(`/dashboard/pic`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+  if (deletepic.ok) {
+    window.location.href = `${window.location.pathname}`;
+  } else {
+    throw new Error("Request failed");
+  }
+
+
+})

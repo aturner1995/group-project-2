@@ -8,11 +8,8 @@ async function fetchJobTitles() {
         credentials: "include",
       });
       const data = await response.json();
-      console.log(data);
   
-      let jobtitile =  data.Works[data.Works.length -1]
-
-      console.log(jobtitile)
+      let jobtitile =  data.Works[data.Works.length -1].title
  
       const url = "https://jooble.org/api/";
       const key = "a46cba24-ba23-4e97-a5a2-beba34693158";
@@ -27,7 +24,6 @@ async function fetchJobTitles() {
       });
   
       const data2 = await response2.json();
-      console.log(data2);
   
       const jobPostingsDiv = document.getElementById("jobPostings");
   

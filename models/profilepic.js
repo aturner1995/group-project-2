@@ -1,18 +1,15 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class AiWork extends Model { }
+class Profilepic extends Model { }
 
-AiWork.init({
+Profilepic.init({
+
   id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
     autoIncrement: true,
-  },
-  responsibility: {
-    type: DataTypes.TEXT,
-    allowNull: false
   },
   user_id: {
     type: DataTypes.INTEGER,
@@ -20,14 +17,17 @@ AiWork.init({
       model: 'user',
       key: 'id'
     }
-  }
+  }, filename: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
 },
   {
     sequelize,
-    modelName: 'aiwork',
     timestamps: false,
     freezeTableName: true,
+    modelName: 'profilepic',
     underscored: true,
   });
 
-module.exports = AiWork;
+module.exports =Profilepic;

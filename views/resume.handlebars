@@ -1,8 +1,8 @@
-¬ <div class="row container-fluid">
-  <div class="col-lg-3 my-5 ps-5">
-    <form class="card">
+<div class="row container-fluid">
+  <div class="col-lg-3 ps-5">
+    <form class="card my-5">
       <div class="form-group p-3">
-        <label for="color">Choose a color:</label><br>
+        <label for="color">Choose a color:</label>
         <div class="my-3">
           <div class="form-check form-check-inline">
             <input class="form-check-input black" type="radio" name="color" id="color1" value="black" checked>
@@ -38,11 +38,14 @@
           <label class="form-check-label" for="template2">Template 2</label>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-custom-2 gen-resume">Generate Resume</button>
-      </div>
-      <div class="d-flex justify-content-center my-2">
-        <a href="/api/resume/download" download class="btn btn-custom-2 down-resume">Download Resume</a>
+      <div class="d-flex align-items-center flex-column">
+        <button type="submit" class="btn btn-custom-2 gen-resume flex-fill mb-2 resume-btns">Generate Resume</button>
+        <a href="/api/resume/download/?file=resume" download
+          class="btn btn-custom-3 down-resume flex-fill mb-2 resume-btns">Download Resume</a>
+        <a href="/api/resume/download/?file=ai-resume resume-btns" download
+          class="btn btn-custom-3 down-resume flex-fill mb-2 resume-btns">Download AI Resume</a>
+        <a href="/api/resume/download/?file=coverletter" download
+          class="btn btn-custom-3 down-resume flex-fill mb-2 resume-btns">Download Cover Letter</a>
       </div>
     </form>
   </div>
@@ -56,17 +59,26 @@
           <a class="nav-link" data-toggle="tab" href="#ai-generated-resume">AI Generated Resume <span
               class="badge bg-success">New</span></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#cover-letter">AI Generated Cover Letter <span
+              class="badge bg-success">New</span></a>
+        </li>
       </ul>
     </div>
     <div class="tab-content">
       <div id="resume" class="tab-pane fade-in active">
-          <div class="d-flex justify-content-center">
-             <embed src="/resume.pdf" type="application/pdf" width="100%" height="600px" />
+        <div class="d-flex justify-content-center">
+          <embed src="/resume.pdf" type="application/pdf" width="100%" height="600px" />
         </div>
       </div>
       <div id="ai-generated-resume" class="tab-pane fade">
         <div class="d-flex justify-content-center">
-              <embed src="/ai-resume.pdf" type="application/pdf" width="100%" height="800px" />
+          <embed src="/ai-resume.pdf" type="application/pdf" width="100%" height="800px" />
+        </div>
+      </div>
+      <div id="cover-letter" class="tab-pane fade">
+        <div class="d-flex justify-content-center">
+          <embed src="/coverletter.pdf" type="application/pdf" width="100%" height="800px" />
         </div>
       </div>
     </div>
