@@ -8,6 +8,7 @@ const Project = require("./project");
 const User = require('./user');
 const AiWork = require('./aiWork');
 const AiOverview = require('./aiOverview');
+const Profilepic = require("./profilepic")
 
 User.hasMany(Person, {
     foreignKey: 'user_id',
@@ -89,5 +90,6 @@ Certification.belongsTo(User, {
 Project.belongsTo(User, {
     foreignKey: 'user_id'
 });
-
-module.exports = { Person, Work, Education, Certification, Overview, Skill, Project, User, AiWork, AiOverview };
+User.hasOne(Profilepic, { foreignKey: 'user_id' });
+Profilepic.belongsTo(User, { foreignKey: 'user_id' });
+module.exports = { Person, Work, Education, Certification, Overview, Skill, Project, User, AiWork, AiOverview ,Profilepic};

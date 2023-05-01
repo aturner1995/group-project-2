@@ -349,7 +349,6 @@ $(".delCert").on("click", async function() {
 });
 
 
-
 $(".delSkill").on("click", async function() {
   const deleteBtn = $(this).attr("id");
   console.log(deleteBtn);
@@ -513,7 +512,14 @@ $("#next-tab-btn").on("click", function () {
     const progressBar = $(".progress-bar");
     progressBar.css("width", progress + "%");
     progressBar.attr("aria-valuenow", progress);
+    if (progress == 100 && !$(".submitbutton").has("button").length) {
+      const submitb = `
+        <a href="/dashboard" class="btn btn-primary submitall mb-3">Submit Profile</a>
+      `;
+      $(".submitbutton").append(submitb);
+    }
   }
+
 });
 
 
@@ -528,5 +534,31 @@ $("#prev-tab-btn").on("click", function () {
     const progressBar = $(".progress-bar");
     progressBar.css("width", progress + "%");
     progressBar.attr("aria-valuenow", progress);
+  }
+});
+
+
+$('#upload-form').on('submit', async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(event.target);
+  console.log(formData)
+  try {
+    const response = await fetch('/dashboard/pic', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (response.ok) {
+      const message = await response.text();
+      console.log(message);
+     
+
+
+    } else {
+      console.error(`Failed to upload file: ${response.status} ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error(`Failed to upload file: ${error}`);
   }
 });

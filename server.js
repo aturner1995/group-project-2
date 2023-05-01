@@ -5,8 +5,11 @@ const helpers = require('./utils/helpers');
 const session = require('express-session');
 const app = express();
 const routes = require('./controllers')
+const fileUpload = require("express-fileupload")
 
 const PORT = process.env.PORT || 3001;
+
+
 
 const sequelize = require('./config/connection');
 // Session store implementation for the express-session middleware in Node.js
@@ -25,14 +28,19 @@ const sess = {
 };
 // Express middleware
 app.use(session(sess));
+app.use(fileUpload())
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 app.use(routes);
+
+
+
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));

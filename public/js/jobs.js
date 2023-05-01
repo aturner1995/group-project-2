@@ -10,7 +10,7 @@ async function fetchJobTitles() {
       const data = await response.json();
       console.log(data);
   
-      let jobtitile =  data.Works[data.Works.length -1]
+      let jobtitile =  data.Works[data.Works.length -1].title
 
       console.log(jobtitile)
  

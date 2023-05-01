@@ -49,3 +49,10 @@ const generateResume = async (event) => {
 
 document.querySelector('.gen-resume').addEventListener('click', generateResume);
 
+const editBtn = document.querySelector('.edit-btn');
+const uploadForm = document.querySelector('#upload-form');
+
+editBtn.addEventListener('click', (event) => {
+  event.preventDefault();
+  uploadForm.classList.toggle('hidden');
+});
