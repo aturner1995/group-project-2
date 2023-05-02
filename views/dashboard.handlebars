@@ -7,83 +7,78 @@
 </head>
 
 <body>
-
   <header class="jumbotron text-center bg-light d-flex justify-content-center">
     <div class="container row">
-       
       <div class="col-lg-6 d-flex flex-column justify-content-center">
-{{#unless profilepic.filename}}
-<div class="alert alert-info" role="alert">
-  <p>You have not uploaded your profile picture yet.</p>
-</div>
-{{/unless}}
+        {{#unless profilepic.filename}}
+        <div class="alert alert-info" role="alert">
+          <p>You have not uploaded your profile picture yet.</p>
+        </div>
+        {{/unless}}
 
-<div class="profile-pic">
-  <img src="{{profilepic.filename}}" alt="profile picture">
-  <button id="edit-btn"><i class="fas fa-edit"></i></button>
-  <button id="removepic-btn">  <i class="fas fa-trash"></i></button>
-</div>
+        <div class="my-2">
+          <img src="{{profilepic.filename}}" alt="profile picture" class="profilePic">
+        </div>
+        <div class="text-center">
+          <button id="edit-btn" class="btn btn-primary"><i class="fas fa-edit"></i></button>
+          <button id="removepic-btn" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+        </div>
 
-
-<form enctype="multipart/form-data" id="upload-form" style="display: none;">
-  <input type="file" name="profile_picture" id="profile-picture-input">
-  <button type="submit" class="btn btn-custom-2 uploadprofile">Upload</button>
-</form>
+        <form enctype="multipart/form-data" id="upload-form" style="display: none;">
+          <input type="file" name="profile_picture" id="profile-picture-input">
+          <button type="submit" class="btn btn-custom-2 uploadprofile">Upload</button>
+        </form>
 
         <h1 class="display-4 mt-3">{{people.[0].name}}</h1>
         <p class="lead">{{Works.[0].title}}</p>
       </div>
-      <div class="col-lg-6">
-        <div class="d-flex justify-content-center">
-          <form class="card mx-5">
-            <div class="form-group p-3">
-              <label for="color">Choose a color:</label><br>
-              <div class="my-3">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input black" type="radio" name="color" id="color1" value="black" checked>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input red" type="radio" name="color" id="color1" value="red">
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input blue" type="radio" name="color" id="color2" value="blue">
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input orange" type="radio" name="color" id="color3" value="orange">
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input purple" type="radio" name="color" id="color3" value="purple">
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input pink" type="radio" name="color" id="color3" value="pink">
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input yellow" type="radio" name="color" id="color3" value="yello">
-                </div>
+      <div class="col-lg-6 align-items-center d-flex justify-content-center">
+        <form class="card mx-5">
+          <div class="form-group p-3">
+            <label for="color">Choose a color:</label>
+            <div class="my-3">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input black" type="radio" name="color" id="color1" value="black" checked>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input red" type="radio" name="color" id="color1" value="red">
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input blue" type="radio" name="color" id="color2" value="blue">
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input orange" type="radio" name="color" id="color3" value="orange">
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input purple" type="radio" name="color" id="color3" value="purple">
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input pink" type="radio" name="color" id="color3" value="pink">
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input yellow" type="radio" name="color" id="color3" value="yello">
               </div>
             </div>
-            <div class="form-group px-3">
-              <label for="template">Choose a template:</label><br>
-              <div class="form-check form-check-inline my-3">
-                <input class="form-check-input" type="radio" name="template" id="template1" value="template1" checked>
-                <label class="form-check-label" for="template1">Template 1</label>
-              </div>
-              <div class="form-check form-check-inline my-3">
-                <input class="form-check-input" type="radio" name="template" id="template2" value="template2">
-                <label class="form-check-label" for="template2">Template 2</label>
-              </div>
+          </div>
+          <div class="form-group px-3">
+            <label for="template">Choose a template:</label><br>
+            <div class="form-check form-check-inline my-3">
+              <input class="form-check-input" type="radio" name="template" id="template1" value="template1" checked>
+              <label class="form-check-label mx-1" for="template1">Template 1</label>
             </div>
-            <div class="d-flex justify-content-center my-2">
-              <button type="submit" class="btn btn-custom-2 gen-resume">Generate Resume</button>
-              <div id="spinner" style="display:none;"><img src="images/spinner.gif" class="spinner-img"></div>
+            <div class="form-check form-check-inline my-3">
+              <input class="form-check-input" type="radio" name="template" id="template2" value="template2">
+              <label class="form-check-label mx-1" for="template2">Template 2</label>
             </div>
-          </form>
-        </div>
+          </div>
+          <div class="d-flex justify-content-center my-2">
+            <button type="submit" class="btn btn-custom-2 gen-resume">Generate Resume</button>
+            <div id="spinner" style="display:none;"><img src="images/spinner.gif" class="spinner-img"></div>
+          </div>
+        </form>
       </div>
     </div>
   </header>
-
-
 
   <section id="overview" class="my-5 container">
     <div class="card">
@@ -127,7 +122,7 @@
       </div>
       <div class="row d-flex justify-content-between align-items-center ms-4 m-3 ">
         <div class="col-md-4 ">
-          <p><i class="fas fa-user"></i> <strong>Name:</strong> {{username}}</p>
+          <p><i class="fas fa-user"></i> <strong>Name:</strong> {{people.[0].name}}</p>
           <p><i class="fas fa-envelope"></i> <strong>Email:</strong> {{email}}</p>
         </div>
         <div class="col-md-4">
@@ -192,7 +187,6 @@
       </div>
   </section>
 
-
   <section id="skills" class="container">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
@@ -244,13 +238,6 @@
       </div>
     </div>
   </section>
-
-
-
-
-
-
-
 
   <section id="work-experiences" class="container mb-5 mt-5 ">
     <div class="card">
@@ -574,13 +561,10 @@
               </form>
             </div>
           </div>
-
         </div>
       </div>
       {{/each}}
   </section>
-
-
 
   <section id="certnew" class="container mb-5">
     <div class="card">
@@ -676,11 +660,7 @@
                 </div>
                 <button type="button" class="btn btn-custom-2 mb-3 updateCert" id="{{certification.id}}">Update
                   Certification</button>
-
               </form>
-
-
-
             </div>
           </div>
 
@@ -694,6 +674,4 @@
   </div>
   <script src="/js/profile.js"></script>
   <script src="/js/dashboard.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 </body>

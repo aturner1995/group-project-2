@@ -3,12 +3,12 @@ const { Configuration, OpenAIApi } = require('openai');
 const { User, Overview, Work, AiInfo } = require('../../models');
 
 require('dotenv').config();
-
+// Setup API config
 const configuration = new Configuration({
     apiKey: process.env.OPEN_AI_KEY,
 });
 const openai = new OpenAIApi(configuration);
-
+// Generate the AI responses for the overview and work experience
 router.get('/generate', async (req, res) => {
     try {
 
@@ -45,13 +45,14 @@ router.get('/generate', async (req, res) => {
         const aiJobExperiences = sections
             .filter((section) => !section.toLowerCase().includes("job experience"))
             .filter((section) => !section.toLowerCase().includes("overview"))
-            .map((section) => {
+            .map((section, index) => {
                 const [title] = section.split(", ");
+                const workId = resumeData.Works[index].id;
                 const bulletPoints = section.split("\n").slice(1).map((point) => point.replace(/^\s*[-•]\s*/, ''));
-                return { title, bulletPoints };
+                return { title, workId, bulletPoints };
             });
 
-
+        // If the data already exists then update. If not create ai info in database
         if (resumeData.aiinfos.length) {
             const newOverview = await AiInfo.update({
                 overview: aiOverview,
@@ -71,7 +72,7 @@ router.get('/generate', async (req, res) => {
                 user_id: req.session.user_id
             })
         }
-        res.status(200).json({ message: "Hello?" })
+        res.status(200).json({ message: "AI Resume updated!" })
     }
     catch (err) {
         res.status(400).json(err);

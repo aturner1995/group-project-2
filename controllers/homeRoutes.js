@@ -9,7 +9,7 @@ const path = require("path")
 router.get("/dashboard", async (req, res) => {
 
   const dbData = await User.findByPk(req.session.user_id, {
-    include: [{ model: Overview }, { model: Person }, { model: Work }, { model: Education }, { model: Project }, { model: Certification },{model:Skill},{model : Profilepic}]
+    include: [{ model: Overview }, { model: Person }, { model: Work }, { model: Education }, { model: Project }, { model: Certification }, { model: Skill }, { model: Profilepic }]
   })
 
   const allData = dbData.get({ plain: true });
@@ -57,7 +57,7 @@ router.get('/jobs', (req, res) => {
 router.get("/jobs/title", async (req, res) => {
   try {
     const dbData = await User.findByPk(req.session.user_id, {
-      include: [{ model: Work}],
+      include: [{ model: Work }],
     });
     res.json(dbData);
   } catch (error) {
@@ -74,10 +74,8 @@ router.post("/dashboard/pic", async (req, res) => {
     }
 
     const sampleFile = req.files.profile_picture;
-    console.log(sampleFile);
 
-    const uploadPath = __dirname +  '/../profilepicuploads/' + sampleFile.name ;
-    console.log(uploadPath);
+    const uploadPath = __dirname + '/../public/' + sampleFile.name;
 
     await sampleFile.mv(uploadPath);
 
@@ -89,7 +87,7 @@ router.post("/dashboard/pic", async (req, res) => {
     const existingPic = await Profilepic.findOne({
       where: { user_id: req.session.user_id }
     });
-    
+
     if (existingPic) {
       const updatedPic = await existingPic.update({
         filename: req.files.profile_picture.name
@@ -107,19 +105,23 @@ router.post("/dashboard/pic", async (req, res) => {
 });
 
 
-router.delete("/dashboard/pic", async (req, res) =>{
+router.delete("/dashboard/pic", async (req, res) => {
   try {
-    const userId = req.session.user_id;
-    const profilepic = await Profilepic.findByPk(req.session.user_id);
-  console.log(profilepic)
-    if (!profilepic) {
+    const profilepicData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ['password'] },
+      include: [
+        { model: Profilepic },
+      ]
+    });
+
+    if (!profilepicData.profilepic) {
       return res.status(404).send("Profile picture not found");
     }
 
-    const filename = profilepic.filename;
-    const filepath = path.join(__dirname +'/../profilepicuploads/' + filename);
-    fs.unlinkSync(filepath);
-    await profilepic.destroy();
+    const filePath = __dirname + '/../public/' + profilepicData.profilepic.filename;
+    fs.unlinkSync(filePath); // delete the file from the public folder
+
+    await profilepicData.profilepic.destroy();
     res.sendStatus(204);
   } catch (err) {
     console.error(err);
