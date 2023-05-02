@@ -37,11 +37,8 @@ async function fetchJobTitles() {
               <h6 class="card-subtitle mb-2 text-muted">${job.company}</h6>
               <p class="card-text">${job.snippet.replace(/&nbsp;/g, "")}</p>
               <p class="card-text">Type: ${job.type}</p>
-              <a href="${job.link}" target="_blank" class="btn btn-primary mr-2">View Job</a>
-              <div class="mt-3">
-                <a href="#" class="btn btn-primary mr-2">Make Resume</a>
-                <a href="#" class="btn btn-secondary">Cover Letter</a>
-              </div>
+              <a href="${job.link}" target="_blank" class="btn btn-custom-2 mr-2">View Job</a>
+                <a href="/resume" class="btn btn-custom-3 mr-2">Generate Resume</a>
             </div>
           </div>
         `;

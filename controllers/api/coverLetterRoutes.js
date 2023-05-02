@@ -25,7 +25,7 @@ router.get('/generate', async (req, res) => {
         const prompt = `Generate a cover letterbased on the following information:
         Job Experience:             
             ${resumeData.Works.map((work, index) => `\n${index + 1}) Title:${work.title}, Company:${work.company}, Responsibility ${work.responsibility}`)}
-        """\nPlease rewrite the cover letter in a way that highlights the candidate's skills and experience, and adheres to best practices for resume writing.`
+        """\nPlease rewrite the cover letter in a way that highlights the candidate's skills and experience, and adheres to best practices for resume writing. Please sign it with the name ${resumeData.people[0].name}`
         
         // OPEN AI API call
         const response = await openai.createChatCompletion({

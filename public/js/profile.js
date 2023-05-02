@@ -167,7 +167,7 @@ async function addPersonal() {
     var htmlwrite = `<div class="card">
     <div class="card-body">
       <h5 class="card-title">Personal</h5>
-      <p class="card-text">${name} 's Personal details added successfully</p>
+      <p class="card-text">${name}'s personal details added successfully</p>
     </div>
   </div>`
   }
@@ -474,14 +474,6 @@ $(".nav-link ").on("click", function () {
   const progressBar = $(".progress-bar");
   progressBar.css("width", progress + "%");
   progressBar.attr("aria-valuenow", progress);
-
-if (progress == 100 && !$(".submitbutton").has("button").length) {
-  const submitb = `
-    <a href="/dashboard" class="btn btn-primary submitall mb-3">Submit Profile</a>
-  `;
-  $(".submitbutton").append(submitb);
-}
-
 });
 const tabs = ["#overview-tab", "#personal-tab", "#skills-tab", "#work-tab", "#project-tab", "#education-tab", "#certification-tab"];
 let currentTab = 0;

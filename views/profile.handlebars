@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>My Resume</title>
@@ -11,30 +8,37 @@
 </head>
 
 <body>
-<div class="container">
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="personal-tab" data-toggle="tab" href="#Personal" role="tab" aria-controls="personal" aria-selected="false">Personal Information</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="skills-tab" data-toggle="tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">Skills</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="work-tab" data-toggle="tab" href="#work" role="tab" aria-controls="work" aria-selected="false">Work Experience</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="project-tab" data-toggle="tab" href="#project" role="tab" aria-controls="project" aria-selected="false">Project Experience</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false">Education</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="certification-tab" data-toggle="tab" href="#certification" role="tab" aria-controls="certification" aria-selected="false">Certifications</a>
-  </li>
-</ul>
+  <div class="container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab"
+          aria-controls="overview" aria-selected="true">Overview</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="personal-tab" data-toggle="tab" href="#Personal" role="tab" aria-controls="personal"
+          aria-selected="false">Personal Information</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="skills-tab" data-toggle="tab" href="#skills" role="tab" aria-controls="skills"
+          aria-selected="false">Skills</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="work-tab" data-toggle="tab" href="#work" role="tab" aria-controls="work"
+          aria-selected="false">Work Experience</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="project-tab" data-toggle="tab" href="#project" role="tab" aria-controls="project"
+          aria-selected="false">Project Experience</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab" aria-controls="education"
+          aria-selected="false">Education</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="certification-tab" data-toggle="tab" href="#certification" role="tab"
+          aria-controls="certification" aria-selected="false">Certifications</a>
+      </li>
+    </ul>
 
 
     <div class="tab-content">
@@ -44,13 +48,13 @@
             <label for="overview-text" class="form-label">Provide your Professional Summary:</label>
             <textarea id="overview-text" class="form-control" rows="5" required></textarea>
           </div>
-          <button type="button" class="btn btn-success mb-3" onclick="saveOverview()">Save Overview</button>
+          <button type="button" class="btn btn-custom-2 mb-3" onclick="saveOverview()">Save Overview</button>
         </form>
-                  <div class="outputDIv">
+        <div class="outputDIv">
 
+        </div>
       </div>
-      </div>
-  
+
 
       <div id="Personal" class="tab-pane fade ">
 
@@ -75,23 +79,23 @@
             <input type="text" class="form-control" id="address" name="address">
           </div>
           <div class="form-group">
-            <label for="address">Github Profile</label>
+            <label for="address">Github:</label>
             <input type="text" class="form-control" id="github" name="address">
           </div>
           <div class="form-group">
-            <label for="address">LinkedIn</label>
+            <label for="address">LinkedIn:</label>
             <input type="text" class="form-control" id="linkedin" name="address">
           </div>
 
           <div class="form-group">
-            <label for="address">Portfolio</label>
+            <label for="address">Portfolio:</label>
             <input type="text" class="form-control" id="portfolio" name="address">
           </div>
 
 
           <div class="form-group">
           </div>
-          <button type="button" class="btn btn-primary mb-3" onclick="addPersonal()">Save Personal Information</button>
+          <button type="button" class="btn btn-custom-2 mb-3" onclick="addPersonal()">Save Personal Information</button>
         </form>
         <div class="personHtml"></div>
       </div>
@@ -101,7 +105,7 @@
 
         <form class="container mt-5">
           <div class="row mb-3">
-                        <div class="col-md-6">
+            <div class="col-md-6">
               <label for="skill-level" class="form-label">Category</label>
               <select id="skill-level" name="skill-level" class="form-control form-select" required>
                 <option value="">-- Select Skill --</option>
@@ -117,7 +121,7 @@
             </div>
 
           </div>
-          <button type="button" class="btn btn-primary mb-3" onclick="addSkill()">Add Skill</button>
+          <button type="button" class="btn btn-custom-2 mb-3" onclick="addSkill()">Add Skill</button>
         </form>
         <div class="container mt-5">
           <h2>Skills List</h2>
@@ -143,7 +147,7 @@
               <input type="text" class="form-control" id="job-title">
             </div>
             <div class="form-group experience">
-              <label for="job-location">Location</label>
+              <label for="job-location">Location:</label>
               <input type="text" class="form-control" id="job-location">
             </div>
             <div class="form-group experience">
@@ -160,7 +164,7 @@
               <textarea class="form-control" id="responsibility" name="responsibility[]"></textarea>
             </div>
           </div>
-          <button type="button" class="btn btn-primary mb-3" onclick="addWorkExperience()">Add Experience</button>
+          <button type="button" class="btn btn-custom-2 mb-3" onclick="addWorkExperience()">Add Experience</button>
         </form>
         <div class="row expHtml">
         </div>
@@ -172,28 +176,28 @@
         <form>
           <div id="project-container">
             <div class="form-group experience">
-              <label for="project-name">Project Name</label>
+              <label for="project-name">Project Name:</label>
               <input type="text" class="form-control" id="project-name">
             </div>
             <div class="form-group experience">
-              <label for="your-title">Your Title:</label>
+              <label for="your-title">Your Role:</label>
               <input type="text" class="form-control" id="your-title">
             </div>
             <div class="form-group experience">
-              <label for="deployed-URL">Deployed URL :</label>
+              <label for="deployed-URL">Deployed URL:</label>
               <input type="text" class="form-control" id="deployedURL">
             </div>
             <div class="form-group experience">
-              <label for="github-repo">Github repository link</label>
+              <label for="github-repo">Github Repo:</label>
               <input type="text" class="form-control " id="githubRepo">
             </div>
 
             <div class="form-group experience">
-              <label for="responsibility">Responsibility:</label>
+              <label for="responsibility">Project Summary:</label>
               <textarea class="form-control" id="responsibility" name="responsibility[]"></textarea>
             </div>
           </div>
-          <button type="button" class="btn btn-primary mb-3" onclick="addproject()">Add Experience</button>
+          <button type="button" class="btn btn-custom-2 mb-3" onclick="addproject()">Add Projecte</button>
         </form>
         <div class="proHtml"></div>
       </div>
@@ -241,7 +245,7 @@
           </div>
 
           <!-- Button to add new education details -->
-          <button type="button" class="btn btn-primary mb-3" onclick="addEducation()">Add Education</button>
+          <button type="button" class="btn btn-custom-2 mb-3" onclick="addEducation()">Add Education</button>
         </form>
 
         <div class="eduHtml">
@@ -278,7 +282,7 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-primary mb-3" onclick="addCertification()">Add Certification</button>
+          <button type="button" class="btn btn-custom-2 mb-3" onclick="addCertification()">Add Certification</button>
 
         </form>
 
@@ -287,10 +291,10 @@
         </div>
       </div>
 
-<div class="d-flex justify-content-end">
-  <button id="prev-tab-btn" class="btn btn-primary next"><i class="fas fa-chevron-left"></i> Previous</button>
-  <button id="next-tab-btn" class="btn btn-primary"><i class="fas fa-chevron-right"></i> Next</button>
-</div>
+      <div class="d-flex justify-content-end">
+        <button id="prev-tab-btn" class="btn btn-custom-3 next mx-1"><i class="fas fa-chevron-left"></i> Prev</button>
+        <button id="next-tab-btn" class="btn btn-custom-3 mx-1">Next <i class="fas fa-chevron-right"></i></button>
+      </div>
 
 
       <h4>Progress</h4>
@@ -299,8 +303,8 @@
         <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
           aria-valuemax="100"></div>
       </div>
-      <div class="submitbutton mt-5">
-
+      <div class="submitbutton d-flex justify-content-center">
+        <a href="/dashboard" class="btn btn-custom-2 submitall m-2">Submit Profile</a>
       </div>
 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -308,5 +312,3 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <script src="/js/profile.js"></script>
 </body>
-
-</html>

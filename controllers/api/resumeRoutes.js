@@ -105,8 +105,8 @@ router.get('/generate/1', async (req, res) => {
             pdfDoc.moveDown();
             resumeData.projects.map(project => {
                 pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.githubrepo} | Deployed: ${project.githuburl}`)
-                    .text(project.yourRole)
-                    .text(project.responsibility)
+                    .font('Helvetica-Oblique').text(`Project Role: ${project.yourRole}`)
+                    .font('Helvetica').text(project.responsibility)
                 pdfDoc.moveDown();
             })
         }
@@ -123,28 +123,11 @@ router.get('/generate/1', async (req, res) => {
             const endYear = new Date(exp.endDate).getFullYear();
             pdfDoc.fontSize(12).fillColor('black').text(exp.company, { align: 'left', continued: true })
                 .text(`${startYear} - ${endYear}`, { align: 'right' })
-                .text(`${exp.title}`)
-                .text(exp.responsibility);
+                .font('Helvetica-Oblique').text(`${exp.title}`)
+                .font('Helvetica').text(exp.responsibility);
             pdfDoc.moveDown();
         });
         pdfDoc.moveDown();
-        // Education Section
-        pdfDoc.fontSize(16).fillColor(headerColor).text('Education');
-        pdfDoc
-            .strokeColor('gray', 0.5)
-            .moveTo(70, pdfDoc.y)
-            .lineTo(540, pdfDoc.y)
-            .stroke();
-        pdfDoc.moveDown();
-        resumeData.education.map(edu => {
-            const startYear = new Date(edu.startDate).getFullYear();
-            const endYear = new Date(edu.endDate).getFullYear();
-            pdfDoc.fontSize(12).fillColor('black').text(edu.school)
-                .text(`${startYear} - ${endYear}`)
-                .text(edu.degree)
-                .text(edu.educationdetail);
-            pdfDoc.moveDown();
-        })
         // Education Section
         pdfDoc.fontSize(16).fillColor(headerColor).text('Education');
         pdfDoc
@@ -271,8 +254,8 @@ router.get('/generate/2', async (req, res) => {
             pdfDoc.moveDown();
             resumeData.projects.map(project => {
                 pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.githubrepo} | Deployed: ${project.githuburl}`)
-                    .text(project.yourRole)
-                    .text(project.responsibility)
+                    .font('Helvetica-Oblique').text(`Project Role: ${project.yourRole}`)
+                    .font('Helvetica').text(project.responsibility)
                 pdfDoc.moveDown();
             })
         }
@@ -289,8 +272,8 @@ router.get('/generate/2', async (req, res) => {
             const endYear = new Date(exp.endDate).getFullYear();
             pdfDoc.fontSize(12).fillColor('black').text(exp.company, { align: 'left', continued: true })
                 .text(`${startYear} - ${endYear}`, { align: 'right' })
-                .text(`${exp.title}`)
-                .text(exp.responsibility);
+                .font('Helvetica-Oblique').text(`${exp.title}`)
+                .font('Helvetica').text(exp.responsibility);
             pdfDoc.moveDown();
         });
         pdfDoc.moveDown();
@@ -416,8 +399,8 @@ router.get('/ai/generate/1', async (req, res) => {
             pdfDoc.moveDown();
             resumeData.projects.map(project => {
                 pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.githubrepo} | Deployed: ${project.githuburl}`)
-                    .text(project.yourRole)
-                    .text(project.responsibility)
+                    .font('Helvetica-Oblique').text(`Project Role: ${project.yourRole}`)
+                    .font('Helvetica').text(project.responsibility)
                 pdfDoc.moveDown();
             })
         }
@@ -434,26 +417,25 @@ router.get('/ai/generate/1', async (req, res) => {
             const endYear = new Date(exp.endDate).getFullYear();
             pdfDoc.fontSize(12).fillColor('black').text(exp.company, { align: 'left', continued: true })
                 .text(`${startYear} - ${endYear}`, { align: 'right' })
-                .text(`${exp.title}`);
+                .font('Helvetica-Oblique').text(`${exp.title}`);
             // Check if the current job has bullet points
             const responsibility = JSON.parse(resumeData.aiinfos[0].responsibility);
-            const bulletPoints = responsibility.find(ai => ai.title === exp.title)?.bulletPoints;
+            const bulletPoints = responsibility.find(ai => ai.workId === exp.id)?.bulletPoints;
             if (bulletPoints) {
                 // If bullet points exist, add each one as a separate text line
                 bulletPoints.forEach(point => {
-                    pdfDoc.list([point], { bulletRadius: 2, textIndent: 15 });
+                    pdfDoc.font('Helvetica').list([point], { bulletRadius: 2, textIndent: 15 });
                 });
             } else {
                 // If no bullet points exist, add the responsibility as a single text line
-                pdfDoc.text(exp.responsibility);
+                pdfDoc.font('Helvetica').text(exp.responsibility);
             }
 
             pdfDoc.moveDown();
         });
-
         pdfDoc.moveDown();
         // Education Section
-        pdfDoc.fontSize(16).fillColor(headerColor).text('Education');
+        pdfDoc.font('Helvetica').fontSize(16).fillColor(headerColor).text('Education');
         pdfDoc
             .strokeColor('gray', 0.5)
             .moveTo(70, pdfDoc.y)
@@ -577,8 +559,8 @@ router.get('/ai/generate/2', async (req, res) => {
             pdfDoc.moveDown();
             resumeData.projects.map(project => {
                 pdfDoc.fontSize(12).fillColor('black').text(`${project.projectName} | Repo: ${project.githubrepo} | Deployed: ${project.githuburl}`)
-                    .text(project.yourRole)
-                    .text(project.responsibility)
+                    .font('Helvetica-Oblique').text(`Project Role: ${project.yourRole}`)
+                    .font('Helvetica').text(project.responsibility)
                 pdfDoc.moveDown();
             })
         }
@@ -595,23 +577,39 @@ router.get('/ai/generate/2', async (req, res) => {
             const endYear = new Date(exp.endDate).getFullYear();
             pdfDoc.fontSize(12).fillColor('black').text(exp.company, { align: 'left', continued: true })
                 .text(`${startYear} - ${endYear}`, { align: 'right' })
-                .text(`${exp.title}`);
-
+                .font('Helvetica-Oblique').text(`${exp.title}`);
             // Check if the current job has bullet points
             const responsibility = JSON.parse(resumeData.aiinfos[0].responsibility);
-            const bulletPoints = responsibility.find(ai => ai.title === exp.title)?.bulletPoints;
+            const bulletPoints = responsibility.find(ai => ai.workId === exp.id)?.bulletPoints;
             if (bulletPoints) {
                 // If bullet points exist, add each one as a separate text line
                 bulletPoints.forEach(point => {
-                    pdfDoc.list([point], { bulletRadius: 2, textIndent: 15 });
+                    pdfDoc.font('Helvetica').list([point], { bulletRadius: 2, textIndent: 15 });
                 });
             } else {
                 // If no bullet points exist, add the responsibility as a single text line
-                pdfDoc.text(exp.responsibility);
+                pdfDoc.font('Helvetica').text(exp.responsibility);
             }
 
             pdfDoc.moveDown();
         });
+        // Education Section
+        pdfDoc.font('Helvetica').fontSize(16).fillColor(headerColor).text('Education');
+        pdfDoc
+            .strokeColor('gray', 0.5)
+            .moveTo(70, pdfDoc.y)
+            .lineTo(540, pdfDoc.y)
+            .stroke();
+        pdfDoc.moveDown();
+        resumeData.education.map(edu => {
+            const startYear = new Date(edu.startDate).getFullYear();
+            const endYear = new Date(edu.endDate).getFullYear();
+            pdfDoc.fontSize(12).fillColor('black').text(edu.school)
+                .text(`${startYear} - ${endYear}`)
+                .text(edu.degree)
+                .text(edu.educationdetail);
+            pdfDoc.moveDown();
+        })
         // Certifications Section
         if (resumeData.certifications.length) {
             pdfDoc.fontSize(16).fillColor(headerColor).text('Certifications');
