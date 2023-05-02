@@ -74,7 +74,6 @@ router.post("/dashboard/pic", async (req, res) => {
     }
 
     const sampleFile = req.files.profile_picture;
-
     const uploadPath = __dirname + '/../public/' + sampleFile.name;
 
     await sampleFile.mv(uploadPath);
@@ -122,6 +121,7 @@ router.delete("/dashboard/pic", async (req, res) => {
     fs.unlinkSync(filePath); // delete the file from the public folder
 
     await profilepicData.profilepic.destroy();
+
     res.sendStatus(204);
   } catch (err) {
     console.error(err);
