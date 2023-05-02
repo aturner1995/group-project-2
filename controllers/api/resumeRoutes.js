@@ -118,15 +118,19 @@ router.get('/generate/1', async (req, res) => {
             .lineTo(540, pdfDoc.y)
             .stroke();
         pdfDoc.moveDown();
-        resumeData.Works.map(exp => {
+        resumeData.Works.sort((a, b) => {
+            const aEndDate = new Date(a.endDate);
+            const bEndDate = new Date(b.endDate);
+            return bEndDate - aEndDate;
+          }).map(exp => {
             const startYear = new Date(exp.startDate).getFullYear();
             const endYear = new Date(exp.endDate).getFullYear();
             pdfDoc.fontSize(12).fillColor('black').text(exp.company, { align: 'left', continued: true })
-                .text(`${startYear} - ${endYear}`, { align: 'right' })
-                .font('Helvetica-Oblique').text(`${exp.title}`)
-                .font('Helvetica').text(exp.responsibility);
+              .text(`${startYear} - ${endYear}`, { align: 'right' })
+              .font('Helvetica-Oblique').text(`${exp.title}`)
+              .font('Helvetica').text(exp.responsibility);
             pdfDoc.moveDown();
-        });
+          });          
         pdfDoc.moveDown();
         // Education Section
         pdfDoc.fontSize(16).fillColor(headerColor).text('Education');
@@ -267,7 +271,11 @@ router.get('/generate/2', async (req, res) => {
             .lineTo(540, pdfDoc.y)
             .stroke();
         pdfDoc.moveDown();
-        resumeData.Works.map(exp => {
+        resumeData.Works.sort((a, b) => {
+            const aEndDate = new Date(a.endDate);
+            const bEndDate = new Date(b.endDate);
+            return bEndDate - aEndDate;
+          }).map(exp => {
             const startYear = new Date(exp.startDate).getFullYear();
             const endYear = new Date(exp.endDate).getFullYear();
             pdfDoc.fontSize(12).fillColor('black').text(exp.company, { align: 'left', continued: true })
@@ -412,7 +420,11 @@ router.get('/ai/generate/1', async (req, res) => {
             .lineTo(540, pdfDoc.y)
             .stroke();
         pdfDoc.moveDown();
-        resumeData.Works.forEach(exp => {
+        resumeData.Works.sort((a, b) => {
+            const aEndDate = new Date(a.endDate);
+            const bEndDate = new Date(b.endDate);
+            return bEndDate - aEndDate;
+          }).map(exp => {
             const startYear = new Date(exp.startDate).getFullYear();
             const endYear = new Date(exp.endDate).getFullYear();
             pdfDoc.fontSize(12).fillColor('black').text(exp.company, { align: 'left', continued: true })
@@ -572,7 +584,11 @@ router.get('/ai/generate/2', async (req, res) => {
             .lineTo(540, pdfDoc.y)
             .stroke();
         pdfDoc.moveDown();
-        resumeData.Works.forEach(exp => {
+        resumeData.Works.sort((a, b) => {
+            const aEndDate = new Date(a.endDate);
+            const bEndDate = new Date(b.endDate);
+            return bEndDate - aEndDate;
+          }).map(exp => {
             const startYear = new Date(exp.startDate).getFullYear();
             const endYear = new Date(exp.endDate).getFullYear();
             pdfDoc.fontSize(12).fillColor('black').text(exp.company, { align: 'left', continued: true })
