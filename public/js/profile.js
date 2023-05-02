@@ -20,7 +20,6 @@ async function addSkill() {
     var skillData = { skillName, skillLevel };
 
     skill.push(skillData);
-    console.log(skill);
     var skillItem = $("<li>").html(
       "<strong>" + skillName + "</strong> - " + skillLevel
     );
@@ -46,16 +45,16 @@ async function saveOverview() {
   });
   if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
-  }else{
-    if(overviewText){
-    var htmlwrite = `<div class="card">
+  } else {
+    if (overviewText) {
+      var htmlwrite = `<div class="card">
     <div class="card-body">
       <h5 class="card-title">Overview</h5>
       <p class="card-text">${overviewText}</p>
     </div>
   </div>`
+    }
   }
-}
   $(".outputDIv").append(htmlwrite)
 }
 
@@ -67,7 +66,6 @@ async function addEducation() {
   var eduText = $("#education-text").val();
   var userTest = 1;
 
-  console.log(startDate);
   var educationItem = {
     school: school,
     degree: degree,
@@ -75,7 +73,13 @@ async function addEducation() {
     endDate: endDate,
     eduText: eduText,
   };
-  console.log(educationItem);
+  if (school && degree) {
+    $("#school").val("");
+    $("#degree").val("");
+    $("#start-date-2").val("");
+    $("#end-date-2").val("");
+    $("#education-text").val("");
+  }
 
   response = await fetch("/profile/new/education", {
     method: "POST",
@@ -84,9 +88,9 @@ async function addEducation() {
   });
   if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
-  }else{
-    if(school,degree){
-    var htmlwrite = `
+  } else {
+    if (school, degree) {
+      var htmlwrite = `
     <div class="card mb-3">
       <div class="card-body py-2">
         <h6 class="card-title mb-1">Education</h6>
@@ -94,8 +98,8 @@ async function addEducation() {
       </div>
     </div>
   `;
+    }
   }
-}
   $(".eduHtml").append(htmlwrite)
 }
 
@@ -116,7 +120,7 @@ $(".updatEdu").on("click", async function () {
 
     eduId: eduId,
   };
-  console.log(educationItem);
+
   response = await fetch("/profile/new/education", {
     method: "PUT",
     body: JSON.stringify({ educationItem }),
@@ -146,14 +150,13 @@ async function addPersonal() {
 
   let perosnalcollection = {
     name: name,
-    email: email,                    
+    email: email,
     phone: phone,
     address: address,
     github: github,
     linkedin: linkedin,
     portfolio: portfolio,
   };
-  console.log(perosnalcollection);
 
   response = await fetch("/profile/new/person", {
     method: "POST",
@@ -162,17 +165,24 @@ async function addPersonal() {
   });
   if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
-  }else{
-    if(name,email,phone){
-    var htmlwrite = `<div class="card">
+  } else {
+    if (name && email && phone) {
+      var htmlwrite = `<div class="card">
     <div class="card-body">
       <h5 class="card-title">Personal</h5>
       <p class="card-text">${name}'s personal details added successfully</p>
     </div>
   </div>`
+      $("#name").val('');
+      $("#email").val('');
+      $("#phone").val('');
+      $("#address").val('');
+      $("#github").val('');
+      $("#linkedin").val('');
+      $("#portfolio").val('');
+    }
   }
-}
-$(".personHtml").append(htmlwrite)
+  $(".personHtml").append(htmlwrite)
 }
 
 async function addWorkExperience() {
@@ -201,18 +211,24 @@ async function addWorkExperience() {
     headers: { "Content-Type": "application/json" },
   });
 
- if (window.location.pathname == "/dashboard") {
+  if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
-  }else{
-    if(companyName,jobTitle){
-    var htmlwrite = `<div class="card">
+  } else {
+    if (companyName && jobTitle) {
+      var htmlwrite = `<div class="card">
     <div class="card-body">
       <h5 class="card-title">Experience</h5>
       <p class="card-text">${jobTitle} details added successfully</p>
     </div>
   </div>`
+      $("#job-title").val('');
+      $("#company-name").val('');
+      $("#job-location").val('');
+      $("#start-date").val('');
+      $("#end-date").val('');
+      $("#responsibility").val('');
+    }
   }
-}
   $(".expHtml").append(htmlwrite)
 }
 
@@ -224,9 +240,6 @@ $(".updateExp").on("click", async function () {
   var startDate = $(this).closest(".card").find("#start-date").val();
   var endDate = $(this).closest(".card").find("#end-date").val();
   var responsibility = $(this).closest(".card").find("#responsibility").val();
-
-  console.log(workId);
-  console.log(jobTitle);
 
   let experiencedata = {
     companyName: companyName,
@@ -279,15 +292,13 @@ $(".updateProject").on("click", async function () {
       window.location.href = `${window.location.pathname}`;
     }
     const data = await response.json();
-    console.log(data);
   } catch (error) {
     console.error(error);
   }
 });
 
-$(".expdelete").on("click", async function() {
+$(".expdelete").on("click", async function () {
   const deleteBtn = $(this).attr("id");
-  console.log(deleteBtn);
   const deleteResponse = await fetch(`/profile/new/experience/${deleteBtn}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -301,9 +312,8 @@ $(".expdelete").on("click", async function() {
 
 
 
-$(".delproject").on("click", async function() {
+$(".delproject").on("click", async function () {
   const deleteBtn = $(this).attr("id");
-  console.log(deleteBtn);
   const deleteResponse = await fetch(`/profile/new/project/${deleteBtn}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -317,9 +327,8 @@ $(".delproject").on("click", async function() {
 
 
 
-$(".delEdu").on("click", async function() {
+$(".delEdu").on("click", async function () {
   const deleteBtn = $(this).attr("id");
-  console.log(deleteBtn);
   const deleteResponse = await fetch(`/profile/new/education/${deleteBtn}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -331,9 +340,8 @@ $(".delEdu").on("click", async function() {
   }
 });
 
-$(".delCert").on("click", async function() {
+$(".delCert").on("click", async function () {
   const deleteBtn = $(this).attr("id");
-  console.log(deleteBtn);
   const deleteResponse = await fetch(`/profile/new/certification/${deleteBtn}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -347,9 +355,8 @@ $(".delCert").on("click", async function() {
 
 
 
-$(".delSkill").on("click", async function() {
+$(".delSkill").on("click", async function () {
   const deleteBtn = $(this).attr("id");
-  console.log(deleteBtn);
   const deleteResponse = await fetch(`/profile/new/${deleteBtn}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -388,16 +395,20 @@ async function addCertification() {
   });
   if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
-  }else{
-    if(certName,issueOrg){
-    var htmlwrite = `
+  } else {
+    if (certName && issueOrg) {
+      var htmlwrite = `
     <div class="card mb-3">
       <div class="card-body py-2">
         <h6 class="card-title mb-1">Certification</h6>
         <p class="card-text mb-0">${certName} details added successfully</p>
       </div>
     </div>
-  `;
+  `
+      $("#certification-name").val('');
+      $("#issuing-org").val('');
+      $("#date-earned").val('');
+      $("#expiration-date").val('');
     }
   }
   $(".certHtml").append(htmlwrite)
@@ -418,7 +429,6 @@ $(".updateCert").on("click", async function () {
     certId: certId,
   };
 
-  console.log(certificateDate);
   response = await fetch("/profile/new/certification", {
     method: "PUT",
     body: JSON.stringify({ certificateDate }),
@@ -453,18 +463,23 @@ async function addproject() {
   });
   if (window.location.pathname == "/dashboard") {
     window.location.href = `${window.location.pathname}`;
-  }else{
-    if(projectName,yourRole){
-    var htmlwrite = `
+  } else {
+    if (projectName, yourRole) {
+      var htmlwrite = `
     <div class="card mb-3">
       <div class="card-body py-2">
         <h6 class="card-title mb-1">Experience</h6>
         <p class="card-text mb-0">${projectName} details added successfully</p>
       </div>
     </div>
-  `;  
+  `
+      $("#project-name").val('');
+      $("#your-title").val('');
+      $("#deployedURL").val('');
+      $("#githubRepo").val('');
+      $("#responsibility").val('');
+    }
   }
-}
   $(".proHtml").append(htmlwrite)
 }
 
@@ -525,7 +540,6 @@ $('#upload-form').on('submit', async (event) => {
   event.preventDefault();
 
   const formData = new FormData(event.target);
-  console.log(formData)
   try {
     const response = await fetch('/dashboard/pic', {
       method: 'POST',
@@ -533,12 +547,7 @@ $('#upload-form').on('submit', async (event) => {
     });
 
     if (response.ok) {
-
       window.location.href = `${window.location.pathname}`;
-      console.log(message);
-     
-
-
     } else {
       console.error(`Failed to upload file`);
     }
@@ -546,17 +555,17 @@ $('#upload-form').on('submit', async (event) => {
     console.error(`Failed to upload file: ${error}`);
   }
 });
-$(document).ready(function() {
+$(document).ready(function () {
   const editBtn = $('#edit-btn');
   const uploadForm = $('#upload-form');
 
-  editBtn.on('click', function() {
+  editBtn.on('click', function () {
     uploadForm.show();
   });
 });
 
 
-$("#removepic-btn").on('click',async function(){
+$("#removepic-btn").on('click', async function () {
   const deletepic = await fetch(`/dashboard/pic`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
@@ -566,6 +575,4 @@ $("#removepic-btn").on('click',async function(){
   } else {
     throw new Error("Request failed");
   }
-
-
 })
