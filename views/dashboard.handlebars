@@ -30,7 +30,9 @@
         </form>
 
         <h1 class="display-4 mt-3">{{people.[0].name}}</h1>
-        <p class="lead">{{Works.[0].title}}</p>
+        {{#with (sortBy Works "startDate" "desc")}}
+        <p class="lead">{{this.[0].title}}</p>
+        {{/with}}
       </div>
       <div class="col-lg-6 align-items-center d-flex justify-content-center">
         <form class="card mx-5">
