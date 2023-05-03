@@ -1,6 +1,7 @@
-# RESUME GENERATOR
+# ROCKET RESUMES - AI RESUME GENERATOR
 
   ![License Badge](https://img.shields.io/badge/License-MIT-yellow.svg)
+  [![npm version](https://badge.fury.io/js/npm.svg)](https://badge.fury.io/js/npm)
 
 ## Table of Contents
 
@@ -8,19 +9,20 @@
   - [Technologies](#technologies)
   - [Screenshot](#screenshot)
   - [Useage](#usage)
-  - [Credits](#credits)
   - [License](#license)
 
-    
 ## Description
-  A Resume and Cover-Letter building application that uses new AI technology to help create these job application documents.
+  A Full Stack Resume generator that utilizes AI to generate resumes that align with industry standards to improve your chances of catching the eye of recruiters and hiring managers.
+  
+## Live Application
+https://rocket-resumes.herokuapp.com/
 
 ## Technologies
 The following technologies were used in the development of this application:
 * FRONTEND
     + HTML
     + CSS
-        - Bootstrap
+    + Bootstrap
 
 * BACKEND
     + Node.js
@@ -29,7 +31,6 @@ The following technologies were used in the development of this application:
     + mySQL
     + openAI
     + PDFKit
-
         
 ## Screenshot
 
@@ -40,13 +41,9 @@ The following technologies were used in the development of this application:
 
 ## Questions
 
-* Aaron Turner:  
-* Renjith Rajakumar: 
+* Aaron Turner: aaturner1995@gmail.com
+* Renjith Rajakumar: renjithkumar993@gmail.com
 * Amanda Lacroix: amanda_lacroix@hotmail.com
-
-## Credits
-- https://git.bootcampcontent.com/new-brunswick/UNB-VIRT-FSF-PT-01-2023-U-LOLC
-- 
 
 ## License
   [MIT]( https://opensource.org/licenses/MIT)
