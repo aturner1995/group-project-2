@@ -13,7 +13,7 @@ const sequelize = require('./config/connection');
 // Session store implementation for the express-session middleware in Node.js
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 // Create instance of express handlebars with custom helpers passed to all templates
-const hbs = exphbs.create({});
+const hbs = exphbs.create({ helpers });
 // Create the session and associate to the storage above
 const sess = {
   secret: 'Super secret secret',

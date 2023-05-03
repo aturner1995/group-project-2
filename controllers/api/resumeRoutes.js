@@ -119,9 +119,9 @@ router.get('/generate/1', async (req, res) => {
             .stroke();
         pdfDoc.moveDown();
         resumeData.Works.sort((a, b) => {
-            const aEndDate = new Date(a.endDate);
-            const bEndDate = new Date(b.endDate);
-            return bEndDate - aEndDate;
+            const astartDate = new Date(a.startDate);
+            const bstartDate = new Date(b.startDate);
+            return bstartDate - astartDate;
           }).map(exp => {
             const startYear = new Date(exp.startDate).getFullYear();
             const endYear = new Date(exp.endDate).getFullYear();
@@ -272,9 +272,9 @@ router.get('/generate/2', async (req, res) => {
             .stroke();
         pdfDoc.moveDown();
         resumeData.Works.sort((a, b) => {
-            const aEndDate = new Date(a.endDate);
-            const bEndDate = new Date(b.endDate);
-            return bEndDate - aEndDate;
+            const astartDate = new Date(a.startDate);
+            const bstartDate = new Date(b.startDate);
+            return bstartDate - astartDate;
           }).map(exp => {
             const startYear = new Date(exp.startDate).getFullYear();
             const endYear = new Date(exp.endDate).getFullYear();
@@ -421,9 +421,9 @@ router.get('/ai/generate/1', async (req, res) => {
             .stroke();
         pdfDoc.moveDown();
         resumeData.Works.sort((a, b) => {
-            const aEndDate = new Date(a.endDate);
-            const bEndDate = new Date(b.endDate);
-            return bEndDate - aEndDate;
+            const astartDate = new Date(a.startDate);
+            const bstartDate = new Date(b.startDate);
+            return bstartDate - astartDate;
           }).map(exp => {
             const startYear = new Date(exp.startDate).getFullYear();
             const endYear = new Date(exp.endDate).getFullYear();
@@ -585,9 +585,9 @@ router.get('/ai/generate/2', async (req, res) => {
             .stroke();
         pdfDoc.moveDown();
         resumeData.Works.sort((a, b) => {
-            const aEndDate = new Date(a.endDate);
-            const bEndDate = new Date(b.endDate);
-            return bEndDate - aEndDate;
+            const astartDate = new Date(a.startDate);
+            const bstartDate = new Date(b.startDate);
+            return bstartDate - astartDate;
           }).map(exp => {
             const startYear = new Date(exp.startDate).getFullYear();
             const endYear = new Date(exp.endDate).getFullYear();
