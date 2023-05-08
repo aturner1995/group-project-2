@@ -1,41 +1,56 @@
-{{!-- Form to Login--}}
-<div class="row container-fluid p-4">
-  <div class="col-md-6">
-    <h2>Login</h2>
-    <form class="form login-form">
-      <div class="form-group">
-        <label for="email-login">Email:</label>
-        <input class="form-control" type="text" id="email-login" />
-      </div>
-      <div class="form-group">
-        <label for="password-login">Password:</label>
-        <input class="form-control" type="password" id="password-login" />
-      </div>
-      <div class="form-group my-2">
-        <button class="btn btn-primary" type="submit">Login</button>
-      </div>
-    </form>
+<div class="container-fluid bg-light py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4 bg-white p-5 rounded">
+      <h2 class="text-center mb-4">Login</h2>
+      <form class="login-form">
+        <div class="form-group">
+          <label for="email-login">Email:</label>
+          <input class="form-control" type="text" id="email-login" />
+        </div>
+        <div class="form-group">
+          <label for="password-login">Password:</label>
+          <input class="form-control" type="password" id="password-login" />
+        </div>
+        <div class="form-group mt-4">
+          <button class="btn btn-custom-2 btn-block" type="submit">Login</button>
+        </div>
+        <div class="text-center">
+          <p>Don't have an account? <a class="signup-link">Sign up</a></p>
+        </div>
+      </form>
+      <form class="signup-form d-none">
+        <div class="form-group">
+          <label for="name-signup">Username:</label>
+          <input class="form-control" type="text" id="name-signup" />
+        </div>
+        <div class="form-group">
+          <label for="email-signup">Email:</label>
+          <input class="form-control" type="text" id="email-signup" />
+        </div>
+        <div class="form-group">
+          <label for="password-signup">Password:</label>
+          <input class="form-control" type="password" id="password-signup" />
+        </div>
+        <div class="form-group mt-4">
+          <button class="btn btn-custom-2 btn-block " type="submit">Sign up</button>
+        </div>
+        <div class="text-center">
+          <p>Already have an account? <a class="login-link">Login</a></p>
+        </div>
+      </form>
+    </div>
   </div>
-  <div class="col-md-6">
-    <h2>Sign up</h2>
-    <form class="form signup-form">
-      <div class="form-group">
-        <label for="name-signup">Username:</label>
-        <input class="form-control" type="text" id="name-signup" />
+   <div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="text-center mb-4">Welcome to AI Resume Maker</h3>
+          <p class="lead">Welcome to our AI-powered platform, where creating a professional resume, cover letter, and finding your dream job has never been easier. With our innovative system, you can generate a custom-tailored resume and cover letter in just a few minutes by answering a few simple questions. Say goodbye to the tedious hours of formatting, and hello to more time for job hunting. Additionally, our platform offers a job search feature to help you find the perfect job opportunity. Start using our platform today and take the first step towards your dream career.</p>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="email-signup">Email:</label>
-        <input class="form-control" type="text" id="email-signup" />
-      </div>
-      <div class="form-group">
-        <label for="password-signup">Password:</label>
-        <input class="form-control" type="password" id="password-signup" />
-      </div>
-      <div class="form-group my-2">
-        <button class="btn btn-primary" type="submit">Sign up</button>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
+
 
 <script src="./js/login.js"></script>

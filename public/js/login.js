@@ -78,6 +78,16 @@ const signupFormHandler = async (event) => {
     }
 }
 
+$('.signup-link').on('click', function() {
+  $('.login-form').addClass('d-none');
+  $('.signup-form').removeClass('d-none');
+});
+
+$('.login-link').on('click', function() {
+  $('.signup-form').addClass('d-none');
+  $('.login-form').removeClass('d-none');
+});
+
 // Collect values from the login & signup forms
 document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
 document.querySelector('.signup-form').addEventListener('submit', signupFormHandler);
