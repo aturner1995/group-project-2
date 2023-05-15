@@ -75,6 +75,7 @@ router.post("/dashboard/pic", async (req, res) => {
 
     const sampleFile = req.files.profile_picture;
     const uploadPath = __dirname + '/../public/' + sampleFile.name;
+    console.log(uploadPath);
 
     await sampleFile.mv(uploadPath);
 
